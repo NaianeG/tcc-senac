@@ -1,5 +1,8 @@
 package com.tcc.aplicacao.repository;
 
-public class BancoHorasRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.tcc.aplicacao.entities.BancoHoras;
+public interface BancoHorasRepository extends JpaRepository<BancoHoras, Integer> {
 
 }
