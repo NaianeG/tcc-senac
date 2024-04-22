@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
@@ -18,12 +19,17 @@ public class Usuario {
     // ID do usuario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
+    @OneToMany(mappedBy = "usuario")
     // relacionamento com a entidade matricula Ajeitar depois
-    private int fkIdMatricula;
 
+    private int id;
+    private int fkIdMatricula;
     private String nomeUsuario;
     private String horaSaida;
     private String senha;
+
+    public Usuario() {
+    }
+
 }
