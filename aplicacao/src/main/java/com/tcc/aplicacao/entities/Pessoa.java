@@ -13,7 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Matricula {
+public class Pessoa {
     // dados da tabela
     /*
      * id da matrícula. Está para gerar automáticamente para criar dados fictícios,

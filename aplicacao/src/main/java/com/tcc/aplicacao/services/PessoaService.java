@@ -3,6 +3,6 @@ package com.tcc.aplicacao.services;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MatriculaService {
+public class PessoaService {
 
 }
