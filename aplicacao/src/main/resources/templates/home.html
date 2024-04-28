@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início</title>
+    <link rel="stylesheet" href="/aplicacao/src/main/resources/static/css/home.css" />
+    <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<body>
+    
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <img class="logo-img" src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc" alt="Foto_Perfil">
+        </header>
+        <nav>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> home </i>
+                    <span>Início</span>
+                </span>
+            </button>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> email </i>
+                    <span>Mensagens</span>
+                </span>          
+            </button>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> person </i>
+                    <span>Profile</span>
+                </span>          
+            </button>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> tag </i>
+                    <span>Teste</span>
+                </span>          
+            </button>
+        </nav>
+    </aside>
+
+    <!-- Criando menu mobile -->
+    <button class="button-mobile" onclick="toggleMenu()">
+        <i class="material-symbols-outlined"> menu </i>
+    </button>
+
+    <nav class="menu-mobile" id="menu-mobile">
+        <button class="button-close" onclick="toggleMenu()" id="menu-mobile">
+            <span>
+                <i class="material-symbols-outlined"> close </i>
+            </span>
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> home </i>
+                <span class="mobile-text">Início</span>
+            </span>
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> email </i>
+                <span class="mobile-text">Mensagens</span>
+            </span>          
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> person </i>
+                <span class="mobile-text">Profile</span>
+            </span>          
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> tag </i>
+                <span class="mobile-text">Teste</span>
+            </span>          
+        </button>
+    </nav>
+
+    <main class="main">
+    </main>
+
+    <script src="/aplicacao/src/main/resources/scripts/home.js">
+
+    </script>
+</body>
+</html>
