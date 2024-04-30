@@ -32,4 +32,11 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int id, int fkIdMatricula, String nomeUsuario, String horaSaida, String senha) {
+        this.id = id;
+        this.fkIdMatricula = fkIdMatricula;
+        this.nomeUsuario = nomeUsuario;
+        this.horaSaida = horaSaida;
+        this.senha = senha;
+    }
 }

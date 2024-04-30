@@ -14,20 +14,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Pessoa {
-    // dados da tabela
-    /*
-     * id da matrícula. Está para gerar automáticamente para criar dados fictícios,
-     * mas quem geraria esses id seria o próprio gestor
-     * informando no sistema.
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String telefone;
+
     private String nomeCompleto;
+    private String cpf;
+    private String telefone;
     private Date dataNascimento;
     private String turma;
     private Double horasMensais;
-    private String cpf;
-    private String emal;
+    private String email;
 }

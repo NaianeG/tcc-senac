@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docentes</title>
+    <link rel="stylesheet" href="/aplicacao/src/main/resources/static/css/homeDocente.css">
+</head>
+<body>
+    <main>
+        <!--Aqui vai ser uma lista de Docentes cadastrados-->
+        
+        <div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"></th> <!--Esses em vazios são para percorrer o design da tabela-->
+                    <th scope="col"></th> <!--Esses em vazios são para percorrer o design da tabela-->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr data-th-each="pessoa: ${pessoas}">
+                    <td data-th-text="${pessoa.id}"></td>
+                    <td data-th-text="${pessoa.nome_completo}"></td>
+                    <td data-th-text="${pessoa.email}"></td>
+          
+                    <td><a th:href="@{'/metodo/'+ ${usuario.atributo}}">Excluir</a></td>
+                    <td><a th:href="@{'/metodo/'+ ${usuario.atributo}}">Editar</a></td>
+                  </tr>        
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </main>
+</body>
+</html>

@@ -43,7 +43,7 @@ public class UsuarioService {
         repository.save(usuario);
         return "";
     }
-    
+
     public UsuarioDto buscaUsuario(int id) {
         Usuario usuario = new Usuario();
         usuario = repository.findById(id).get();
