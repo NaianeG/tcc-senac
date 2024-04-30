@@ -56,22 +56,39 @@ public class UsuarioService {
         return "";
     }
 
+
     public ResponseEntity<String> autentica(LoginDto loginDto) {
-        ResponseEntity<String> resposta = new ResponseEntity<>(HttpStatus.ACCEPTED);
-        List<Usuario> usuarios = repository.findAll();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNomeUsuario().equals(loginDto.getNomeUsuario()) &&
-                    passwordEncoder.matches(loginDto.getSenha(), usuario.getSenha())) {
-                resposta = ResponseEntity.ok("Autenticado com sucesso!");
-                break;
-            } else {
-                resposta = ResponseEntity.badRequest().body("Login Inválido");
-            }
+        // Verifique se o usuário existe no repositório
+        Usuario usuario = repository.findByUsername(loginDto.getNomeUsuario());
+
+        // Verifique se as credenciais estão corretas
+        if (usuario != null && usuario.getSenha().equals(loginDto.getSenha())) {
+            // Credenciais corretas, retorne uma resposta de sucesso
+            return ResponseEntity.ok("Login bem-sucedido!");
+        } else {
+            // Credenciais incorretas, retorne uma resposta de erro
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
         }
-
-        return resposta;
-
     }
+
+    // public ResponseEntity<String> autentica(LoginDto loginDto) {
+    //     ResponseEntity<String> resposta = new ResponseEntity<>(HttpStatus.ACCEPTED);
+    //     List<Usuario> usuarios = repository.findAll();
+    //     for (Usuario usuario : usuarios) {
+    //         if (usuario.getNomeUsuario().equals(loginDto.getNomeUsuario()) &&
+    //                 passwordEncoder.matches(loginDto.getSenha(), usuario.getSenha())) {
+    //             resposta = ResponseEntity.ok("Autenticado com sucesso!");
+    //             break;
+    //         } else {
+    //             resposta = ResponseEntity.badRequest().body("Login Inválido");
+    //         }
+    //     }
+
+    //     return resposta;
+
+    // }
+
+    
 
 }
 
