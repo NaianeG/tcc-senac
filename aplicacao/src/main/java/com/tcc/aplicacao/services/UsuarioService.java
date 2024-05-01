@@ -14,20 +14,14 @@ import com.tcc.aplicacao.dto.LoginDto;
 import com.tcc.aplicacao.dto.UsuarioDto;
 import com.tcc.aplicacao.entities.Usuario;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 @Service
 public class UsuarioService {
 
     @Autowired
     UsuarioRepository repository;
-
-   private PasswordEncoder passwordEncoder;
-
-    public UsuarioService(UsuarioRepository repository){
+ 
+    public UsuarioService(UsuarioRepository repository) {
         this.repository = repository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public List<UsuarioDto> listaUsuario() {
@@ -38,8 +32,6 @@ public class UsuarioService {
     }
 
     public String salvar(Usuario usuario) {
-        String senhaEncoder = this.passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaEncoder);
         repository.save(usuario);
         return "";
     }

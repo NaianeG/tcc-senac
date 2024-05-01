@@ -6,4 +6,8 @@ import com.tcc.aplicacao.entities.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
+    Usuario findByIdUser(String nomeUsuario);
+
+    Usuario findByUsername(String nomeUsuario);
+
 }
