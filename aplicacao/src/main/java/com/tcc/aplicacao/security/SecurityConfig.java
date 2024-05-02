@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/css/login.css").permitAll()
                         .requestMatchers("/css/home.css").permitAll()
                         .requestMatchers("/scripts/home.js").permitAll()
-                        // .requestMatchers("/cadastro").hasRole("ADMIN")
+                        .requestMatchers("/cadastro").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/cadastro").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastro").permitAll()
                         .anyRequest().authenticated())
