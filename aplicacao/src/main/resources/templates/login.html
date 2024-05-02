@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/aplicacao/src/main/resources/static/css/login.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/login.css">
 </head>
 <body>
 
@@ -13,12 +13,20 @@
         <h2>O seu sistema de gerenciamento de ponto!</h2>
     </div>
 
+
+    <div th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+
     <div class="form-login">
         <section class="area-login">
             <div class="login">
-                <form action="">
-                    <input type="text" name="nome" placeholder="Insira o número da matrícula" autofocus>
-                    <input type="text" name="senha" placeholder="Insira sua senha">
+                <form th:action="@{/logar}" method="post">
+                    <input type="text" name="username" placeholder="Insira o número da matrícula" autofocus>
+                    <input type="password" name="password" placeholder="Insira sua senha">
                     <input type="submit" value="Entrar">
                 </form>
             </div>

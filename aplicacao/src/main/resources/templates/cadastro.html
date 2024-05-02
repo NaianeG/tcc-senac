@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <!-- Adicione seus estilos CSS aqui -->
+    <link rel="stylesheet" href="caminho_para_seu_arquivo_css.css">
+</head>
+<body>
+    <h1>Cadastro de Usuário</h1>
+    <form action="/cadastro" method="post">
+        <label for="nomeUsuario">Nome de Usuário:</label><br>
+        <input type="text" id="nomeUsuario" name="nomeUsuario"><br><br>
+
+        <label for="senha">Senha:</label><br>
+        <input type="password" id="senha" name="senha"><br><br>
+
+        <label for="role">Role:</label><br>
+        <select id="role" name="role">
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
+            <!-- Adicione outras opções conforme necessário -->
+        </select><br><br>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+    <!-- Adicione seus scripts JavaScript aqui -->
+    <script src="caminho_para_seu_arquivo_js.js"></script>
+</body>
+</html>
