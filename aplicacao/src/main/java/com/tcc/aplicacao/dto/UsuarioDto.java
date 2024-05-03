@@ -12,11 +12,9 @@ public class UsuarioDto {
   private String username;
 
   public UsuarioDto() {
-
   }
 
   public UsuarioDto(String username) {
-
     this.username = username;
   }
 

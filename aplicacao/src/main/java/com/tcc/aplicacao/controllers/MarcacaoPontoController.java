@@ -14,7 +14,6 @@ import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.services.MarcacaoPontoService;
 
 @Controller
-@RequestMapping("ponto/")
 public class MarcacaoPontoController {
 
     @Autowired

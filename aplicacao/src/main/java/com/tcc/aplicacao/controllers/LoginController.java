@@ -23,7 +23,7 @@ public class LoginController {
     @PostMapping("/logar")
     public String login(@Validated LoginDto loginDto) {
         service.autentica(loginDto);
-        return "redirect:ponto/home";
+        return "redirect:home";
     }
 
 }

@@ -19,7 +19,7 @@
             <button>
                 <span>
                     <i class="material-symbols-outlined"> home </i>
-                    <span>Início</span>
+                    <span>Teste</span>
                 </span>
             </button>
             <button>
@@ -31,7 +31,7 @@
             <button>
                 <span>
                     <i class="material-symbols-outlined"> person </i>
-                    <span>Docentes</span>
+                    <span>Teste</span>
                 </span>          
             </button>
             <button>
@@ -57,7 +57,7 @@
         <button>
             <span>
                 <i class="material-symbols-outlined"> home </i>
-                <span class="mobile-text">Início</span>
+                <span class="mobile-text">Teste</span>
             </span>
         </button>
         <button>
@@ -69,7 +69,13 @@
         <button>
             <span>
                 <i class="material-symbols-outlined"> person </i>
-                <span class="mobile-text">Docentes</span>
+                <span class="mobile-text">Teste</span>
+            </span>          
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> tag </i>
+                <span class="mobile-text">Teste</span>
             </span>          
         </button>
         <button>
@@ -79,9 +85,6 @@
             </span>          
         </button>
     </nav>
-
-    <main class="main">
-    </main>
 
     <div class="meio">
         <h1>Cadastro de Marcação de Ponto</h1>
@@ -97,9 +100,13 @@
     
             <input type="submit" value="Enviar">
         </form>
+
+
         <script th:if="${alerta} == 'limiteAtingido'">
             alert("Limite atingido");
         </script>
+
+
         <script th:inline="javascript">
             // Função para preencher automaticamente a data atual
             function preencherDataAtual() {
@@ -118,14 +125,12 @@
                 var horaAtual = hora + ':' + minuto + ':' + segundo;
                 document.getElementById('horaEntrada').value = horaAtual;
             }
-    
             // Chama a função para preencher automaticamente a data ao carregar a página
             preencherDataAtual();
-        </script>
+        </script> 
     </div>
+    
     <script src="http://localhost:8080/scripts/home.js">
-
-
     </script>
 </body>
 </html>
