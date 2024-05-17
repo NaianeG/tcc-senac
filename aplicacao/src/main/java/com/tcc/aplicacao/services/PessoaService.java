@@ -21,11 +21,11 @@ public class PessoaService {
         pessoaRepository.save(pessoa);
     }
 
-    public ModelAndView listaDocente() {
-        ModelAndView mv = new ModelAndView("homeDocente");
+    public ModelAndView listaDocentes() {
+        ModelAndView mv = new ModelAndView("listaDocentes");
         List<Pessoa> docentes = new ArrayList<>();
         docentes = pessoaRepository.findAll();
-        mv.addObject("docentes", docentes);
+        mv.addObject("pessoas", docentes);
         return mv;
     }
 
