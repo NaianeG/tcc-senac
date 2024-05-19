@@ -191,3 +191,21 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.container-direita {
+    display: none;
+}
+
+.container-direita-active {
+    margin-left: 350px;
+}
+
+.container-direita-active > nav > button {
+    margin-top: 100px;
+    border-radius: 20px;
+}
+
+.container-direita-active > nav > button:hover{
+    cursor: pointer;
+    background-color: yellow;
+}
