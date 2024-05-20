@@ -24,9 +24,9 @@ public class SecurityConfig {
                         // Colocar a rota para liberar para todos com permit all, ou bloquear
                         // dependendo o tipo de usuario com hasRole
 
-                        .requestMatchers(HttpMethod.GET, "/homeDocente").permitAll()
-                        .requestMatchers(HttpMethod.GET, "css/homeDocente.css").permitAll()
-                        .requestMatchers(HttpMethod.GET, "scripts/homeDocente.js").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/formCadastroDocente").permitAll()
+                        .requestMatchers(HttpMethod.GET, "css/formCadastroDocente.css").permitAll()
+                        .requestMatchers(HttpMethod.GET, "scripts/formCadastroDocente.js").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
                         .requestMatchers("/css/home.css").permitAll()

@@ -17,9 +17,9 @@ public class PessoaController {
     @Autowired
     PessoaService pessoaService;
 
-    @GetMapping("/homeDocente")
-    public String homeDocente() {
-        return "homeDocente";
+    @GetMapping("/formCadastroDocente")
+    public String formCadastroDocente() {
+        return "formCadastroDocente";
     }
 
     @PostMapping("/cadastrarDocente")
