@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Docentes</title>
+    <link rel="stylesheet" href="http://localhost:8080/css/listaDocente.css" />
+</head>
+<body>
+    <main>
+        <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir em PDF</a>
+    
+        <!-- Aqui vai ser uma lista de Docentes cadastrados -->
+        
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Data Nascimento</th>
+                        <th scope="col">Turma</th>
+                        <th scope="col">Horas Mensais</th>
+                        <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
+                        <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-th-each="pessoa: ${pessoas}">
+                        <td data-th-text="${pessoa.id}"></td>
+                        <td data-th-text="${pessoa.nomeCompleto}"></td>
+                        <td data-th-text="${pessoa.cpf}"></td>
+                        <td data-th-text="${pessoa.telefone}"></td>
+                        <td data-th-text="${pessoa.email}"></td>
+                        <td data-th-text="${pessoa.dataNascimento}"></td>
+                        <td data-th-text="${pessoa.turma}"></td>
+                        <td data-th-text="${pessoa.horasMensais}"></td>
+                        <td><a th:href="@{'/metodo/'+ ${pessoa.id}}">Excluir</a></td>
+                        <td><a th:href="@{'/metodo/'+ ${pessoa.id}}">Editar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

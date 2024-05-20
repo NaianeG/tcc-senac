@@ -32,9 +32,9 @@ public class PessoaController {
         return pessoaService.buscaDocentePorId(id);
     }
 
-    @GetMapping("/listarDocentes")
+    @GetMapping("/listaDocentes")
     public ModelAndView listaDocentes() {
-        return pessoaService.listaDocente();
+        return pessoaService.listaDocentes();
     }
 
     @DeleteMapping("/deletarDocente/{id}")
