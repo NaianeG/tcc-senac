@@ -8,43 +8,57 @@
 </head>
 <body>
     <div class="container">
+      
       <section class="header">Cadastrar novo docente</section>
-      <form id="form" class="form">
+
+      <form action="/cadastrarDocente" class="form" method="post">
         <div class="form-content">
-          <label for="">Nome:</label>
+          <label>Nome:</label>
           <input 
           type="text"
-          id=""
           placeholder="Informe o nome do docente"
+          required
+          name="nomeCompleto"
+          th.value="${pessoa?.nomeCompleto}"
           />
-          <label for="">Telefone:</label>
+          <label>Telefone:</label>
           <input 
           type="text"
-          id=""
           placeholder="Informe o seu telefone"
+          required
+          name="telefone"
+          th.value="${pessoa?.telefone}"
           />
-          <label for="">Data de nascimento:</label>
+          <label>Data de nascimento:</label>
           <input 
           type="date"
-          id=""
+          required
+          name="dataNascimento"
+          th.value="${pessoa.dataNascimento}"
           />
-          <label for="">CPF:</label>
+          <label>CPF:</label>
           <input 
           type="text"
-          id=""
           placeholder="Informe o CPF do docente"
+          required
+          name="cpf"
+          th.value="${pessoa.cpf}"
           />
-          <label for="">Email:</label>
+          <label>Email:</label>
           <input 
           type="text"
-          id=""
           placeholder="Informe o email do docente"
+          required
+          name="email"
+          th.value="${pessoa.email}"
           />
-          <label for="">Horas mensais:</label>
+          <label>Horas mensais:</label>
           <input 
           type="text"
-          id=""
-          placeholder="Informe o email do docente"
+          placeholder="Informe a quantidade de horas mensais"
+          required
+          name="horasMensais"
+          th.value="${pessoa.horasMensais}"
           />
           <button type="submit">Salvar</button>
         </div>

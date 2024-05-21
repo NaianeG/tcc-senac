@@ -22,7 +22,6 @@ public class Pessoa {
     private String cpf;
     private String telefone;
     private Date dataNascimento;
-    private String turma;
     private Double horasMensais;
     private String email;
 }

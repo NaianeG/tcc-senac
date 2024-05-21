@@ -18,7 +18,11 @@ public class PessoaService {
     PessoaRepository pessoaRepository;
 
     public void cadastraDocente(Pessoa pessoa) {
-        pessoaRepository.save(pessoa);
+        try {
+            pessoaRepository.save(pessoa);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
     }
 
     public ModelAndView listaDocentes() {

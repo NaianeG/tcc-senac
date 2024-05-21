@@ -1,6 +1,7 @@
 package com.tcc.aplicacao.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +18,19 @@ public class PessoaController {
     @Autowired
     PessoaService pessoaService;
 
-    @GetMapping("/formCadastroDocente")
+    @GetMapping("/cadastroDocente")
     public String formCadastroDocente() {
         return "formCadastroDocente";
     }
 
     @PostMapping("/cadastrarDocente")
-    public void cadastroPessoa(Pessoa pessoa) {
-        pessoaService.cadastraDocente(pessoa);
+    public String cadastroPessoa(HttpMessage response, Pessoa pessoa) {
+        try {
+            pessoaService.cadastraDocente(pessoa);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
+        return "redirect:/cadastroDocente";
     }
 
     @GetMapping("/buscarDocente")
