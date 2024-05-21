@@ -35,7 +35,7 @@
                         <td data-th-text="${pessoa.cpf}"></td>
                         <td data-th-text="${pessoa.telefone}"></td>
                         <td data-th-text="${pessoa.email}"></td>
-                        <td data-th-text="${pessoa.dataNascimento}"></td>
+                        <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
                         <td data-th-text="${pessoa.turma}"></td>
                         <td data-th-text="${pessoa.horasMensais}"></td>
                         <td><a th:href="@{'/metodo/'+ ${pessoa.id}}">Excluir</a></td>
