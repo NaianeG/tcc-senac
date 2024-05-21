@@ -21,9 +21,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        // Colocar a rota para liberar para todos com permit all, ou bloquerar
-                        // dependendo o tipo de usuarui com hasRole
-                        .requestMatchers(HttpMethod.GET, "/ponto/home").permitAll()
+                        // Colocar a rota para liberar para todos com permit all, ou bloquear
+                        // dependendo o tipo de usuario com hasRole
+
+                        .requestMatchers(HttpMethod.GET, "/homeDocente").permitAll()
+                        .requestMatchers(HttpMethod.GET, "css/homeDocente.css").permitAll()
+                        .requestMatchers(HttpMethod.GET, "scripts/homeDocente.js").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/home").permitAll()
+                        .requestMatchers("/css/home.css").permitAll()
+                        .requestMatchers("/scripts/home.js").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/logar").permitAll()
                         .requestMatchers(HttpMethod.GET, "/css/login.css").permitAll()
