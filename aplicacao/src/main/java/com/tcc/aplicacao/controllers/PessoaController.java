@@ -24,7 +24,7 @@ public class PessoaController {
     }
 
     @PostMapping("/cadastrarDocente")
-    public String cadastroPessoa(HttpMessage response, Pessoa pessoa) {
+    public String cadastroPessoa(Pessoa pessoa) {
         try {
             pessoaService.cadastraDocente(pessoa);
         } catch (Exception e) {

@@ -35,10 +35,9 @@
                         <td data-th-text="${pessoa.telefone}"></td>
                         <td data-th-text="${pessoa.email}"></td>
                         <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
-                        <td data-th-text="${pessoa.turma}"></td>
                         <td data-th-text="${pessoa.horasMensais}"></td>
-                        <td><a th:href="@{'/metodo/'+ ${pessoa.id}}">Excluir</a></td>
-                        <td><a th:href="@{'/metodo/'+ ${pessoa.id}}">Editar</a></td>
+                        <td class="botao-excluir"><a th:href="@{'/metodo/'+ ${pessoa.id}}">Excluir</a></td>
+                        <td class="botao-editar"><a th:href="@{'/metodo/'+ ${pessoa.id}}">Editar</a></td>
                     </tr>
                 </tbody>
             </table>
