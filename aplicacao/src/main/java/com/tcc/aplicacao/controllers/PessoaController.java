@@ -44,8 +44,13 @@ public class PessoaController {
     }
 
     @DeleteMapping("/deletarDocente/{id}")
-    public void deletarDocente(@PathVariable("id") int id) {
-        pessoaService.deletaDocente(id);
+    public String deletarDocente(@PathVariable("id") int id) {
+        try {
+            pessoaService.deletaDocente(id);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
+        return "redirect:/listaDocentes";
     }
 
 }

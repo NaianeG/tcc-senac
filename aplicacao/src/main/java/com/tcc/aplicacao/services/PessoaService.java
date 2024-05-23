@@ -38,7 +38,11 @@ public class PessoaService {
     }
 
     public void deletaDocente(@PathVariable("id") int id) {
-        pessoaRepository.deleteById(id);
+        try {
+            pessoaRepository.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
     }
 
 }

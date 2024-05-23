@@ -24,6 +24,7 @@ public class SecurityConfig {
                         // Colocar a rota para liberar para todos com permit all, ou bloquear
                         // dependendo o tipo de usuario com hasRole
 
+                        .requestMatchers(HttpMethod.DELETE, "/deletarDocente/{id}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/cadastrarDocente").permitAll()
                         .requestMatchers(HttpMethod.GET, "/cadastroDocente").permitAll()
                         .requestMatchers(HttpMethod.GET, "css/formCadastroDocente.css").permitAll()
