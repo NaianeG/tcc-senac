@@ -23,18 +23,18 @@ function apresentarMenuDocentes() {
 
 function preencherDataAtual() {
     
-    var dataAtual = new Date();
+    let dataAtual = new Date();
 
-    var ano = dataAtual.getFullYear();
-    var mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-    var dia = String(dataAtual.getDate()).padStart(2, '0');
-    var dataFormatada = ano + '-' + mes + '-' + dia;
+    let ano = dataAtual.getFullYear();
+    let mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    let dia = String(dataAtual.getDate()).padStart(2, '0');
+    let dataFormatada = ano + '-' + mes + '-' + dia;
     document.getElementById('data').value = dataFormatada;
 
-    var hora = String(dataAtual.getHours()).padStart(2, '0');
-    var minuto = String(dataAtual.getMinutes()).padStart(2, '0');
-    var segundo = String(dataAtual.getSeconds()).padStart(2, '0');
-    var horaAtual = hora + ':' + minuto + ':' + segundo;
+    let hora = String(dataAtual.getHours()).padStart(2, '0');
+    let minuto = String(dataAtual.getMinutes()).padStart(2, '0');
+    let segundo = String(dataAtual.getSeconds()).padStart(2, '0');
+    let horaAtual = hora + ':' + minuto + ':' + segundo;
     document.getElementById('horaEntrada').value = horaAtual;
 }
 
