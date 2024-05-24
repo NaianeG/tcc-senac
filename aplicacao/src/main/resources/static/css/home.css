@@ -185,12 +185,6 @@ body {
         margin-left: 6px;
     }
 }
-.meio {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
 .container-direita {
     display: none;
@@ -209,3 +203,61 @@ body {
     cursor: pointer;
     background-color: yellow;
 }
+
+.meio {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    color: #FFF;
+}
+
+.meio h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.meio form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.meio label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.meio input[type="number"],
+.meio input[type="date"],
+.meio input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #2F3336;
+    background-color: #333;
+    color: #FFF;
+    font-size: 16px;
+}
+
+.meio input[type="submit"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.meio input[type="submit"]:hover {
+    background-color: #45A049;
+}
+

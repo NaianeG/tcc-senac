@@ -1,29 +1,32 @@
 package com.tcc.aplicacao.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.servlet.ModelAndView;
+import com.tcc.aplicacao.entities.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.tcc.aplicacao.dto.LoginDto;
 import com.tcc.aplicacao.services.UsuarioService;
 
 @Controller
 public class LoginController {
 
     @Autowired
-    UsuarioService service;
+    private UsuarioService usuarioService;
 
-    @GetMapping("login")
-    public String paginaLogin() {
-        return "login";
+    @GetMapping("/home")
+    public ModelAndView home(@AuthenticationPrincipal User user) {
+        ModelAndView mv = new ModelAndView("home");
+        Usuario usuario = new Usuario();
+        usuario = usuarioService.getInfoUsuario(user.getUsername());
+        mv.addObject("usuario", usuario);
+        return mv;
     }
 
-    @PostMapping("/logar")
-    public String login(@Validated LoginDto loginDto) {
-        service.autentica(loginDto);
-        return "redirect:home";
+    @GetMapping("/login")
+    public String paginaLogin() {
+        return "loginPage";
     }
 
 }

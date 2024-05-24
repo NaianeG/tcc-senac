@@ -109,8 +109,14 @@ form [type="submit"]:hover {
 
     form [type="submit"] {
         margin-top: 230px;
-    }
-
-    
+    }    
   
+}
+
+#msgErroUsernamePassword{
+    color: red;
+}
+#msgDeslogar
+{
+    color: green;
 }

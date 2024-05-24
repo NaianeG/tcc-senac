@@ -12,19 +12,16 @@
         <h1>.LINK</h1>
         <h2>O seu sistema de gerenciamento de ponto!</h2>
     </div>
-
-
-    <div th:if="${param.error}">
-        Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-
     <div class="form-login">
         <section class="area-login">
             <div class="login">
-                <form th:action="@{/logar}" method="post">
+                <div id="msgErroUsernamePassword" th:if="${param.error}">
+                    Username ou password inválido!
+                </div>
+                <div id="msgDeslogar" th:if="${param.logout}">
+                    Você foi deslogado com sucesso!
+                </div>
+                <form th:action="@{/login}" method="post">
                     <input type="text" name="username" placeholder="Insira o número da matrícula" autofocus>
                     <input type="password" name="password" placeholder="Insira sua senha">
                     <input type="submit" value="Entrar">

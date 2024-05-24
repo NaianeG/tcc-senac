@@ -19,17 +19,12 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
-    // @PostMapping("/cadastro")
-    // public String cadastroUsuario(@Validated Usuario usuario) {
-    // return service.salvar(usuario);
-    // }
-
     @GetMapping("/cadastro")
     public String telaCadastro() {
         return "cadastro";
     }
 
-    @PostMapping("/cadastro")
+    @PostMapping("/cadastroUsuario")
     public String cadastroUsuario(@Validated CadastroDTO cadastroDTO) {
         service.salvar(cadastroDTO);
         return "redirect:/login";
