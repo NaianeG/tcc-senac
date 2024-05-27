@@ -28,12 +28,12 @@ public class PessoaController {
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
         }
-        return "redirect:/cadastroDocente";
+        return "redirect:/listaDocentes";
     }
 
-    @GetMapping("/buscarDocente")
-    public Pessoa buscaDocentePorId(@PathVariable("id") int id) {
-        return pessoaService.buscaDocentePorId(id);
+    @GetMapping("/editarDocente/{id}")
+    public ModelAndView buscaDocentePorId(@PathVariable("id") int id) {
+        return pessoaService.editarDocentePorId(id);
     }
 
     @GetMapping("/listaDocentes")

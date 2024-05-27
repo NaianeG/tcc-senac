@@ -10,6 +10,7 @@ import com.tcc.aplicacao.repository.PessoaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -33,8 +34,12 @@ public class PessoaService {
         return mv;
     }
 
-    public Pessoa buscaDocentePorId(int id) {
-        return pessoaRepository.findById(id).get();
+    public ModelAndView editarDocentePorId(@PathVariable("id") int id) {
+        ModelAndView mv = new ModelAndView("formCadastroDocente");
+        Pessoa docente = new Pessoa();
+        docente = pessoaRepository.findById(id).get();
+        mv.addObject("pessoa", docente);
+        return mv;
     }
 
     public void deletaDocente(@PathVariable("id") int id) {

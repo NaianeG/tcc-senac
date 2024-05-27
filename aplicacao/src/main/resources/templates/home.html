@@ -26,16 +26,24 @@
                         <span>Home</span>
                     </span>
                 </button>
-                <button onclick="apresentarMenuDocentes()" class="botao-docentes">
-                    <span>
-                        <i class="material-symbols-outlined"> person </i>
-                        <span>Gerenciar Docentes</span>
-                    </span>
-                </button>
+                <a href="listaDocentes" target="_blank" rel="noopener">
+                    <button class="botao-docentes">
+                        <span>
+                            <i class="material-symbols-outlined"> person </i>
+                            <span>Gerenciar docentes</span>
+                        </span>
+                    </button>
+                </a>
                 <button onclick="apresentarRegistroDePonto()" class="botao-registro-ponto">
                     <span>
                         <i class="material-symbols-outlined"> alarm_on </i>
                         <span>Registro de ponto</span>
+                    </span>
+                </button>
+                <button onclick="" class="botao-lista-registros">
+                    <span>
+                        <i class="material-symbols-outlined"> list </i>
+                        <span>Meus registros</span>
                     </span>
                 </button>
                 <button onclick="logout()">
@@ -51,16 +59,6 @@
     <div class="container-home" id="container-home">
         <nav>
             <!--Construir o que terá na home-->
-        </nav>
-    </div>
-
-    <div class="container-docentes" id="container-docentes">
-        <nav>
-            <button onclick="window.location.href='/cadastroDocente'" class="botao-docentes">Cadastrar um novo
-                docente</button>
-            <button class="botao-docentes">Pesquisar docente</button>
-            <button onclick="window.location.href='/listaDocentes'" class="botao-docentes">Ver docentes
-                existentes</button>
         </nav>
     </div>
 

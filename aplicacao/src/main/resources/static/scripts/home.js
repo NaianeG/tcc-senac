@@ -1,5 +1,4 @@
-function toggleMenu() {
-    
+function toggleMenu() {    
     const menuMobile = document.getElementById("menu-mobile")
 
     if(menuMobile.className === "menu-mobile-active") {
@@ -26,32 +25,15 @@ function apresentarHome() {
 
 function apresentarRegistroDePonto(){
     const menuHome = document.getElementById("container-home")
-    const menuDocentes = document.getElementById("container-docentes")
     const menuPonto = document.getElementById("container-registro-ponto")
 
     if (menuPonto.className === "container-registro-ponto"){
         menuHome.className = "container-home"
-        menuDocentes.className = "container-docentes"
         menuPonto.className = "container-registro-ponto-ativo"
     } else {
         menuPonto.className = "container-registro-ponto"
     }
 }
-
-function apresentarMenuDocentes() {
-    const menuHome = document.getElementById("container-home")
-    const menuDocentes = document.getElementById("container-docentes")
-    const menuPonto = document.getElementById("container-registro-ponto")
-
-    if (menuDocentes.className === "container-docentes"){
-        menuHome.className = "container-home"
-        menuDocentes.className = "container-docentes-ativo"
-        menuPonto.className = "container-registro-ponto"
-    } else {
-        menuDocentes.className = "container-docentes"
-    }
-}
-
 
 function preencherDataAtual() {
     
