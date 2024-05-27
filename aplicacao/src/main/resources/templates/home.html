@@ -20,7 +20,7 @@
                     alt="Foto_Perfil">
             </header>
             <nav>
-                <button>
+                <button onclick="apresentarHome()" class="botao-home">
                     <span>
                         <i class="material-symbols-outlined"> home </i>
                         <span>Home</span>
@@ -32,17 +32,29 @@
                         <span>Gerenciar Docentes</span>
                     </span>
                 </button>
+                <button onclick="apresentarRegistroDePonto()" class="botao-registro-ponto">
+                    <span>
+                        <i class="material-symbols-outlined"> alarm_on </i>
+                        <span>Registro de ponto</span>
+                    </span>
+                </button>
                 <button onclick="logout()">
                     <span>
                         <i class="material-symbols-outlined"> logout </i>
-                        <span>logout</span>
+                        <span>Sair</span>
                     </span>
                 </button>
             </nav>
         </aside>
     </div>
 
-    <div class="container-direita-active" id="container-direita">
+    <div class="container-home" id="container-home">
+        <nav>
+            <!--Construir o que terá na home-->
+        </nav>
+    </div>
+
+    <div class="container-docentes" id="container-docentes">
         <nav>
             <button onclick="window.location.href='/cadastroDocente'" class="botao-docentes">Cadastrar um novo
                 docente</button>
@@ -52,61 +64,61 @@
         </nav>
     </div>
 
-    <!-- Criando menu mobile -->
-    <button class="button-mobile" onclick="toggleMenu()">
-        <i class="material-symbols-outlined"> menu </i>
-    </button>
+    <div class="container-registro-ponto" id="container-registro-ponto">
+        <div class="meio">
+            <h1>Cadastro de Marcação de Ponto</h1>
+            <form id="marcacaoPontoForm" th:action="@{/ponto/cadastroPonto}" method="post">
+                <div th:if="${usuario != null}">
+                    <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden><br><br>
+                </div>
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" readonly><br><br>
 
-    <nav class="menu-mobile" id="menu-mobile">
-        <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
-            <span>
-                <i class="material-symbols-outlined"> close </i>
-            </span>
-        </button>
-        <button>
-            <span>
-                <i class="material-symbols-outlined"> home </i>
-                <span class="mobile-text">Home</span>
-            </span>
-        </button>
-        <button>
-            <span>
-                <i class="material-symbols-outlined"> person </i>
-                <span class="mobile-text">Gerenciar docentes</span>
-            </span>
-        </button>
-        <button onclick="logout()">
-            <span>
-                <i class="material-symbols-outlined"> logout </i>
-                <span class="mobile-text">Logout</span>
-            </span>
-        </button>
-    </nav>
+                <label for="horaEntrada">Hora de Entrada:</label>
+                <input type="text" id="horaEntrada" name="horaEntrada" readonly><br><br>
 
-    <div class="meio">
-        <h1>Cadastro de Marcação de Ponto</h1>
-        <form id="marcacaoPontoForm" th:action="@{/ponto/cadastroPonto}" method="post">
-            <div th:if="${usuario != null}">
-                <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden><br><br>
-            </div>
-            <label for="data">Data:</label>
-            <input type="date" id="data" name="data" readonly><br><br>
-    
-            <label for="horaEntrada">Hora de Entrada:</label>
-            <input type="text" id="horaEntrada" name="horaEntrada" readonly><br><br>
-    
-            <input type="submit" value="Enviar">
-        </form>
-        <script th:if="${alerta == 'limiteAtingido'}">
-            alert("Limite atingido");
-        </script>
-        <script th:inline="javascript">
-            // Função para preencher automaticamente a data atual
-            // Chama a função para preencher automaticamente a data ao carregar a página
-            preencherDataAtual();
-        </script>
+                <input type="submit" value="Enviar">
+            </form>
+            <script th:if="${alerta == 'limiteAtingido'}">
+                alert("Limite atingido");
+            </script>
+            <script th:inline="javascript">
+                preencherDataAtual();
+            </script>
+        </div>
     </div>
-    
+
+    <!-- Criando menu mobile
+        <button class="button-mobile" onclick="toggleMenu()">
+            <i class="material-symbols-outlined"> menu </i>
+        </button>
+
+        <nav class="menu-mobile" id="menu-mobile">
+            <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
+                <span>
+                    <i class="material-symbols-outlined"> close </i>
+                </span>
+            </button>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> home </i>
+                    <span class="mobile-text">Home</span>
+                </span>
+            </button>
+            <button>
+                <span>
+                    <i class="material-symbols-outlined"> person </i>
+                    <span class="mobile-text">Gerenciar docentes</span>
+                </span>
+            </button>
+            <button onclick="logout()">
+                <span>
+                    <i class="material-symbols-outlined"> logout </i>
+                    <span class="mobile-text">Logout</span>
+                </span>
+            </button> 
+        </nav> -->
+
 </body>
 
 </html>

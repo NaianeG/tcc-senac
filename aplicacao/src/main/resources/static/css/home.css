@@ -186,25 +186,30 @@ body {
     }
 }
 
-.container-direita {
+.container-docentes {
     display: none;
 }
 
-.container-direita-active {
+.container-docentes-ativo {
     margin-left: 350px;
 }
 
-.container-direita-active > nav > button {
+.container-docentes-ativo > nav > button {
     margin-top: 100px;
     border-radius: 20px;
 }
 
-.container-direita-active > nav > button:hover{
+.container-docentes-ativo > nav > button:hover{
     cursor: pointer;
     background-color: yellow;
 }
 
-.meio {
+.container-registro-ponto {
+    display: none;
+}
+
+
+.container-registro-ponto-ativo .meio {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -218,26 +223,26 @@ body {
     color: #FFF;
 }
 
-.meio h1 {
+.container-registro-ponto-ativo h1 {
     margin-bottom: 20px;
     font-size: 24px;
     text-align: center;
 }
 
-.meio form {
+.container-registro-ponto-ativo form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.meio label {
+.container-registro-ponto-ativo label {
     font-size: 16px;
     margin-bottom: 5px;
 }
 
-.meio input[type="number"],
-.meio input[type="date"],
-.meio input[type="text"] {
+.container-registro-ponto-ativo input[type="number"],
+.container-registro-ponto-ativo input[type="date"],
+.container-registro-ponto-ativo input[type="text"] {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #2F3336;
@@ -246,7 +251,7 @@ body {
     font-size: 16px;
 }
 
-.meio input[type="submit"] {
+.container-registro-ponto-ativo input[type="submit"] {
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -257,7 +262,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.meio input[type="submit"]:hover {
+.container-registro-ponto-ativo input[type="submit"]:hover {
     background-color: #45A049;
 }
 
