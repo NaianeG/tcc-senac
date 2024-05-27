@@ -29,4 +29,11 @@ public class LoginController {
         return "loginPage";
     }
 
+    @GetMapping("/testeGrafico")
+    public ModelAndView testeGrafico() {
+        ModelAndView mv = new ModelAndView("testeGrafico");
+
+        return mv;
+    }
+
 }
