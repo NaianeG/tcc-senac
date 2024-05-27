@@ -9,14 +9,46 @@ function toggleMenu() {
     }
 }
 
-function apresentarMenuDocentes() {
-    
-    const menuDocentes = document.getElementById("container-direita")
 
-    if (menuDocentes.className === "container-direita"){
-        menuDocentes.className = "container-direita-active"
+function apresentarHome() {
+    const menuHome = document.getElementById("container-home")
+    const menuDocentes = document.getElementById("container-docentes")
+    const menuPonto = document.getElementById("container-registro-ponto")
+
+    if (menuHome.className === "container-home"){
+        menuHome.className = "container-home-ativo"
+        menuDocentes.className = "container-docentes"
+        menuPonto.className = "container-registro-ponto"
     } else {
-        menuDocentes.className = "container-direita"
+        menuHome.className = "container-registro-ponto"
+    }
+}
+
+function apresentarRegistroDePonto(){
+    const menuHome = document.getElementById("container-home")
+    const menuDocentes = document.getElementById("container-docentes")
+    const menuPonto = document.getElementById("container-registro-ponto")
+
+    if (menuPonto.className === "container-registro-ponto"){
+        menuHome.className = "container-home"
+        menuDocentes.className = "container-docentes"
+        menuPonto.className = "container-registro-ponto-ativo"
+    } else {
+        menuPonto.className = "container-registro-ponto"
+    }
+}
+
+function apresentarMenuDocentes() {
+    const menuHome = document.getElementById("container-home")
+    const menuDocentes = document.getElementById("container-docentes")
+    const menuPonto = document.getElementById("container-registro-ponto")
+
+    if (menuDocentes.className === "container-docentes"){
+        menuHome.className = "container-home"
+        menuDocentes.className = "container-docentes-ativo"
+        menuPonto.className = "container-registro-ponto"
+    } else {
+        menuDocentes.className = "container-docentes"
     }
 }
 

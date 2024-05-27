@@ -22,11 +22,6 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 public class Usuario {
 
-    // ID do usuario
-
-    // @OneToOne(mappedBy = "usuario")
-    // relacionamento com a entidade matricula Ajeitar depois
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
