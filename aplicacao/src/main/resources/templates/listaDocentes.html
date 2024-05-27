@@ -8,26 +8,24 @@
 </head>
 <body>
     <main>
-        <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir em PDF</a>
-                
+        <a th:href="@{/cadastroDocente}" target="_blank">Cadastrar novo docente</a>
+        <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir em PDF</a>      
         <div>
             <table>
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
+                        <th scope="col">Docente</th>
                         <th scope="col">CPF</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">Email</th>
                         <th scope="col">Data Nascimento</th>
-                        <th scope="col">Horas Mensais</th>
+                        <th scope="col">Horas/Mês</th>
                         <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
                         <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr data-th-each="pessoa: ${pessoas}">
-                        <td data-th-text="${pessoa.id}"></td>
                         <td data-th-text="${pessoa.nomeCompleto}"></td>
                         <td data-th-text="${pessoa.cpf}"></td>
                         <td data-th-text="${pessoa.telefone}"></td>
@@ -35,7 +33,7 @@
                         <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
                         <td data-th-text="${pessoa.horasMensais}"></td>
                         <td class="botao-excluir"><a th:href="@{'/deletarDocente/'+ ${pessoa.id}}">Excluir</a></td>
-                        <td class="botao-editar"><a th:href="@{'/metodo/'+ ${pessoa.id}}">Editar</a></td>
+                        <td class="botao-editar"><a th:href="@{'/editarDocente/'+ ${pessoa.id}}">Editar</a></td>
                     </tr>
                 </tbody>
             </table>

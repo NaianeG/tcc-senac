@@ -13,17 +13,21 @@ body {
     border: 1px solid red;
 }
 
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 240px;  
-    height: 100%; 
+    width: 240px;
+    height: 100%;
     padding: 40px 10px 30px 10px;
     border-right: 1px solid #2F3336;
     transition: all 0.35s;
+}
+
+.sidebar a {
+    color: #FFF;
 }
 
 .sidebar button {
@@ -37,7 +41,7 @@ body {
     padding: 0;
 }
 
-.sidebar button > span {
+.sidebar button>span {
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -48,7 +52,7 @@ body {
     transition: all 0.2s;
 }
 
-.sidebar button:hover > span {
+.sidebar button:hover>span {
     background-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -67,14 +71,14 @@ body {
     font-size: 16px;
 }
 
-.sidebar > nav {
+.sidebar>nav {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.logo-img{
+.logo-img {
     width: 38px;
     min-height: 38px;
     border-radius: 50%;
@@ -83,7 +87,7 @@ body {
     margin-left: 10px;
 }
 
-.logo-img:hover{
+.logo-img:hover {
     transform: scale(1.5);
 }
 
@@ -97,15 +101,15 @@ body {
 /* Ajuste de side-bar apenas com ícones*/
 
 @media(width < 920px) {
-    .sidebar{
+    .sidebar {
         width: 72px;
     }
 
-    .sidebar button > span {
+    .sidebar button>span {
         width: 50px;
     }
 
-    .sidebar button > span > span {
+    .sidebar button>span>span {
         opacity: 0;
         visibility: hidden;
     }
@@ -114,7 +118,7 @@ body {
         transition: margin 0.4s;
         margin-left: 80px;
     }
-    
+
 }
 
 .button-mobile {
@@ -158,7 +162,7 @@ body {
     margin-bottom: 16px;
 }
 
-.menu-mobile-active button > span {
+.menu-mobile-active button>span {
     display: inline-flex;
     align-items: center;
 }
@@ -172,8 +176,8 @@ body {
     margin-left: 8px;
 }
 
-@media (max-width: 480px){
-    .sidebar{
+@media (max-width: 480px) {
+    .sidebar {
         display: none;
     }
 
@@ -184,24 +188,6 @@ body {
     .main {
         margin-left: 6px;
     }
-}
-
-.container-docentes {
-    display: none;
-}
-
-.container-docentes-ativo {
-    margin-left: 350px;
-}
-
-.container-docentes-ativo > nav > button {
-    margin-top: 100px;
-    border-radius: 20px;
-}
-
-.container-docentes-ativo > nav > button:hover{
-    cursor: pointer;
-    background-color: yellow;
 }
 
 .container-registro-ponto {
@@ -265,4 +251,3 @@ body {
 .container-registro-ponto-ativo input[type="submit"]:hover {
     background-color: #45A049;
 }
-

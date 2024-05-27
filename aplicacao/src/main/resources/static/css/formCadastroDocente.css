@@ -55,3 +55,17 @@
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
+
+  .container a button {
+    background-color: #ff0000;
+    color: #fff;
+    width: 400px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .container a button:hover {
+    background-color: #e24444;
+  }

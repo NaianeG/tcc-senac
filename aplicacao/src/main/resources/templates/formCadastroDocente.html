@@ -1,68 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docentes</title>
-    <link rel="stylesheet" href="http://localhost:8080/css/formCadastroDocente.css" />
-</head>
-<body>
-    <div class="container">
-      
-      <section class="header">Cadastrar novo docente</section>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docentes</title>
+  <link rel="stylesheet" href="http://localhost:8080/css/formCadastroDocente.css" />
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="header">Cadastrar novo docente</section>
+
+
+    <div th:if="${pessoa}">
       <form action="/cadastrarDocente" class="form" method="post">
         <div class="form-content">
           <label>Nome:</label>
-          <input 
-          type="text"
-          placeholder="Informe o nome do docente"
-          required
-          name="nomeCompleto"
-          th.value="${pessoa?.nomeCompleto}"
-          />
+          <input type="text" placeholder="Informe o nome do docente" required name="nomeCompleto"
+            th:value="${pessoa?.nomeCompleto}" />
           <label>Telefone:</label>
-          <input 
-          type="text"
-          placeholder="Informe o seu telefone"
-          required
-          name="telefone"
-          th.value="${pessoa?.telefone}"
-          />
+          <input type="text" placeholder="Informe o seu telefone" required name="telefone"
+            th:value="${pessoa?.telefone}" />
           <label>Data de nascimento:</label>
-          <input 
-          type="date"
-          required
-          name="dataNascimento"
-          th.value="${pessoa.dataNascimento}"
-          />
+          <input type="date" required name="dataNascimento" th:value="${pessoa?.dataNascimento}" />
           <label>CPF:</label>
-          <input 
-          type="text"
-          placeholder="Informe o CPF do docente"
-          required
-          name="cpf"
-          th.value="${pessoa.cpf}"
-          />
+          <input type="text" placeholder="Informe o CPF do docente" required name="cpf" th:value="${pessoa?.cpf}" />
           <label>Email:</label>
-          <input 
-          type="text"
-          placeholder="Informe o email do docente"
-          required
-          name="email"
-          th.value="${pessoa.email}"
-          />
+          <input type="text" placeholder="Informe o email do docente" required name="email"
+            th:value="${pessoa?.email}" />
           <label>Horas mensais:</label>
-          <input 
-          type="text"
-          placeholder="Informe a quantidade de horas mensais"
-          required
-          name="horasMensais"
-          th.value="${pessoa.horasMensais}"
-          />
+          <input type="text" placeholder="Informe a quantidade de horas mensais" required name="horasMensais"
+            th:value="${pessoa?.horasMensais}" />
           <button type="submit">Salvar</button>
         </div>
       </form>
     </div>
+
+    <a th:href="@{/listaDocentes}"><button>Cancelar</button></a>
+  </div>
 </body>
+
 </html>
