@@ -16,6 +16,11 @@ public class PessoaController {
     @Autowired
     PessoaService pessoaService;
 
+    @GetMapping("pesquisaDocente")
+    public String pesquisaDocente() {
+        return "pesquisaDocente";
+    }
+
     @GetMapping("/cadastroDocente")
     public String formCadastroDocente() {
         return "formCadastroDocente";
