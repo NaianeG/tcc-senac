@@ -35,8 +35,7 @@ public class PessoaService {
 
     public ModelAndView editarDocentePorId(@PathVariable("id") int id) {
         ModelAndView mv = new ModelAndView("formCadastroDocente");
-        Pessoa docente = new Pessoa();
-        docente = pessoaRepository.findById(id).get();
+        Pessoa docente = pessoaRepository.findById(id).get();
         mv.addObject("pessoa", docente);
         return mv;
     }
