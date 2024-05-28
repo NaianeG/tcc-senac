@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa Docente</title>
+</head>
+<body>
+<h1>Pesquise um docente</h1>
+
+<div>
+   
+
+    <form th:action="@{/relatorio/pdf/relatorio-horas}" method="get">
+        <a th:href="@{/relatorio/pdf/relatorio-horas}" target="_blank">Abrir em PDF</a>
+        <select id="nomeCompleto" name="nomeCompleto">
+            <option value="">Selecione um nome</option>
+            <option th:each="nomeCompleto : ${pessoa}" th:value="${nomeCompleto}" th:text="${nomeCompleto}"></option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+</div>
+</body>
+</html>
