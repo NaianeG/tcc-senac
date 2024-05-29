@@ -196,29 +196,25 @@ body {
 
 
 .container-registro-ponto-ativo .meio {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin-left: 300px;
+    margin-top: 50px;
+    height: 400px;
     background-color: #1E1E1E;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 80%;
     max-width: 600px;
     color: #FFF;
 }
 
 .container-registro-ponto-ativo h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
 }
 
 .container-registro-ponto-ativo form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 }
 
 .container-registro-ponto-ativo label {

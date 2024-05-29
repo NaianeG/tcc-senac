@@ -46,18 +46,6 @@
                         <span>Meus registros</span>
                     </span>
                 </button>
-                <button onclick="apresentarRegistroDePonto()" class="botao-registro-ponto">
-                    <span>
-                        <i class="material-symbols-outlined"> alarm_on </i>
-                        <span>Registro de ponto</span>
-                    </span>
-                </button>
-                <button onclick="" class="botao-lista-registros">
-                    <span>
-                        <i class="material-symbols-outlined"> list </i>
-                        <span>Meus registros</span>
-                    </span>
-                </button>
                 <button onclick="logout()">
                     <span>
                         <i class="material-symbols-outlined"> logout </i>
@@ -68,15 +56,9 @@
         </aside>
     </div>
 
-    <div class="container-home" id="container-home">
-        <nav>
-            <!--Construir o que terá na home-->
-        </nav>
-    </div>
-
     <div class="container-registro-ponto" id="container-registro-ponto">
         <div class="meio">
-            <h1>Cadastro de Marcação de Ponto</h1>
+            <h1>Registro de Ponto</h1>
             <form id="marcacaoPontoForm" th:action="@{/ponto/cadastroPonto}" method="post">
                 <div th:if="${usuario != null}">
                     <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden><br><br>
@@ -90,7 +72,7 @@
                 <input type="submit" value="Enviar">
             </form>
             <script th:if="${alerta == 'limiteAtingido'}">
-                alert("Limite atingido");
+                alert("Você já registrou sua entrada e sua saída!");
             </script>
             <script th:inline="javascript">
                 preencherDataAtual();
@@ -98,36 +80,37 @@
         </div>
     </div>
 
-    <!-- Criando menu mobile
-        <button class="button-mobile" onclick="toggleMenu()">
-            <i class="material-symbols-outlined"> menu </i>
-        </button>
+    <!--Criando menu mobile -->
 
-        <nav class="menu-mobile" id="menu-mobile">
-            <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
-                <span>
-                    <i class="material-symbols-outlined"> close </i>
-                </span>
-            </button>
-            <button>
-                <span>
-                    <i class="material-symbols-outlined"> home </i>
-                    <span class="mobile-text">Home</span>
-                </span>
-            </button>
-            <button>
-                <span>
-                    <i class="material-symbols-outlined"> person </i>
-                    <span class="mobile-text">Gerenciar docentes</span>
-                </span>
-            </button>
-            <button onclick="logout()">
-                <span>
-                    <i class="material-symbols-outlined"> logout </i>
-                    <span class="mobile-text">Logout</span>
-                </span>
-            </button> 
-        </nav> -->
+    <button class="button-mobile" onclick="toggleMenu()">
+        <i class="material-symbols-outlined"> menu </i>
+    </button>
+
+    <nav class="menu-mobile" id="menu-mobile">
+        <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
+            <span>
+                <i class="material-symbols-outlined"> close </i>
+            </span>
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> home </i>
+                <span class="mobile-text">Home</span>
+            </span>
+        </button>
+        <button>
+            <span>
+                <i class="material-symbols-outlined"> person </i>
+                <span class="mobile-text">Gerenciar docentes</span>
+            </span>
+        </button>
+        <button onclick="logout()">
+            <span>
+                <i class="material-symbols-outlined"> logout </i>
+                <span class="mobile-text">Logout</span>
+            </span>
+        </button>
+    </nav>
 
 </body>
 

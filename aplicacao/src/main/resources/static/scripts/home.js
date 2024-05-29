@@ -8,27 +8,10 @@ function toggleMenu() {
     }
 }
 
-
-function apresentarHome() {
-    const menuHome = document.getElementById("container-home")
-    const menuDocentes = document.getElementById("container-docentes")
-    const menuPonto = document.getElementById("container-registro-ponto")
-
-    if (menuHome.className === "container-home"){
-        menuHome.className = "container-home-ativo"
-        menuDocentes.className = "container-docentes"
-        menuPonto.className = "container-registro-ponto"
-    } else {
-        menuHome.className = "container-registro-ponto"
-    }
-}
-
 function apresentarRegistroDePonto(){
-    const menuHome = document.getElementById("container-home")
     const menuPonto = document.getElementById("container-registro-ponto")
 
     if (menuPonto.className === "container-registro-ponto"){
-        menuHome.className = "container-home"
         menuPonto.className = "container-registro-ponto-ativo"
     } else {
         menuPonto.className = "container-registro-ponto"
