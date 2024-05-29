@@ -28,10 +28,12 @@ public class SecurityConfig {
                     request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
-                            "/relatorio/pdf/relatorio-docente").hasRole("ADMIN");
+                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
+                            .hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.DELETE, "/deletarDocente/{id}").hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.GET, "/deletarDocente/{id}", "cadastro",
-                            "/relatorio/pdf/relatorio-docente").hasRole("ADMIN");
+                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
+                            .hasRole("ADMIN");
                     request.anyRequest().authenticated();
                 })
                 .formLogin(httpFormLogin -> {

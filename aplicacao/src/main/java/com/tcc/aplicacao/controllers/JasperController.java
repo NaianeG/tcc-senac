@@ -48,7 +48,7 @@ public class JasperController {
 
         byte[] bytes = service.exportarPDF(code);
         response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-        response.setHeader("Content-disposition", "incline; filename=relatorio-" + code + ".pdf");
+        response.setHeader("attachment", "incline; filename=relatorio-" + code + ".pdf");
         response.getOutputStream().write(bytes);
 
     }
