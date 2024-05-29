@@ -37,7 +37,7 @@ public class JasperService {
 
     }
 
-    private void addParams(String key, Object value) {
+    public void addParams(String key, Object value) {
         this.params.put(key, value);
     }
 
