@@ -11,13 +11,12 @@
 <div>
    
 
-    <form th:action="@{/relatorio/pdf/relatorio-horas}" method="get">
-        <a th:href="@{/relatorio/pdf/relatorio-horas}" target="_blank">Abrir em PDF</a>
-        <select id="nomeCompleto" name="nomeCompleto">
-            <option value="">Selecione um nome</option>
-            <option th:each="nomeCompleto : ${pessoa}" th:value="${nomeCompleto}" th:text="${nomeCompleto}"></option>
-        </select>
-        <button type="submit">Buscar</button>
+    <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get">
+            <label for="nomeCompleto">Nome Completo:</label>
+            <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite o nome">
+            <button type="submit">Buscar</button>
+        </form>
+        
     </form>
 </div>
 </body>
