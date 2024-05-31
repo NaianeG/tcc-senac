@@ -25,17 +25,19 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     private String role;
 
-    public Usuario(String nomeUsuario, String encryptedPassword, String role) {
-        this.username = nomeUsuario;
+    public Usuario(String username, String encryptedPassword, String role) {
+        this.username = username;
         this.password = encryptedPassword;
         this.role = role;
     }
-
 }
