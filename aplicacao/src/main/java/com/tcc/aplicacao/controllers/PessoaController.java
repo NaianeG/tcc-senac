@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.tcc.aplicacao.dto.CadastroDTO;
 import com.tcc.aplicacao.entities.Pessoa;
-import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.services.PessoaService;
 import com.tcc.aplicacao.services.UsuarioService;
 

@@ -198,7 +198,7 @@ body {
 .container-registro-ponto-ativo .meio {
     margin-left: 300px;
     margin-top: 50px;
-    height: 400px;
+    height: 550px;
     background-color: #1E1E1E;
     padding: 20px;
     border-radius: 10px;
@@ -217,20 +217,25 @@ body {
     flex-direction: column;
 }
 
-.container-registro-ponto-ativo label {
-    font-size: 16px;
+.container-registro-ponto-ativo .meio label {
+    font-size: 15px;
+    font-weight: 700;
     margin-bottom: 5px;
 }
 
-.container-registro-ponto-ativo input[type="number"],
 .container-registro-ponto-ativo input[type="date"],
 .container-registro-ponto-ativo input[type="text"] {
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     border: 1px solid #2F3336;
     background-color: #333;
     color: #FFF;
-    font-size: 16px;
+    font-size: 15px;
+    margin: 10px 0px 15px 0px;
+}
+
+.container-registro-ponto-ativo input[type="file"] {
+    margin-top: 10px;
 }
 
 .container-registro-ponto-ativo input[type="submit"] {
@@ -242,8 +247,13 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 70px;
 }
 
 .container-registro-ponto-ativo input[type="submit"]:hover {
     background-color: #45A049;
+}
+
+.container-registro-ponto-ativo .meio span {
+    margin: 0px 10px 0px 0px;
 }
