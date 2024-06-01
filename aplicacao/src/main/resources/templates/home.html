@@ -26,6 +26,7 @@
                         <span>Home</span>
                     </span>
                 </button>
+<<<<<<< HEAD
                 <div th:if="${usuario.role != 'USER'}">
                     <a href="listaDocentes" target="_blank" rel="noopener">
                         <button class="botao-docentes">
@@ -54,6 +55,28 @@
                     </button>
                 </div>
 
+=======
+                <a href="listaDocentes" target="_blank" rel="noopener">
+                    <button class="botao-docentes">
+                        <span>
+                            <i class="material-symbols-outlined"> person </i>
+                            <span>Gerenciar docentes</span>
+                        </span>
+                    </button>
+                </a> 
+                <button onclick="apresentarRegistroDePonto()" class="botao-registro-ponto">
+                    <span>
+                        <i class="material-symbols-outlined"> alarm_on </i>
+                        <span>Registro de ponto</span>
+                    </span>
+                </button>
+                <button onclick="" class="botao-lista-registros">
+                    <span>
+                        <i class="material-symbols-outlined"> list </i>
+                        <span>Meus registros</span>
+                    </span>
+                </button>
+>>>>>>> 4ca5eeb66f1e43bf15100e3778c6581108cdd2c6
                 <button onclick="logout()">
                     <span>
                         <i class="material-symbols-outlined"> logout </i>
