@@ -17,9 +17,6 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
 
-    @Autowired
-    BancoHorasService bancoHorasService;
-
     public void cadastraDocente(Pessoa pessoa) {
         try {
             pessoaRepository.save(pessoa);

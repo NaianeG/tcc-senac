@@ -14,9 +14,6 @@ public class MarcacaoPontoService {
     @Autowired
     MarcacaoPontoRepository marcacaoPontoRepository;
 
-    @Autowired
-    BancoHorasService bancoHorasService;
-
     public List<MarcacaoPonto> cadastroPonto(MarcacaoPonto marcacaoPonto) {
         MarcacaoPonto marcacaoPonto2 = marcacaoPontoRepository.findByDataAndIdUsuario(
                 marcacaoPonto.getData(), marcacaoPonto.getIdUsuario());
@@ -26,8 +23,6 @@ public class MarcacaoPontoService {
         } else if (marcacaoPonto2.getHoraSaida() == null) {
             marcacaoPonto2.setHoraSaida(marcacaoPonto.getHoraEntrada());
             marcacaoPontoRepository.save(marcacaoPonto2);
-            bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario(), marcacaoPonto2.getHoraEntrada(),
-                    marcacaoPonto2.getHoraSaida());
             return marcacaoPontoRepository.findAll();
         }
         return Collections.emptyList();
