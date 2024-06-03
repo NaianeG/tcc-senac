@@ -18,25 +18,53 @@
       </div>
 
       <div class="form-content">
-        <label>Nome completo:
+        <label>Nome:
           <input type="text" placeholder="Informe o nome do docente" required name="nomeCompleto"
           th:value="${pessoa?.nomeCompleto}" />
-        <label>Telefone:</label>
-        <input type="text" placeholder="Informe o seu telefone" required name="telefone"
+        </label>
+        
+        <label>Telefone:
+          <input type="text" placeholder="Informe o seu telefone" required name="telefone"
           th:value="${pessoa?.telefone}" />
-        <label>Data de nascimento:</label>
-        <input type="date" required name="dataNascimento" th:value="${pessoa?.dataNascimento}" />
-        <label>CPF:</label>
-        <input type="text" placeholder="Informe o CPF do docente" required name="cpf" th:value="${pessoa?.cpf}" />
-        <label>Email:</label>
-        <input type="text" placeholder="Informe o email do docente" required name="email" th:value="${pessoa?.email}" />
-        <label>Horas mensais:</label>
-        <input type="text" placeholder="Informe a quantidade de horas mensais" required name="horasMensais"
+        </label>
+        
+        <label>Data de nascimento:
+          <input type="date" required name="dataNascimento" th:value="${pessoa?.dataNascimento}" />
+        </label>
+        
+        <label>CPF:
+          <input type="text" placeholder="Informe o CPF do docente" required name="cpf" th:value="${pessoa?.cpf}" />
+        </label>
+
+        <label>Email:
+          <input type="text" placeholder="Informe o email do docente" required name="email" th:value="${pessoa?.email}" />
+        </label>
+
+        <label>Horas mensais:
+          <input type="text" placeholder="Informe a quantidade de horas mensais" required name="horasMensais"
           th:value="${pessoa?.horasMensais}" />
+        </label>
+
+        <label>Nome de usuário:
+          <input type="text" placeholder="Informe o nome de usuário" required name="username"
+          th:value="${usuario?.username}" />
+        </label>
+
+        <label>Senha:
+          <input type="password" placeholder="Informe a senha" required name="password" />
+        </label>
+
+        <label>Tipo de usuário:
+          <select name="role" required>
+            <option value="USER" th:selected="${usuario?.role == 'USER'}">Docente</option>
+            <option value="ADMIN,USER" th:selected="${usuario?.role == 'ADMIN'}">Administrador</option>
+          </select>
+        </label>
+
         <button type="submit">Salvar</button>
+      </div>
     </form>
-  </div>
-  <a th:href="@{/listaDocentes}"><button>Cancelar</button></a>
+    <a th:href="@{/listaDocentes}"><button>Cancelar</button></a>
   </div>
 </body>
 

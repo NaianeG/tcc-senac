@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tcc.aplicacao.dto.CadastroDTO;
 import com.tcc.aplicacao.entities.Pessoa;
 import com.tcc.aplicacao.repository.PessoaRepository;
 
@@ -17,7 +18,7 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
 
-    public void cadastraDocente(Pessoa pessoa) {
+    public void cadastraDocente(Pessoa pessoa, CadastroDTO cadastroDTO) {
         try {
             pessoaRepository.save(pessoa);
         } catch (Exception e) {

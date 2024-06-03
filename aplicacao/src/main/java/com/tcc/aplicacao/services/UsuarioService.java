@@ -21,13 +21,14 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public void salvar(CadastroDTO cadastroDTO) {
+    public Usuario salvar(CadastroDTO cadastroDTO) {
         if (repository.findByUsername(cadastroDTO.nomeUsuario()).isEmpty()) {
             String encryptedPassword = passwordEncoder.encode(cadastroDTO.senha());
-            Usuario novoUsuario = new Usuario(cadastroDTO.nomeUsuario(), encryptedPassword, cadastroDTO.role());
-            System.out.println(cadastroDTO.role());
-            this.repository.save(novoUsuario);
+            Usuario novoUsuario = new Usuario(cadastroDTO.nomeUsuario(), encryptedPassword, cadastroDTO.role(),
+                    cadastroDTO.pessoa());
+            return this.repository.save(novoUsuario);
         }
+        return null;
     }
 
     public Usuario getInfoUsuario(String usuario) {

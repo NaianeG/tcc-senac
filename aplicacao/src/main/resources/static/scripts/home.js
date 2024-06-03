@@ -19,7 +19,6 @@ function apresentarRegistroDePonto(){
 }
 
 function preencherDataAtual() {
-    
     let dataAtual = new Date();
 
     let ano = dataAtual.getFullYear();
@@ -28,6 +27,12 @@ function preencherDataAtual() {
     let dataFormatada = ano + '-' + mes + '-' + dia;
     document.getElementById('data').value = dataFormatada;
 
+    atualizarHora();
+    setInterval(atualizarHora, 1000);
+}
+
+function atualizarHora() {
+    let dataAtual = new Date();
     let hora = String(dataAtual.getHours()).padStart(2, '0');
     let minuto = String(dataAtual.getMinutes()).padStart(2, '0');
     let segundo = String(dataAtual.getSeconds()).padStart(2, '0');

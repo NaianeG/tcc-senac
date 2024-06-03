@@ -1,11 +1,12 @@
 package com.tcc.aplicacao.entities;
 
 import java.sql.Date;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,11 +24,15 @@ public class Pessoa {
     private Double horasMensais;
     private String email;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Usuario usuario;
+
     public Pessoa() {
     }
 
     public Pessoa(int id, String nomeCompleto, String cpf, String telefone, Date dataNascimento, Double horasMensais,
-            String email) {
+            String email, Usuario usuario) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
@@ -35,6 +40,6 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
         this.horasMensais = horasMensais;
         this.email = email;
+        this.usuario = usuario;
     }
-
 }

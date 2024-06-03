@@ -5,8 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,17 +29,24 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     private String role;
 
-    public Usuario(String nomeUsuario, String encryptedPassword, String role) {
-        this.username = nomeUsuario;
+    @OneToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+
+    public Usuario(String username, String encryptedPassword, String role, Pessoa pessoa) {
+        this.username = username;
         this.password = encryptedPassword;
         this.role = role;
+        this.pessoa = pessoa;
     }
-
 }

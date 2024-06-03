@@ -1,5 +1,7 @@
 package com.tcc.aplicacao.dto;
 
-public record CadastroDTO(String nomeUsuario, String senha, String role) {
+import com.tcc.aplicacao.entities.Pessoa;
+
+public record CadastroDTO(String nomeUsuario, String senha, String role, Pessoa pessoa) {
 
 }
