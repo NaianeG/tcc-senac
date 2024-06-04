@@ -93,3 +93,8 @@ td a:hover {
 .botao-editar a:hover {
     background-color: #e2b257;
 }
+
+.pesquisa-docente {
+    float: right;
+    margin-right: 50px;
+}

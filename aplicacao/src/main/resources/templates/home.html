@@ -73,21 +73,22 @@
                     </label>
 
                     <label for="data">
-                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro ponto</span>
+                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro
+                            ponto:</span>
                     </label>
                     <input type="date" id="data" name="data" readonly></br>
 
                     <label for="horaEntrada">
-                        <span class="material-symbols-outlined">schedule</span><span>Registro hora entrada</span>
+                        <span class="material-symbols-outlined">schedule</span><span>Registro hora entrada:</span>
                     </label>
                     <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
 
                     <label for="horaEntrada">
-                        <span class="material-symbols-outlined">schedule</span><span>Registro hora saída</span>
+                        <span class="material-symbols-outlined">schedule</span><span>Registro hora saída:</span>
                     </label>
                     <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
 
-                    <input type="submit" value="Enviar">
+                    <input type="submit" value="Registrar ponto">
                 </form>
             </div>
             <script th:if="${alerta == 'limiteAtingido'}">
