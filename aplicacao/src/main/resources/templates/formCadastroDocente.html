@@ -57,7 +57,7 @@
         <label>Tipo de usuário:
           <select name="role" required>
             <option value="USER" th:selected="${usuario?.role == 'USER'}">Docente</option>
-            <option value="ADMIN,USER" th:selected="${usuario?.role == 'ADMIN'}">Administrador</option>
+            <option value="ADMIN" th:selected="${usuario?.role == 'ADMIN'}">Administrador</option>
           </select>
         </label>
 

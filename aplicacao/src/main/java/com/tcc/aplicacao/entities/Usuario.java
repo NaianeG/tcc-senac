@@ -6,11 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -40,7 +38,7 @@ public class Usuario {
     private String role;
 
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
+    @JoinColumn(name = "pessoa_id", nullable = false)
     private Pessoa pessoa;
 
     public Usuario(String username, String encryptedPassword, String role, Pessoa pessoa) {

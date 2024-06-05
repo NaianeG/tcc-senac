@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.tcc.aplicacao.dto.CadastroDTO;
+import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.services.UsuarioService;
 
 @Controller
@@ -21,8 +21,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/cadastroUsuario")
-    public String cadastroUsuario(@Validated CadastroDTO cadastroDTO) {
-        service.salvar(cadastroDTO);
+    public String cadastroUsuario(@Validated Usuario usuario) {
+        service.salvar(usuario);
         return "redirect:/login";
     }
 }

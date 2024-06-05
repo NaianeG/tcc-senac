@@ -13,6 +13,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query("select u from Usuario u where u.username = ?1")
     Usuario findByUsuarioJPQL(String nomeUsuario);
 
+    @Query("select u from Usuario u where u.pessoa.id = ?1")
+    Usuario findByIdPessoa(int id);
+
     @Query(value = "SELECT * FROM usuario WHERE username = ?1", nativeQuery = true)
     Usuario findByUsuarioNativo(String nomeUsuario);
 }

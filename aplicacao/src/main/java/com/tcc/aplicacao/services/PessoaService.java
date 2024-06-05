@@ -5,9 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.tcc.aplicacao.dto.CadastroDTO;
 import com.tcc.aplicacao.entities.Pessoa;
+import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.repository.PessoaRepository;
+import com.tcc.aplicacao.repository.UsuarioRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,28 @@ import java.util.List;
 public class PessoaService {
 
     @Autowired
-    PessoaRepository pessoaRepository;
+    private PessoaRepository pessoaRepository;
 
-    public void cadastraDocente(Pessoa pessoa, CadastroDTO cadastroDTO) {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public void cadastraDocente(Pessoa pessoa, Usuario usuario) {
         try {
-            pessoaRepository.save(pessoa);
+            Pessoa pessoa2 = pessoaRepository.save(pessoa);
+
+            usuario.setPessoa(pessoa2);
+
+            usuarioService.salvar(usuario);
+            System.out.println("++++++++++++++++++++++++Pessoa Service++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("Usuário  nome = " + usuario.getUsername());
+            System.out.println("Usuário  senha = " + usuario.getPassword());
+            System.out.println("Usuário  role =  " + usuario.getRole());
+            System.out.println("Usuário  pessoa = " + usuario.getPessoa());
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
         }
@@ -37,8 +55,11 @@ public class PessoaService {
     public ModelAndView editarDocentePorId(@PathVariable("id") int id) {
         ModelAndView mv = new ModelAndView("formCadastroDocente");
         Pessoa docente = new Pessoa();
+        Usuario usuario = new Usuario();
+        usuario = usuarioRepository.findByIdPessoa(id);
         docente = pessoaRepository.findById(id).get();
         mv.addObject("pessoa", docente);
+        mv.addObject("usuario", usuario);
         return mv;
     }
 

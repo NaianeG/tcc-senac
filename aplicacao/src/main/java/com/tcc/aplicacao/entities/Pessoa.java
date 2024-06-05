@@ -1,6 +1,8 @@
 package com.tcc.aplicacao.entities;
 
 import java.sql.Date;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +26,7 @@ public class Pessoa {
     private Double horasMensais;
     private String email;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Usuario usuario;
 
     public Pessoa() {

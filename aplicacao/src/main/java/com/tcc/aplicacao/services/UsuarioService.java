@@ -5,7 +5,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tcc.aplicacao.repository.UsuarioRepository;
-import com.tcc.aplicacao.dto.CadastroDTO;
 import com.tcc.aplicacao.entities.Usuario;
 
 @Service
@@ -21,11 +20,11 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public Usuario salvar(CadastroDTO cadastroDTO) {
-        if (repository.findByUsername(cadastroDTO.nomeUsuario()).isEmpty()) {
-            String encryptedPassword = passwordEncoder.encode(cadastroDTO.senha());
-            Usuario novoUsuario = new Usuario(cadastroDTO.nomeUsuario(), encryptedPassword, cadastroDTO.role(),
-                    cadastroDTO.pessoa());
+    public Usuario salvar(Usuario usuario) {
+        if (repository.findByUsername(usuario.getUsername()).isEmpty()) {
+            String encryptedPassword = passwordEncoder.encode(usuario.getPassword());
+            Usuario novoUsuario = new Usuario(usuario.getUsername(), encryptedPassword, usuario.getRole(),
+                    usuario.getPessoa());
             return this.repository.save(novoUsuario);
         }
         return null;

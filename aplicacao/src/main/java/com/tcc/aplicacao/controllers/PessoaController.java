@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.tcc.aplicacao.dto.CadastroDTO;
 import com.tcc.aplicacao.entities.Pessoa;
+import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.services.PessoaService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +29,14 @@ public class PessoaController {
     }
 
     @PostMapping("/cadastrarDocente")
-    public String cadastroPessoa(Pessoa pessoa, CadastroDTO usuario) {
+    public String cadastroPessoa(Pessoa pessoa, Usuario usuario) {
         try {
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            System.out.println("Usuário  nome = " + usuario.getUsername());
+            System.out.println("Usuário  senha = " + usuario.getPassword());
+            System.out.println("Usuário  role =  " + usuario.getRole());
+            System.out.println("Usuário  pessoa = " + usuario.getPessoa());
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             pessoaService.cadastraDocente(pessoa, usuario);
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
@@ -40,7 +46,9 @@ public class PessoaController {
 
     @GetMapping("/editarDocente/{id}")
     public ModelAndView buscaDocentePorId(@PathVariable("id") int id) {
-        return pessoaService.editarDocentePorId(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject(pessoaService.editarDocentePorId(id));
+        return mv;
     }
 
     @GetMapping("/listaDocentes")
