@@ -28,17 +28,8 @@ public class PessoaService {
     public void cadastraDocente(Pessoa pessoa, Usuario usuario) {
         try {
             Pessoa pessoa2 = pessoaRepository.save(pessoa);
-
             usuario.setPessoa(pessoa2);
-
             usuarioService.salvar(usuario);
-            System.out.println("++++++++++++++++++++++++Pessoa Service++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("Usuário  nome = " + usuario.getUsername());
-            System.out.println("Usuário  senha = " + usuario.getPassword());
-            System.out.println("Usuário  role =  " + usuario.getRole());
-            System.out.println("Usuário  pessoa = " + usuario.getPessoa());
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
         }

@@ -31,12 +31,6 @@ public class PessoaController {
     @PostMapping("/cadastrarDocente")
     public String cadastroPessoa(Pessoa pessoa, Usuario usuario) {
         try {
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            System.out.println("Usuário  nome = " + usuario.getUsername());
-            System.out.println("Usuário  senha = " + usuario.getPassword());
-            System.out.println("Usuário  role =  " + usuario.getRole());
-            System.out.println("Usuário  pessoa = " + usuario.getPessoa());
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             pessoaService.cadastraDocente(pessoa, usuario);
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
