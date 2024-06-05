@@ -61,51 +61,43 @@
     </div>
 
 
-    <div class="container-registro-ponto" id="container-registro-ponto">
-        <div class="meio">
-            <h1>Registro de Ponto</h1>
-            <form id="marcacaoPontoForm" th:action="@{/ponto/cadastroPonto}" method="post">
-                <label for="idUsuario">
-                    <div th:if="${usuario != null}">
-                        <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden>
-                    </div>
-                </label>
+    <div th:if="${usuario.role != 'ADMIN'}">
+        <div class="container-registro-ponto-ativo" id="container-registro-ponto">
+            <div class="meio">
+                <h1>Registro de Ponto</h1>
+                <form id="marcacaoPontoForm" th:action="@{/ponto/cadastroPonto}" method="post">
+                    <label for="idUsuario">
+                        <div th:if="${usuario != null}">
+                            <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden />
+                        </div>
+                    </label>
 
-                <label for="data"><span class="material-symbols-outlined">
-                        calendar_month
-                    </span>Data:</label>
-                <input type="date" id="data" name="data" readonly></br>
+                    <label for="data">
+                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro
+                            ponto:</span>
+                    </label>
+                    <input type="date" id="data" name="data" readonly></br>
 
-                <div>
-                    <label for="horaEntrada"><span class="material-symbols-outlined">
-                            schedule
-                        </span>Hora de Entrada:</label><br>
+                    <label for="horaEntrada">
+                        <span class="material-symbols-outlined">schedule</span><span>Registro hora entrada:</span>
+                    </label>
                     <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
-                </div>
 
-                <div>
-                    <label for="horaEntrada"><span class="material-symbols-outlined">
-                            schedule
-                        </span>Hora de Saída:</label><br>
+                    <label for="horaEntrada">
+                        <span class="material-symbols-outlined">schedule</span><span>Registro hora saída:</span>
+                    </label>
                     <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
-                </div>
 
-                <label for="justificativa"><span class="material-symbols-outlined">
-                        folder_open
-                    </span>Inserir justificativa ou abono</label>
-                <input type="file" class="justificativa">
-
-                <input type="submit" value="Enviar">
+                    <input type="submit" value="Registrar ponto">
+                </form>
+            </div>
+            <script th:if="${alerta == 'limiteAtingido'}">
+                alert("Você já registrou sua entrada e sua saída!");
+            </script>
+            <script th:inline="javascript">
+                preencherDataAtual();
+            </script>
         </div>
-
-        <script th:if="${alerta == 'limiteAtingido'}">
-            alert("Você já registrou sua entrada e sua saída!");
-        </script>
-
-        <script th:inline="javascript">
-            preencherDataAtual();
-        </script>
-    </div>
     </div>
 
     <!--Criando menu mobile -->
