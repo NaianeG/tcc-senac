@@ -8,35 +8,11 @@ body {
     font-family: sans-serif;
 }
 
-.text-empresa {
-    color: #FFF;
-    float: left;
-    height: 100vh;
-    justify-content: center;
+.form-login {
     display: flex;
     flex-direction: column;
-    margin-left: 200px;
-}
-
-.text-empresa h1 {
-    font-size: 100px;
-    font-style: italic;
-}
-
-.text-empresa h2 {
-    font-size: 25px;
-}
-
-.form-login {
-    float: right;
-    margin-right: 200px;
-}
-
-.area-login {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
     align-items: center;
+    margin-top: 10vh;
 }
 
 .login {
@@ -44,10 +20,10 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #181920;
-    width: 355px;
-    height: 320px;
-    padding: 35px;
-    border-radius: 10px;
+    width: 400px;
+    padding: 25px;
+    border-radius: 20px;
+    margin: -60px;
 }
 
 .login form {
@@ -59,18 +35,19 @@ body {
 .login input {
     color: #CBD0F7;
     margin-top: 10px;
-    height: 25px;
     background-color: #252a34;
     border: none;
     height: 45px;
     outline: none;
     border-radius: 5px;
     padding-left: 10px;
+    padding: 10px;
+    font-size: 18px;
 }
 
 input::placeholder{
     color: #CBD0F7;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 form [type="submit"] {
@@ -79,7 +56,7 @@ form [type="submit"] {
     font-size: 15px;
     text-transform: uppercase;
     font-weight:bolder;
-    margin-top: 150px;
+    margin-top: 200px;
 }
 
 form [type="submit"]:hover {
@@ -87,30 +64,20 @@ form [type="submit"]:hover {
     background-color: #6896f8
 }
 
+.icone-login {
+    height: 250px;
+}
+
 
 @media (width < 920px) {
-    .text-empresa{
-        display: none;
-    }
-
-    .form-login {
-        float: none;
-        margin: 10px 10px 10px 10px;
-    }
-
-    .area-login {
-        height: 600px;
-    }
-
+ 
     .login {
         width: 300px;
-        height: 400px;
+        margin: -45px;
+    } 
+    .icone-login {
+        height: 200px;
     }
-
-    form [type="submit"] {
-        margin-top: 230px;
-    }    
-  
 }
 
 #msgErroUsernamePassword{

@@ -25,7 +25,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico")
+                    request.requestMatchers("/css/*", "/scripts/**", "/img/***", "cadastro", "/cadastroUsuario",
+                            "/testeGrafico")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
