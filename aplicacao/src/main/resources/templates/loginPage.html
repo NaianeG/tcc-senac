@@ -13,14 +13,10 @@
             <img src="../img/jornada-de-trabalho.png" alt="icone-login" class="icone-login">
         <div class="login">
             <div id="msgErroUsernamePassword" th:if="${param.error}">
-                <script>
-                    alert("Dados incorretos.Tente efetuar o login novamente!")
-                </script>
+                Username ou password inválido!
             </div>
             <div id="msgDeslogar" th:if="${param.logout}">
-                <script>
-                    alert("Você fez logout do sistema!")
-                </script>
+                Logout feito com sucesso!
             </div>
             <form th:action="@{/login}" method="post">
                 <input type="text" name="username" placeholder="Username" autofocus>
