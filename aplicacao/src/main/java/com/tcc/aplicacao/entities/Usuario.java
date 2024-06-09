@@ -20,7 +20,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
 @EqualsAndHashCode(of = "id")
 public class Usuario {
 
@@ -28,7 +27,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
