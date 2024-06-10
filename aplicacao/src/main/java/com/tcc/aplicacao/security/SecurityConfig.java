@@ -26,7 +26,7 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/css/*", "/scripts/**", "/img/***", "cadastro", "/cadastroUsuario",
-                            "/testeGrafico")
+                            "/testeGrafico", "/editarDocente/")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
