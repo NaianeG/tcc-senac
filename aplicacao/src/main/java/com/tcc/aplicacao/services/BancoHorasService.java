@@ -28,7 +28,6 @@ public class BancoHorasService {
         if (usuario == null) {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
-
         BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(idUsuario);
         List<MarcacaoPonto> marcacoes = marcacaoPontoRepository.findByIdUsuario(idUsuario);
         long saldoAtual = bancoHoras.getSaldoAtual();
@@ -44,7 +43,6 @@ public class BancoHorasService {
 
         bancoHoras.setSaldoAtual(saldoAtual);
         bancoHoras.setSaldoNegativo(saldoAtual < bancoHoras.getSaldoMensal());
-
         bancoHorasRepository.save(bancoHoras);
     }
 
@@ -53,9 +51,9 @@ public class BancoHorasService {
         if (bancoHoras == null) {
             bancoHoras = new BancoHoras();
             bancoHoras.setUsuario(user);
+        } else {
+            bancoHoras.setSaldoMensal(pessoa.getHorasMensais());
         }
-        bancoHoras.setSaldoMensal(pessoa.getHorasMensais());
-
         bancoHorasRepository.save(bancoHoras);
     }
 }
