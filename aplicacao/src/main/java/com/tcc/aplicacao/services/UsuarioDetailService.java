@@ -20,7 +20,9 @@ public class UsuarioDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByUsername(username);
+
         var userObj = usuarioOptional.get();
+        System.out.println("teste ****** " + userObj.getId() + "+ " + userObj.getRole());
         if (usuarioOptional.isPresent()) {
             return User.builder()
                     .username(userObj.getUsername())

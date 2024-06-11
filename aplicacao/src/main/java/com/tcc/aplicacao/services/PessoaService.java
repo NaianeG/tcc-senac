@@ -36,8 +36,7 @@ public class PessoaService {
         try {
             Pessoa pessoa2 = pessoaRepository.save(pessoa);
             usuario.setPessoa(pessoa2);
-            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-            usuarioService.salvar(usuario);
+            usuario = usuarioService.salvar(usuario);
             bancoHorasService.setarHoraMensal(usuario, pessoa2);
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
