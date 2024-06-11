@@ -40,9 +40,19 @@ public class PessoaController {
 
     @GetMapping("/editarDocente/{id}")
     public ModelAndView buscaDocentePorId(@PathVariable("id") int id) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject(pessoaService.editarDocentePorId(id));
-        return mv;
+        return pessoaService.editarDocentePorId(id);
+    }
+
+    @PostMapping("/editarDocente/{id}")
+    public String atualizaPessoa(@PathVariable("id") int id, Pessoa pessoa, Usuario usuario) {
+        pessoa.setId(id);
+        usuario.setPessoa(pessoa);
+        try {
+            pessoaService.atualizaDocente(pessoa, usuario);
+        } catch (Exception e) {
+            System.out.println("Exception:" + e.getLocalizedMessage());
+        }
+        return "redirect:/listaDocentes";
     }
 
     @GetMapping("/listaDocentes")
@@ -59,5 +69,4 @@ public class PessoaController {
         }
         return "redirect:/listaDocentes";
     }
-
 }

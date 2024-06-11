@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" type="imagex/png" href="../img/jornada-de-trabalho.png">
     <link rel="stylesheet" href="http://localhost:8080/css/login.css">
 </head>
-<body>
 
-    <div class="text-empresa">
-        <h1>.LINK</h1>
-        <h2>O seu sistema de gerenciamento de ponto!</h2>
-    </div>
+<body>
     <div class="form-login">
-        <section class="area-login">
-            <div class="login">
-                <div id="msgErroUsernamePassword" th:if="${param.error}">
-                    Username ou password inválido!
-                </div>
-                <div id="msgDeslogar" th:if="${param.logout}">
-                    Você foi deslogado com sucesso!
-                </div>
-                <form th:action="@{/login}" method="post">
-                    <input type="text" name="username" placeholder="Insira o username" autofocus>
-                    <input type="password" name="password" placeholder="Insira sua senha">
-                    <input type="submit" value="Entrar">
-                </form>
+        <img src="../img/jornada-de-trabalho.png" alt="icone-login" class="icone-login">
+        <div class="login">
+            <div id="msgErroUsernamePassword" th:if="${param.error}">
+                Username ou password inválido!
             </div>
-        </section>
+            <div id="msgDeslogar" th:if="${param.logout}">
+                Logout feito com sucesso!
+            </div>
+            <form th:action="@{/login}" method="post">
+                <input type="text" name="username" placeholder="Username" autofocus>
+                <input type="password" name="password" placeholder="Senha">
+                <input type="submit" value="Entrar">
+            </form>
+        </div>
     </div>
 </body>
+
 </html>

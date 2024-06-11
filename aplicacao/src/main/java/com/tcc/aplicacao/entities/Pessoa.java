@@ -22,7 +22,7 @@ public class Pessoa {
     private String cpf;
     private String telefone;
     private Date dataNascimento;
-    private Double horasMensais;
+    private long horasMensais;
     private String email;
 
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -31,7 +31,7 @@ public class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(int id, String nomeCompleto, String cpf, String telefone, Date dataNascimento, Double horasMensais,
+    public Pessoa(int id, String nomeCompleto, String cpf, String telefone, Date dataNascimento, long horasMensais,
             String email, Usuario usuario) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;

@@ -25,8 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico",
-                            "/cadastroDocente", "/cadastrarDocente")// Tirar as rotas quando o sistema estiver pronto <3
+                    request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
