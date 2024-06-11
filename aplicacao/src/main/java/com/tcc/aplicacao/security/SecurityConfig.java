@@ -29,11 +29,13 @@ public class SecurityConfig {
                             "/cadastroDocente", "/cadastrarDocente")// Tirar as rotas quando o sistema estiver pronto <3
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
-                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
+                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
+                            "/relatorio/excel/relatorio-horas/*")
                             .hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.DELETE, "/deletarDocente/{id}").hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.GET, "/deletarDocente/{id}", "cadastro",
-                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*")
+                            "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
+                            "/relatorio/excel/relatorio-horas/*")
                             .hasRole("ADMIN");
                     request.anyRequest().authenticated();
                 })

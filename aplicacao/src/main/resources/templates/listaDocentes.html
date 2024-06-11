@@ -17,7 +17,13 @@
         <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get" class="pesquisa-docente">
             <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
             <button tyoe="submit" class="material-symbols-outlined"> search </button>
-        </form>
+    </form>
+
+    <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get" class="pesquisa-docente">
+        <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
+        <button tyoe="submit" class="material-symbols-outlined"> search </button>
+    
+</form>
         <div>
             <table>
                 <thead>
