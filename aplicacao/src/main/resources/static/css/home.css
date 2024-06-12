@@ -97,30 +97,6 @@ body {
     overflow: hidden;
 }
 
-
-/* Ajuste de side-bar apenas com ícones*/
-
-@media(width < 920px) {
-    .sidebar {
-        width: 72px;
-    }
-
-    .sidebar button>span {
-        width: 50px;
-    }
-
-    .sidebar button>span>span {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .main {
-        transition: margin 0.4s;
-        margin-left: 80px;
-    }
-
-}
-
 .button-mobile {
     display: none;
     align-self: flex-start;
@@ -176,24 +152,9 @@ body {
     margin-left: 8px;
 }
 
-@media (max-width: 480px) {
-    .sidebar {
-        display: none;
-    }
-
-    .button-mobile {
-        display: flex;
-    }
-
-    .main {
-        margin-left: 6px;
-    }
-}
-
 .container-registro-ponto {
     display: none;
 }
-
 
 .container-registro-ponto-ativo .meio {
     margin-left: 300px;
@@ -238,10 +199,6 @@ body {
     text-align: center;
 }
 
-.container-registro-ponto-ativo input[type="file"] {
-    margin-top: 10px;
-}
-
 .container-registro-ponto-ativo input[type="submit"] {
     padding: 10px;
     border-radius: 5px;
@@ -261,4 +218,73 @@ body {
 
 .container-registro-ponto-ativo .meio span {
     margin: 0px 10px 0px 0px;
+}
+
+/* Ajuste de side-bar apenas com ícones*/
+
+@media(width < 920px) {
+    .sidebar {
+        width: 72px;
+    }
+
+    .sidebar button>span {
+        width: 50px;
+    }
+
+    .sidebar button>span>span {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .main {
+        transition: margin 0.4s;
+        margin-left: 80px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        display: inline-block;
+    }
+
+    .button-mobile {
+        display: none;
+    }
+
+    .main {
+        margin-left: 6px;
+    }
+
+    .container-registro-ponto-ativo .meio {
+        margin: 70px 0px 0px 85px;
+        max-width: 280px;
+        height: 500px;
+        padding: 10px;
+    }
+
+    .container-registro-ponto-ativo input[type="date"],
+    .container-registro-ponto-ativo input[type="text"] {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #2F3336;
+        background-color: #333;
+        color: #FFF;
+        font-size: 14px;
+        width: 60%;
+        text-align: center;
+    }
+
+    .container-registro-ponto-ativo input[type="submit"] {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 30px;
+        width: 50%;
+    }
 }

@@ -7,11 +7,11 @@
 }
 
 .container {
-    max-width: 400px;
-    margin: 30px auto;
+    max-width: 500px;
     padding: 20px;
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 10px;
+    margin: 10px auto;
 }
 
 .header {
@@ -23,11 +23,13 @@
 
 .form-content {
     margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     font: bolder;
 }
 
@@ -35,14 +37,18 @@ input[type="text"],
 input[type="date"],
 input[type="password"],
 select {
-    width: calc(100% - 22px);
+    width: calc(100% - 25px);
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    -webkit-appearance: none;  /* Remove default styling in Safari */
-    -moz-appearance: none;     /* Remove default styling in Firefox */
-    appearance: none;          /* Remove default styling */
+    -webkit-appearance: none;
+    /* Remove default styling in Safari */
+    -moz-appearance: none;
+    /* Remove default styling in Firefox */
+    appearance: none;
+    /* Remove default styling */
 }
 
 button[type="submit"] {
@@ -72,4 +78,10 @@ button[type="submit"]:hover {
 
 .container a button:hover {
     background-color: #e24444;
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 300px;
+    }
 }
