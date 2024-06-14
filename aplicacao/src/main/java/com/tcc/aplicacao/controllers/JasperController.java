@@ -77,7 +77,10 @@ public class JasperController {
 
     @ModelAttribute("pessoa")
     public List<String> getnomeCompleto() {
-        return pessoaRepository.findNomes();
+        List<String> lista = new ArrayList<>();
+        lista = pessoaRepository.findNomes();
+        System.out.println("Teste lista relatório = " + lista);
+        return lista;
     }
 
 }

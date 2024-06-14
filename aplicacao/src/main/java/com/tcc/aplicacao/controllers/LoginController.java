@@ -32,7 +32,6 @@ public class LoginController {
     @GetMapping("/testeGrafico")
     public ModelAndView testeGrafico() {
         ModelAndView mv = new ModelAndView("testeGrafico");
-
         return mv;
     }
 
