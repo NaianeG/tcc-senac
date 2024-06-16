@@ -6,329 +6,173 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    margin: 0;
+    font-family: sans-serif;
+    background: #121212;
+    color: #FFF;
 }
 
-.container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    margin: 20px;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th,
-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-table th {
-    background-color: #f2f2f2;
-}
-
-/* Estilos para os botões de excluir e editar */
-.botao-excluir,
-.botao-editar {
-    text-align: center;
-}
-
-.botao-excluir button,
-.botao-editar a {
-    display: inline-block;
-    padding: 6px 12px;
-    text-decoration: none;
-    color: #fff;
-    border-radius: 4px;
-    margin-right: 5px;
-    transition: background-color 0.3s;
-}
-
-.botao-excluir button {
-    background-color: #f44336;
-}
-
-.botao-excluir button:hover {
-    background-color: #d32f2f;
-}
-
-.botao-editar a {
-    background-color: #2196F3;
-}
-
-.botao-editar a:hover {
-    background-color: #0d47a1;
-}
-
-/* Estilos para o modal */
-.modal {
-    display: none;
+.sidebar {
     position: fixed;
-    z-index: 1;
-    left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.confirmBtn, .cancelBtn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.confirmBtn {
-    background-color: #f44336;
-    color: white;
-}
-
-.cancelBtn {
-    background-color: #ccc;
-}
-
-.confirmBtn:hover {
-    background-color: #d32f2f;
-}
-
-.cancelBtn:hover {
-    background-color: #bbb;
-}
-
-/* Estilos para a paginação */
-.pagination {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 240px;
+    height: 100%;
+    padding: 40px 10px 30px 10px;
+    border-right: 1px solid #2F3336;
+    transition: all 0.35s;
 }
 
-.pagination ul {
-    list-style: none;
+.sidebar a {
+    color: #FFF;
+}
+
+.sidebar button {
+    height: 60px;
+    background-color: transparent;
+    border: 0;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
     padding: 0;
 }
 
-.pagination li {
-    display: inline;
-    margin: 0 5px;
-}
-
-.pagination a {
-    text-decoration: none;
-    color: #007bff;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.pagination a:hover {
-    background-color: #f0f0f0;
-}
-
-.pagination .active {
-    background-color: #007bff;
-    color: white;
-    border: 1px solid #007bff;
-}
-
-/* Media Queries para Responsividade */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    table th,
-    table td {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    .botao-excluir button,
-    .botao-editar a {
-        padding: 4px 8px;
-        font-size: 12px;
-    }
-
-    .modal-content {
-        width: 90%;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 20px;
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    table th,
-    table td {
-        padding: 6px;
-        font-size: 12px;
-    }
-
-    .botao-excluir button,
-    .botao-editar a {
-        padding: 3px 6px;
-        font-size: 10px;
-    }
-
-    .modal-content {
-        width: 95%;
-    }
-}
-
-/* Estilos para o menu lateral e menu móvel */
-.sidebar {
-    width: 250px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #333;
-    color: #fff;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
+.sidebar button>span {
+    display: inline-flex;
     align-items: center;
+    gap: 12px;
+    height: 48px;
+    padding: 0 15px 0 12px;
+    border-radius: 24px;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.sidebar button:hover>span {
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-header {
-    margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.sidebar button i {
+    position: relative;
+    font-size: 28px;
+    transition: 0.2s;
+}
+
+.sidebar button span {
+    font-size: 16px;
+}
+
+.sidebar>nav {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .logo-img {
-    width: 100px;
-    height: 100px;
+    width: 38px;
+    min-height: 38px;
     border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    margin-left: 10px;
 }
 
-nav {
+.logo-img:hover {
+    transform: scale(1.5);
+}
+
+.lista-registro-ponto {
+    margin-left: 260px;
+}
+
+.lista-registro-ponto table {
     width: 100%;
     text-align: center;
-}
-
-nav button, nav a {
-    width: 100%;
-    background-color: #444;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-nav button:hover, nav a:hover {
-    background-color: #555;
-}
-
-.menu-mobile {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    flex-direction: column;
+    margin-top: 50px;
     align-items: center;
-    justify-content: center;
+    background-color: #2F3336;
 }
 
-.menu-mobile .button-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
+.lista-registro-ponto h1 {
+    margin-top: 35px;
+    text-align: center;
+    background-color: #2F3336;
+    padding: 10px;
+}
+
+.lista-registro-ponto table thead th {
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.lista-registro-ponto table tbody tr {
+    border-bottom: 1px solid #eee;
+    padding: 10px 15px;
+}
+
+.lista-registro-ponto .botao-excluir button {
+    background-color: #e3342b;
     color: white;
-    font-size: 28px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
 }
 
-.menu-mobile button {
-    width: 80%;
-    margin-bottom: 10px;
-    font-size: 20px;
+.lista-registro-ponto .botao-editar a {
+    color: #3498db;
+    text-decoration: none;
 }
 
-.button-mobile {
+.lista-registro-ponto .botao-excluir button:hover {
+    background-color: #c92a1b;
+}
+
+.lista-registro-ponto .botao-editar a:hover {
+    color: #2980b9;
+}
+
+.pagination {
     display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 28px;
 }
 
-@media (max-width: 768px) {
+#confirmModal {
+    display: none;
+}
+
+
+@media(width < 920px) {
+
     .sidebar {
-        display: none;
+        width: 72px;
     }
+
+    .sidebar button>span {
+        width: 50px;
+    }
+
+    .sidebar button>span>span {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@media (max-width <=480px) {
+
+    .sidebar {
+        display: inline-block;
+    }
+
     .button-mobile {
-        display: block;
-    }
-    .menu-mobile {
-        display: flex;
+        display: none;
     }
 }
