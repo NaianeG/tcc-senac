@@ -2,6 +2,9 @@ package com.tcc.aplicacao.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.tcc.aplicacao.entities.MarcacaoPonto;
@@ -34,7 +37,7 @@ public class MarcacaoPontoService {
         return Collections.emptyList();
     }
 
-    public List<MarcacaoPonto> listaPonto(Integer idUsuario) {
-        return marcacaoPontoRepository.findByIdUsuario(idUsuario);
+    public Page<MarcacaoPonto> findAllByIdUsuario(int idUsuario, PageRequest pageRequest) {
+        return marcacaoPontoRepository.findByIdUsuario(idUsuario, pageRequest);
     }
 }

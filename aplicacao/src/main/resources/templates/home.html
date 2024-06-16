@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -7,8 +7,7 @@
     <title>Início</title>
     <link rel="icon" type="imagex/png" href="../img/jornada-de-trabalho.png">
     <link rel="stylesheet" href="http://localhost:8080/css/home.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
@@ -20,7 +19,7 @@
                     src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
                     alt="Foto_Perfil">
             </header>
-            <nav>
+            <nav aria-label="menu">
                 <button onclick="apresentarHome()" class="botao-home">
                     <span>
                         <i class="material-symbols-outlined"> home </i>
@@ -44,7 +43,9 @@
                             <span>Registro de ponto</span>
                         </span>
                     </button>
-                    <button onclick="" class="botao-lista-registros">
+                    
+                    <div id="idUsuario-data" th:attr="data-attribute=${usuario.id}"></div>
+                    <button onclick="apresentaListaPonto()" class="botao-lista-registros">
                         <span>
                             <i class="material-symbols-outlined"> list </i>
                             <span>Meus registros</span>
@@ -61,7 +62,6 @@
         </aside>
     </div>
 
-
     <div th:if="${usuario.role != 'ADMIN'}">
         <div class="container-registro-ponto-ativo" id="container-registro-ponto">
             <div class="meio">
@@ -74,8 +74,7 @@
                     </label>
 
                     <label for="data">
-                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro
-                            ponto:</span>
+                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro ponto:</span>
                     </label>
                     <input type="date" id="data" name="data" readonly></br>
 
@@ -102,12 +101,11 @@
     </div>
 
     <!--Criando menu mobile -->
-
     <button class="button-mobile" onclick="toggleMenu()">
         <i class="material-symbols-outlined"> menu </i>
     </button>
 
-    <nav class="menu-mobile" id="menu-mobile">
+    <nav class="menu-mobile" id="menu-mobile" aria-hidden="true">
         <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
             <span>
                 <i class="material-symbols-outlined"> close </i>
@@ -127,6 +125,21 @@
         </button>
     </nav>
 
+    <script>
+        function apresentaListaPonto() {
+            const idUsuario = document.getElementById("idUsuario-data").getAttribute("data-attribute");
+            window.location.href = "/ponto/listaPonto/" + idUsuario;
+        }
+
+        function toggleMenu() {
+            const menuMobile = document.getElementById("menu-mobile");
+            if (menuMobile.className === "menu-mobile-active") {
+                menuMobile.className = "menu-mobile";
+            } else {
+                menuMobile.className = "menu-mobile-active";
+            }
+        }
+    </script>
 </body>
 
 </html>
