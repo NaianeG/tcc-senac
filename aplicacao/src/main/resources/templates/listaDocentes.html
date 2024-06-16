@@ -15,16 +15,19 @@
     <main>
         <a th:href="@{/cadastroDocente}" target="_blank">Cadastrar novo docente</a>
         <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir em PDF</a>
-        <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get" class="pesquisa-docente">
-            <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
-            <button tyoe="submit" class="material-symbols-outlined"> search </button>
-    </form>
 
-    <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get" class="pesquisa-docente">
-        <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
-        <button tyoe="submit" class="material-symbols-outlined"> search </button>
-    
-</form>
+
+        <div class="pesquisa-docente">
+            <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="PDF">
+                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+            </form>
+            <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Excel">
+                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+            </form>
+        </div>
+
         <div>
             <table>
                 <thead>

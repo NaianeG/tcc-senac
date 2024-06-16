@@ -46,7 +46,8 @@ table {
 }
 
 /* Estilo das células da tabela */
-th, td {
+th,
+td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -97,4 +98,27 @@ td a:hover {
 .pesquisa-docente {
     float: right;
     margin-right: 50px;
+}
+
+.pesquisa-docente input {
+    width: 200px;
+    height: 35px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.pesquisa-docente button {
+    border: 0.5px solid;
+    font-size: 15px;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.pesquisa-docente button:hover {
+    cursor: pointer;
+    position: relative;
+    background-color: #ddd;
 }
