@@ -196,7 +196,7 @@ body {
     margin-top: 0;
 }
 
-.confirmBtn, .cancelBtn {
+.confirmBtn, .cancelBtn, .okBtn {
     background-color: #e3342b;
     color: white;
     padding: 10px 20px;
@@ -207,7 +207,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.confirmBtn:hover {
+.confirmBtn:hover, .okBtn:hover {
     background-color: #c92a1b;
 }
 
@@ -218,7 +218,6 @@ body {
 .cancelBtn:hover {
     background-color: #2980b9;
 }
-
 /* Fim da estilização do Modal */
 
 @media(width < 920px) {
@@ -282,3 +281,5 @@ body {
     }
 
 }
+
+

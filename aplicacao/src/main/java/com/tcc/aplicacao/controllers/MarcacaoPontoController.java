@@ -33,8 +33,7 @@ public class MarcacaoPontoController {
     public ModelAndView cadastroPonto(MarcacaoPonto marcacaoPonto, RedirectAttributes redirectAttributes) {
 
         ModelAndView mv = new ModelAndView("redirect:/home");
-        List<MarcacaoPonto> marcacaoList;
-        marcacaoList = marcacaoPontoService.cadastroPonto(marcacaoPonto);
+        List<MarcacaoPonto> marcacaoList = marcacaoPontoService.cadastroPonto(marcacaoPonto);
         if (marcacaoList.isEmpty()) {
             redirectAttributes.addFlashAttribute("alerta", "limiteAtingido");
         }
@@ -55,5 +54,16 @@ public class MarcacaoPontoController {
         model.addAttribute("id", id);
         model.addAttribute("size", size);
         return "listaPonto";
+    }
+
+    @GetMapping("deletarPonto/{id}")
+    public String deletarPonto(@PathVariable(name = "id") int id,
+            @RequestParam int idUsuario,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            RedirectAttributes redirectAttributes) {
+        marcacaoPontoService.deletarPonto(id);
+        redirectAttributes.addFlashAttribute("message", "Ponto deletado com sucesso");
+        return "redirect:/ponto/listaPonto/" + idUsuario + "?page=" + page + "&size=" + size;
     }
 }

@@ -37,6 +37,10 @@ public class MarcacaoPontoService {
     }
 
     public Page<MarcacaoPonto> findAllByIdUsuario(int idUsuario, PageRequest pageRequest) {
-        return marcacaoPontoRepository.findByIdUsuario(idUsuario, pageRequest);
+        return marcacaoPontoRepository.findByIdUsuarioOrderByIdDesc(idUsuario, pageRequest);
+    }
+
+    public void deletarPonto(int id) {
+        marcacaoPontoRepository.deleteById(id);
     }
 }

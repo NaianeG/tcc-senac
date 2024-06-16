@@ -9,28 +9,41 @@ function toggleMenu() {
     }
 }
 
-function confirmDelete(id) {
+function closeModal() {
+    let modal = document.getElementById("confirmModal");
+    modal.style.display = "none";
+}
+
+function confirmDelete(id, idUsuario, page, size) {
     let modal = document.getElementById('confirmModal');
     modal.style.display = 'block';
 
     let confirmBtn = document.getElementById('confirmBtn');
-    confirmBtn.onclick = function () {
-        window.location.href = `/deletarPonto/${id}`;
+    confirmBtn.onclick = function() {
+        window.location.href = `/ponto/deletarPonto/${id}?idUsuario=${idUsuario}&page=${page}&size=${size}`;
     };
 }
 
-function closeModal() {
-    let modal = document.getElementById('confirmModal');
-    modal.style.display = 'none';
+function closeSuccessModal() {
+    let modal = document.getElementById("successModal");
+    modal.style.display = "none";
 }
 
-window.onclick = function (event) {
+window.onload = function() {
+    let modal = document.getElementById("successModal");
+    if (modal) {
+        modal.style.display = "block";
+    }
+};
+
+window.onclick = function(event) {
     let modal = document.getElementById('confirmModal');
     if (event.target == modal) {
         modal.style.display = 'none';
     }
-}
 
-function logout() {
-    window.location.replace("http://localhost:8080/logout");
+    let successModal = document.getElementById('successModal');
+    if (event.target == successModal) {
+        successModal.style.display = 'none';
+    }
 }

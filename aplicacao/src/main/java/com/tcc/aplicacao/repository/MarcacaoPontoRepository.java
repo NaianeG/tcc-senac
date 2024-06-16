@@ -18,6 +18,6 @@ public interface MarcacaoPontoRepository extends JpaRepository<MarcacaoPonto, In
 
     MarcacaoPonto findByDataAndIdUsuario(Date data, int idUsuario);
 
-    Page<MarcacaoPonto> findByIdUsuario(int idUsuario, Pageable pageable);
+    Page<MarcacaoPonto> findByIdUsuarioOrderByIdDesc(int idUsuario, Pageable pageable);
 
 }
