@@ -14,7 +14,7 @@ function confirmDelete(id) {
     modal.style.display = 'block';
 
     let confirmBtn = document.getElementById('confirmBtn');
-    confirmBtn.onclick = function() {
+    confirmBtn.onclick = function () {
         window.location.href = `/deletarPonto/${id}`;
     };
 }
@@ -24,9 +24,13 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     let modal = document.getElementById('confirmModal');
     if (event.target == modal) {
         modal.style.display = 'none';
     }
+}
+
+function logout() {
+    window.location.replace("http://localhost:8080/logout");
 }
