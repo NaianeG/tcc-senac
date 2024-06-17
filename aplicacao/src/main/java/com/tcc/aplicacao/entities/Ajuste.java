@@ -1,9 +1,9 @@
 package com.tcc.aplicacao.entities;
 
-import java.sql.Date;
+import java.sql.Time;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +28,11 @@ public class Ajuste {
     private int fkIdMarcacaoPonto;
 
     // dados da tabela
-    @DateTimeFormat(iso = ISO.DATE, fallbackPatterns = { "dd.MM.yyyy" })
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
-    private String horaEntrada;
-    private String horaSaida;
+    private Time horaEntrada;
+    private Time horaSaida;
     private String justificativa;
-
+    private String arquivo;
+    private String status;
 }

@@ -43,4 +43,8 @@ public class MarcacaoPontoService {
     public void deletarPonto(int id) {
         marcacaoPontoRepository.deleteById(id);
     }
+
+    public MarcacaoPonto buscaMarcacaoPontoPorId(int id) {
+        return marcacaoPontoRepository.findById(id);
+    }
 }

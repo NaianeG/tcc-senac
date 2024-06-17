@@ -47,3 +47,7 @@ window.onclick = function(event) {
         successModal.style.display = 'none';
     }
 }
+
+function logout(){
+    window.location.replace("http://localhost:8080/logout");
+}
