@@ -8,16 +8,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.tcc.aplicacao.entities.MarcacaoPonto;
-import com.tcc.aplicacao.entities.Usuario;
 
 public interface MarcacaoPontoRepository extends JpaRepository<MarcacaoPonto, Integer> {
 
     List<MarcacaoPonto> findByIdUsuario(int idUsuario);
 
-    Usuario findById(int idUsuario);
-
     MarcacaoPonto findByDataAndIdUsuario(Date data, int idUsuario);
 
     Page<MarcacaoPonto> findByIdUsuarioOrderByIdDesc(int idUsuario, Pageable pageable);
+
+    MarcacaoPonto findById(int id);
+
+    List<Integer> findIdByIdUsuario(int idUsuario);
 
 }
