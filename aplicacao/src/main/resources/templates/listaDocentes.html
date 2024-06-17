@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista Docentes</title>
+    <title>Gerenciar Docentes</title>
     <link rel="icon" type="imagex/png" href="../img/jornada-de-trabalho.png">
     <link rel="stylesheet" href="http://localhost:8080/css/listaDocente.css" />
     <link rel="stylesheet"
@@ -14,17 +14,20 @@
 <body>
     <main>
         <a th:href="@{/cadastroDocente}" target="_blank">Cadastrar novo docente</a>
-        <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir em PDF</a>
-        <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get" class="pesquisa-docente">
-            <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
-            <button tyoe="submit" class="material-symbols-outlined"> search </button>
-    </form>
+        <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir lista em PDF</a>
 
-    <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get" class="pesquisa-docente">
-        <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquisar docente">
-        <button tyoe="submit" class="material-symbols-outlined"> search </button>
-    
-</form>
+
+        <div class="pesquisa-docente">
+            <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="PDF">
+                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+            </form>
+            <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Excel">
+                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+            </form>
+        </div>
+
         <div>
             <table>
                 <thead>

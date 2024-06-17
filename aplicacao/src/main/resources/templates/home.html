@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@
                     src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
                     alt="Foto_Perfil">
             </header>
-            <nav>
+            <nav aria-label="menu">
                 <button onclick="apresentarHome()" class="botao-home">
                     <span>
                         <i class="material-symbols-outlined"> home </i>
@@ -44,7 +44,9 @@
                             <span>Registro de ponto</span>
                         </span>
                     </button>
-                    <button onclick="" class="botao-lista-registros">
+
+                    <div id="idUsuario-data" th:attr="data-attribute=${usuario.id}"></div>
+                    <button onclick="apresentaListaPonto()" class="botao-lista-registros">
                         <span>
                             <i class="material-symbols-outlined"> list </i>
                             <span>Meus registros</span>
@@ -60,7 +62,6 @@
             </nav>
         </aside>
     </div>
-
 
     <div th:if="${usuario.role != 'ADMIN'}">
         <div class="container-registro-ponto-ativo" id="container-registro-ponto">
@@ -100,33 +101,6 @@
             </script>
         </div>
     </div>
-
-    <!--Criando menu mobile -->
-
-    <button class="button-mobile" onclick="toggleMenu()">
-        <i class="material-symbols-outlined"> menu </i>
-    </button>
-
-    <nav class="menu-mobile" id="menu-mobile">
-        <button onclick="toggleMenu()" class="button-close" id="menu-mobile">
-            <span>
-                <i class="material-symbols-outlined"> close </i>
-            </span>
-        </button>
-        <button>
-            <span>
-                <i class="material-symbols-outlined"> home </i>
-                <span class="mobile-text">Home</span>
-            </span>
-        </button>
-        <button onclick="logout()">
-            <span>
-                <i class="material-symbols-outlined"> logout </i>
-                <span class="mobile-text">Logout</span>
-            </span>
-        </button>
-    </nav>
-
 </body>
 
 </html>

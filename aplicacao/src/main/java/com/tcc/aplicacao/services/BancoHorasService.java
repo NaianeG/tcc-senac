@@ -40,7 +40,6 @@ public class BancoHorasService {
                 saldoAtual += diff;
             }
         }
-
         bancoHoras.setSaldoAtual(saldoAtual);
         bancoHoras.setSaldoNegativo(saldoAtual < bancoHoras.getSaldoMensal());
         bancoHorasRepository.save(bancoHoras);

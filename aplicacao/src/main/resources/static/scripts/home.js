@@ -43,3 +43,8 @@ function atualizarHora() {
 function logout(){
     window.location.replace("http://localhost:8080/logout");
 }
+
+function apresentaListaPonto(){
+    let idUsuario = document.getElementById("idUsuario-data").getAttribute("data-attribute");
+    window.location.replace("/ponto/listaPonto/"+idUsuario)
+}
