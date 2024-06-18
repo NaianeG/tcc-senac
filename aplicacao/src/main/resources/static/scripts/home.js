@@ -48,3 +48,7 @@ function apresentaListaPonto(){
     let idUsuario = document.getElementById("idUsuario-data").getAttribute("data-attribute");
     window.location.replace("/ponto/listaPonto/"+idUsuario)
 }
+
+function apresentarAjustesDePonto(){
+    window.location.href = "/listarAjustes";
+}

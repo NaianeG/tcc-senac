@@ -47,4 +47,8 @@ public class MarcacaoPontoService {
     public MarcacaoPonto buscaMarcacaoPontoPorId(int id) {
         return marcacaoPontoRepository.findById(id);
     }
+
+    public void salvar(MarcacaoPonto marcacaoPonto) {
+        marcacaoPontoRepository.save(marcacaoPonto);
+    }
 }

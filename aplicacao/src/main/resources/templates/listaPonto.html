@@ -68,6 +68,7 @@
             <th>Data</th>
             <th>Hora de Entrada</th>
             <th>Hora de Saída</th>
+            <th>Status do pedido</th>
             <th></th>
             <th></th>
         </tr>
@@ -77,6 +78,13 @@
             <td th:text="${#dates.format(ponto.data, 'dd/MM/yyyy')}"></td>
             <td th:text="${#dates.format(ponto.horaEntrada, 'HH:mm:ss')}"></td>
             <td th:text="${#dates.format(ponto.horaSaida, 'HH:mm:ss')}"></td>
+            <td>
+                <span th:if="${ponto.ajuste != null}">
+                    <span th:if="${ponto.ajuste.status == null}" class="material-symbols-outlined">hourglass_empty</span>
+                    <span th:if="${ponto.ajuste.status == true}" class="material-symbols-outlined">check_circle</span>
+                    <span th:if="${ponto.ajuste.status == false}" class="material-symbols-outlined">cancel</span>
+                </span>
+            </td>
             <td class="botao-excluir">
                 <button type="button" th:onclick="'confirmDelete(' + ${ponto.id} + ',' + ${usuario.id} + ',' + ${currentPage} + ',' + ${size} + ')'">Excluir</button>
             </td>
@@ -116,14 +124,4 @@
 
 <!-- Modal de Sucesso -->
 <div id="successModal" class="modal" th:if="${message}">
-    <div class="modal-content">
-        <span class="close" onclick="closeSuccessModal()">&times;</span>
-        <h2>Sucesso</h2>
-        <p th:text="${message}"></p>
-        <button class="okBtn" type="button" onclick="closeSuccessModal()">OK</button>
-    </div>
-</div>
-
-<script th:src="@{/scripts/listaPonto.js}"></script>
-</body>
-</html>
+   

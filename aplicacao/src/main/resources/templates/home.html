@@ -36,7 +36,14 @@
                             </span>
                         </button>
                     </a>
+                    <button onclick="apresentarAjustesDePonto()" class="">
+                        <span>
+                            <i class="material-symbols-outlined"> data_check </i>
+                            <span>Ajustes de Ponto</span>
+                        </span>
+                    </button>
                 </div>
+
                 <div th:if="${usuario.role != 'ADMIN'}">
                     <button onclick="apresentarRegistroDePonto()" class="botao-registro-ponto">
                         <span>

@@ -61,18 +61,18 @@
 <div class="ajuste-form">
     <h1>Pedir Ajuste</h1>
     <form th:action="@{/salvarAjuste}" th:object="${ajuste}" method="post" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{fkIdMarcacaoPonto}" />
+        <input type="hidden" th:field="*{marcacaoPonto.id}" />
         <div class="form-group">
             <label for="data">Data</label>
             <input type="date" id="data" th:field="*{data}" required />
         </div>
         <div class="form-group">
             <label for="horaEntrada">Hora de Entrada</label>
-            <input type="time" id="horaEntrada" th:field="*{horaEntrada}" required />
+            <input type="time" id="horaEntrada" name="horaEntradaStr" th:value="${#dates.format(ajuste.horaEntrada, 'HH:mm')}" required />
         </div>
         <div class="form-group">
             <label for="horaSaida">Hora de Saída</label>
-            <input type="time" id="horaSaida" th:field="*{horaSaida}" required />
+            <input type="time" id="horaSaida" name="horaSaidaStr" th:value="${#dates.format(ajuste.horaSaida, 'HH:mm')}" required />
         </div>
         <div class="form-group">
             <label for="justificativa">Justificativa</label>
@@ -80,7 +80,7 @@
         </div>
         <div class="form-group">
             <label for="arquivo">Arquivo</label>
-            <input type="file" id="arquivo" th:field="*{arquivo}" />
+            <input type="file" id="arquivoNovo" name="arquivoNovo" />
         </div>
         <button type="submit" class="btn">Enviar Ajuste</button>
     </form>

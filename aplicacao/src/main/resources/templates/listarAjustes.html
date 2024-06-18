@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Ajustes</title>
-    <link rel="stylesheet" th:href="@{/css/listaPonto.css}" />
+    <title>Listar Ajustes</title>
+    <link rel="stylesheet" th:href="@{/css/listarAjustes.css}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
@@ -58,30 +58,41 @@
     </aside>
 </div>
 
-<div class="lista-ajustes">
-    <h1>Meus Ajustes</h1>
+<div class="ajuste-list">
+    <h1>Lista de Ajustes Solicitados</h1>
     <table>
         <thead>
-            <tr>
-                <th>Data</th>
-                <th>Hora de Entrada</th>
-                <th>Hora de Saída</th>
-                <th>Justificativa</th>
-                <th>Status</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Hora Entrada</th>
+            <th>Hora Saída</th>
+            <th>Justificativa</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="ajuste : ${ajustes}">
-                <td th:text="${#dates.format(ajuste.data, 'dd/MM/yyyy')}"></td>
-                <td th:text="${#dates.format(ajuste.horaEntrada, 'HH:mm:ss')}"></td>
-                <td th:text="${#dates.format(ajuste.horaSaida, 'HH:mm:ss')}"></td>
-                <td th:text="${ajuste.justificativa}"></td>
-                <td th:text="${ajuste.status}"></td>
-            </tr>
+        <tr th:each="ajuste : ${ajustes}">
+            <td th:text="${ajuste.id}"></td>
+            <td th:text="${ajuste.data}"></td>
+            <td th:text="${ajuste.horaEntrada}"></td>
+            <td th:text="${ajuste.horaSaida}"></td>
+            <td th:text="${ajuste.justificativa}"></td>
+            <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}"></td>
+            <td>
+                <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
+                    <button type="submit">Aprovar</button>
+                </form>
+                <form th:action="@{'/rejeitarAjuste/' + ${ajuste.id}}" method="post">
+                    <button type="submit">Rejeitar</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
 
-<script th:src="@{/scripts/listaPonto.js}"></script>
+<script th:src="@{/scripts/listarAjustes.js}"></script>
 </body>
 </html>
