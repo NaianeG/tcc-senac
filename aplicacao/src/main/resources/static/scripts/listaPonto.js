@@ -1,53 +1,32 @@
-function toggleMenu() {
-    let menu = document.getElementById("menu-mobile");
-    let isHidden = menu.getAttribute("aria-hidden") === "true";
-    menu.setAttribute("aria-hidden", !isHidden);
-    if (isHidden) {
-        menu.classList.add("menu-mobile-active");
-    } else {
-        menu.classList.remove("menu-mobile-active");
-    }
-}
+function confirmDelete(pontoId, usuarioId, currentPage, size) {
+    var modal = document.getElementById("confirmModal");
+    var confirmBtn = document.getElementById("confirmBtn");
 
-function closeModal() {
-    let modal = document.getElementById("confirmModal");
-    modal.style.display = "none";
-}
+    modal.style.display = "block";
 
-function confirmDelete(id, idUsuario, page, size) {
-    let modal = document.getElementById('confirmModal');
-    modal.style.display = 'block';
-
-    let confirmBtn = document.getElementById('confirmBtn');
     confirmBtn.onclick = function() {
-        window.location.href = `/ponto/deletarPonto/${id}?idUsuario=${idUsuario}&page=${page}&size=${size}`;
+        window.location.href = "/ponto/deletarPonto/" + pontoId + "?idUsuario=" + usuarioId + "&page=" + currentPage + "&size=" + size;
     };
 }
 
-function closeSuccessModal() {
-    let modal = document.getElementById("successModal");
+function closeModal() {
+    var modal = document.getElementById("confirmModal");
     modal.style.display = "none";
 }
 
-window.onload = function() {
-    let modal = document.getElementById("successModal");
-    if (modal) {
-        modal.style.display = "block";
-    }
-};
-
-window.onclick = function(event) {
-    let modal = document.getElementById('confirmModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-
-    let successModal = document.getElementById('successModal');
-    if (event.target == successModal) {
-        successModal.style.display = 'none';
-    }
+function closeSuccessModal() {
+    var successModal = document.getElementById("successModal");
+    successModal.style.display = "none";
 }
 
-function logout(){
-    window.location.replace("http://localhost:8080/logout");
+// Fechar modal quando o usuário clica fora dele
+window.onclick = function(event) {
+    var modal = document.getElementById("confirmModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    var successModal = document.getElementById("successModal");
+    if (event.target == successModal) {
+        successModal.style.display = "none";
+    }
 }

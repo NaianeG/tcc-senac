@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,6 @@ public class MarcacaoPonto {
     private Time horaEntrada;
     private Time horaSaida;
 
-    @OneToOne(mappedBy = "marcacaoPonto")
+    @OneToOne(mappedBy = "marcacaoPonto", cascade = CascadeType.ALL)
     private Ajuste ajuste;
 }

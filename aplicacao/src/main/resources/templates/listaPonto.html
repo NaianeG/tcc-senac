@@ -124,4 +124,12 @@
 
 <!-- Modal de Sucesso -->
 <div id="successModal" class="modal" th:if="${message}">
-   
+    <div class="modal-content">
+        <span class="close" onclick="closeSuccessModal()">&times;</span>
+        <h2>Sucesso</h2>
+        <p th:text="${message}"></p>
+        <button class="okBtn" type="button" onclick="closeSuccessModal()">OK</button>
+    </div>
+</div>
+
+<script th:src="@{/scripts/listaPonto.js}"></script>
