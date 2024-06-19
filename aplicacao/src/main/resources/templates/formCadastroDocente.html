@@ -41,7 +41,7 @@
                 </label>
 
                 <label>Email:
-                    <input type="text" placeholder="Informe o email do docente" required name="email" th:value="${pessoa?.email}" />
+                    <input type="text" placeholder="Informe o email do docente" required name="email" th:value="${pessoa?.email}" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
                 </label>
 
                 <label>Horas mensais:
