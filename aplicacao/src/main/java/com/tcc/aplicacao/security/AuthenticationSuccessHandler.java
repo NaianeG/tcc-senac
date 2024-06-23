@@ -3,26 +3,20 @@ package com.tcc.aplicacao.security;
 import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class AuthentiationSuccess extends
-        SavedRequestAwareAuthenticationSuccessHandler {
+public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication) throws ServletException, IOException {
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
-        if (isAdmin) {
-            setDefaultTargetUrl("/home");
-        } else {
-            setDefaultTargetUrl("/home");
-        }
+        // Define a URL fixa para redirecionamento após login
+        setDefaultTargetUrl("/home");
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

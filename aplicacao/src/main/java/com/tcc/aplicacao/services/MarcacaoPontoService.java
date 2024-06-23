@@ -24,7 +24,6 @@ public class MarcacaoPontoService {
                 marcacaoPonto.getData(), marcacaoPonto.getIdUsuario());
         if (marcacaoPonto2 == null) {
             marcacaoPontoRepository.save(marcacaoPonto);
-            System.out.println(marcacaoPonto.getIdUsuario());
             bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario());
             return marcacaoPontoRepository.findAll();
         } else if (marcacaoPonto2.getHoraSaida() == null) {
