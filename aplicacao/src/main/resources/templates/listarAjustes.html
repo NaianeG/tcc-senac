@@ -84,13 +84,13 @@
             <tbody>
                 <tr th:each="ajuste : ${ajustes}">
                     <td th:text="${ajuste.id}"></td>
-                    <td th:text="${ajuste.data}"></td>
+                    <td th:text="${#dates.format(ajuste.data, 'dd/MM/yyyy')}"></td>
                     <td th:text="${ajuste.horaEntrada}"></td>
                     <td th:text="${ajuste.horaSaida}"></td>
                     <td th:text="${ajuste.justificativa}"></td>
                     <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
                     </td>
-                    <td>
+                    <td class="actions">
                         <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
                             <button type="submit">Aprovar</button>
                         </form>
