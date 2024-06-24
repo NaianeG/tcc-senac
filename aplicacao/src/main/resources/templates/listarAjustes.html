@@ -90,10 +90,11 @@
                     <td th:text="${ajuste.justificativa}"></td>
                     <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
                     </td>
-                    <td class="actions">
+                    <td>
                         <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
                             <button type="submit">Aprovar</button>
                         </form>
+                        <br>
                         <form th:action="@{'/rejeitarAjuste/' + ${ajuste.id}}" method="post">
                             <button type="submit">Rejeitar</button>
                         </form>
