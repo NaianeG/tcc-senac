@@ -1,135 +1,203 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Pontos</title>
     <link rel="stylesheet" th:href="@{/css/listaPonto.css}" />
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
+
 <body>
-<div>
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <img class="logo-img"
-                 src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
-                 alt="Foto_Perfil">
-        </header>
-        <nav aria-label="menu">
-            <button onclick="window.location.href='/home'" class="botao-home">
-                <span>
-                    <i class="material-symbols-outlined"> home </i>
-                    <span>Home</span>
-                </span>
-            </button>
-            <div th:if="${usuario.role != 'USER'}">
-                <a href="/listaDocentes" target="_blank" rel="noopener">
-                    <button class="botao-docentes">
+    <div>
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <img class="logo-img"
+                    src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
+                    alt="Foto_Perfil">
+            </header>
+            <nav aria-label="menu">
+                <button onclick="window.location.href='/home'" class="botao-home">
+                    <span>
+                        <i class="material-symbols-outlined"> home </i>
+                        <span>Home</span>
+                    </span>
+                </button>
+                <div th:if="${usuario.role != 'USER'}">
+                    <a href="/listaDocentes" target="_blank" rel="noopener">
+                        <button class="botao-docentes">
+                            <span>
+                                <i class="material-symbols-outlined"> person </i>
+                                <span>Gerenciar docentes</span>
+                            </span>
+                        </button>
+                    </a>
+                </div>
+                <div th:if="${usuario.role != 'ADMIN'}">
+                    <button onclick="window.location.href='/home'" class="botao-registro-ponto">
                         <span>
-                            <i class="material-symbols-outlined"> person </i>
-                            <span>Gerenciar docentes</span>
+                            <i class="material-symbols-outlined"> alarm_on </i>
+                            <span>Registro de ponto</span>
                         </span>
                     </button>
-                </a>
-            </div>
-            <div th:if="${usuario.role != 'ADMIN'}">
-                <button onclick="window.location.href='/home'" class="botao-registro-ponto">
+
+                    <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
+                    <button onclick="apresentaListaPonto()" class="botao-lista-registros">
+                        <span>
+                            <i class="material-symbols-outlined"> list </i>
+                            <span>Meus registros</span>
+                        </span>
+                    </button>
+                </div>
+                <button onclick="logout()">
                     <span>
-                        <i class="material-symbols-outlined"> alarm_on </i>
-                        <span>Registro de ponto</span>
+                        <i class="material-symbols-outlined"> logout </i>
+                        <span>Sair</span>
                     </span>
                 </button>
-
-                <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
-                <button onclick="apresentaListaPonto()" class="botao-lista-registros">
-                    <span>
-                        <i class="material-symbols-outlined"> list </i>
-                        <span>Meus registros</span>
-                    </span>
-                </button>
-            </div>
-            <button onclick="logout()">
-                <span>
-                    <i class="material-symbols-outlined"> logout </i>
-                    <span>Sair</span>
-                </span>
-            </button>
-        </nav>
-    </aside>
-</div>
-
-<div class="lista-registro-ponto">
-    <h1>Registros de Ponto</h1>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Data</th>
-            <th>Hora de Entrada</th>
-            <th>Hora de Saída</th>
-            <th>Status do pedido</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ponto : ${listaPonto.content}">
-            <td th:text="${#dates.format(ponto.data, 'dd/MM/yyyy')}"></td>
-            <td th:text="${#dates.format(ponto.horaEntrada, 'HH:mm:ss')}"></td>
-            <td th:text="${#dates.format(ponto.horaSaida, 'HH:mm:ss')}"></td>
-            <td>
-                <span th:if="${ponto.ajuste != null}">
-                    <span th:if="${ponto.ajuste.status == null}" class="material-symbols-outlined">hourglass_empty</span>
-                    <span th:if="${ponto.ajuste.status == true}" class="material-symbols-outlined">check_circle</span>
-                    <span th:if="${ponto.ajuste.status == false}" class="material-symbols-outlined">cancel</span>
-                </span>
-            </td>
-            <td class="botao-excluir">
-                <button type="button" th:onclick="'confirmDelete(' + ${ponto.id} + ',' + ${usuario.id} + ',' + ${currentPage} + ',' + ${size} + ')'">Excluir</button>
-            </td>
-            <td class="botao-editar">
-                <a th:href="@{'/pedirAjuste/' + ${ponto.id}}">Editar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="pagination" th:if="${totalPages > 1}">
-    <ul>
-        <li th:if="${currentPage > 0}">
-            <a th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${currentPage - 1} + '&size=' + ${size}}">Anterior</a>
-        </li>
-        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-            <a th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${i} + '&size=' + ${size}}"
-               th:text="${i + 1}" th:classappend="${i == currentPage} ? 'active' : ''"></a>
-        </li>
-        <li th:if="${currentPage < totalPages - 1}">
-            <a th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${currentPage + 1} + '&size=' + ${size}}">Próxima</a>
-        </li>
-    </ul>
-</div>
-
-<!-- Modal de Confirmação -->
-<div id="confirmModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Confirmar Exclusão</h2>
-        <p>Tem certeza de que deseja excluir este ponto?</p>
-        <button id="confirmBtn" class="confirmBtn">Confirmar</button>
-        <button class="cancelBtn" type="button" onclick="closeModal()">Cancelar</button>
+            </nav>
+        </aside>
     </div>
-</div>
 
-<!-- Modal de Sucesso -->
-<div id="successModal" class="modal" th:if="${message}">
-    <div class="modal-content">
-        <span class="close" onclick="closeSuccessModal()">&times;</span>
-        <h2>Sucesso</h2>
-        <p th:text="${message}"></p>
-        <button class="okBtn" type="button" onclick="closeSuccessModal()">OK</button>
+    <div class="lista-registro-ponto">
+        <h1>Registros de Ponto</h1></br>
+        <div class="status">
+            <h4>Legenda de status do pedido:</h4></br>
+            <span>Aceito - <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                    viewBox="0 0 48 48">
+                    <path fill="#c8e6c9" d="M44,24c0,11-9,20-20,20S4,35,4,24S13,4,24,4S44,13,44,24z"></path>
+                    <polyline fill="none" stroke="#4caf50" stroke-miterlimit="10" stroke-width="4"
+                        points="14,24 21,31 36,16"></polyline>
+                </svg></span>
+            <span>Rejeitado - <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                    viewBox="0 0 48 48">
+                    <linearGradient id="wRKXFJsqHCxLE9yyOYHkza_fYgQxDaH069W_gr1" x1="9.858" x2="38.142" y1="9.858"
+                        y2="38.142" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#f44f5a"></stop>
+                        <stop offset=".443" stop-color="#ee3d4a"></stop>
+                        <stop offset="1" stop-color="#e52030"></stop>
+                    </linearGradient>
+                    <path fill="url(#wRKXFJsqHCxLE9yyOYHkza_fYgQxDaH069W_gr1)"
+                        d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path>
+                    <path
+                        d="M33.192,28.95L28.243,24l4.95-4.95c0.781-0.781,0.781-2.047,0-2.828l-1.414-1.414	c-0.781-0.781-2.047-0.781-2.828,0L24,19.757l-4.95-4.95c-0.781-0.781-2.047-0.781-2.828,0l-1.414,1.414	c-0.781,0.781-0.781,2.047,0,2.828l4.95,4.95l-4.95,4.95c-0.781,0.781-0.781,2.047,0,2.828l1.414,1.414	c0.781,0.781,2.047,0.781,2.828,0l4.95-4.95l4.95,4.95c0.781,0.781,2.047,0.781,2.828,0l1.414-1.414	C33.973,30.997,33.973,29.731,33.192,28.95z"
+                        opacity=".05"></path>
+                    <path
+                        d="M32.839,29.303L27.536,24l5.303-5.303c0.586-0.586,0.586-1.536,0-2.121l-1.414-1.414	c-0.586-0.586-1.536-0.586-2.121,0L24,20.464l-5.303-5.303c-0.586-0.586-1.536-0.586-2.121,0l-1.414,1.414	c-0.586,0.586-0.586,1.536,0,2.121L20.464,24l-5.303,5.303c-0.586,0.586-0.586,1.536,0,2.121l1.414,1.414	c0.586,0.586,1.536,0.586,2.121,0L24,27.536l5.303,5.303c0.586,0.586,1.536,0.586,2.121,0l1.414-1.414	C33.425,30.839,33.425,29.889,32.839,29.303z"
+                        opacity=".07"></path>
+                    <path fill="#fff"
+                        d="M31.071,15.515l1.414,1.414c0.391,0.391,0.391,1.024,0,1.414L18.343,32.485	c-0.391,0.391-1.024,0.391-1.414,0l-1.414-1.414c-0.391-0.391-0.391-1.024,0-1.414l14.142-14.142	C30.047,15.124,30.681,15.124,31.071,15.515z">
+                    </path>
+                    <path fill="#fff"
+                        d="M32.485,31.071l-1.414,1.414c-0.391,0.391-1.024,0.391-1.414,0L15.515,18.343	c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414c0.391-0.391,1.024-0.391,1.414,0l14.142,14.142	C32.876,30.047,32.876,30.681,32.485,31.071z">
+                    </path>
+                </svg></span>
+            <span>Pendente - <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
+                    viewBox="0 0 48 48">
+                    <linearGradient id="Z3eIuf5QY2EetuA~FfDd6a_VQOfeAx5KWTK_gr1" x1="9.899" x2="38.183" y1="9.98"
+                        y2="38.264" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#33bef0"></stop>
+                        <stop offset="1" stop-color="#0a85d9"></stop>
+                    </linearGradient>
+                    <path fill="url(#Z3eIuf5QY2EetuA~FfDd6a_VQOfeAx5KWTK_gr1)"
+                        d="M44.041,24.122c0,11.045-8.955,20-20,20s-20-8.955-20-20s8.955-20,20-20	S44.041,13.077,44.041,24.122z">
+                    </path>
+                    <path
+                        d="M22,36h4c0.552,0,1-0.448,1-1V20c0-0.552-0.448-1-1-1h-4c-0.552,0-1,0.448-1,1v15	C21,35.552,21.448,36,22,36z"
+                        opacity=".05"></path>
+                    <path
+                        d="M22.227,35.5h3.547c0.401,0,0.727-0.325,0.727-0.727V20.227c0-0.401-0.325-0.727-0.727-0.727h-3.547	c-0.401,0-0.727,0.325-0.727,0.727v14.547C21.5,35.175,21.825,35.5,22.227,35.5z"
+                        opacity=".07"></path>
+                    <radialGradient id="Z3eIuf5QY2EetuA~FfDd6b_VQOfeAx5KWTK_gr2" cx="24" cy="16" r="5.108"
+                        gradientTransform="matrix(.7808 0 0 .7066 5.26 4.096)" gradientUnits="userSpaceOnUse">
+                        <stop offset=".516"></stop>
+                        <stop offset="1" stop-opacity="0"></stop>
+                    </radialGradient>
+                    <ellipse cx="24" cy="15.402" fill="url(#Z3eIuf5QY2EetuA~FfDd6b_VQOfeAx5KWTK_gr2)" opacity=".15"
+                        rx="3.988" ry="3.609"></ellipse>
+                    <path fill="#fff"
+                        d="M24,17.732c1.7,0,2.65-1.068,2.65-2.388C26.65,14.024,25.647,13,24,13s-2.65,1.024-2.65,2.344	C21.35,16.664,22.3,17.732,24,17.732z">
+                    </path>
+                    <rect width="4" height="15" x="22" y="20" fill="#fff"></rect>
+                </svg></span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Hora de Entrada</th>
+                    <th>Hora de Saída</th>
+                    <th>Status do pedido</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ponto : ${listaPonto.content}">
+                    <td th:text="${#dates.format(ponto.data, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#dates.format(ponto.horaEntrada, 'HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(ponto.horaSaida, 'HH:mm:ss')}"></td>
+                    <td>
+                        <span th:if="${ponto.ajuste != null}">
+                            <span th:if="${ponto.ajuste.status == null}"
+                                class="material-symbols-outlined">hourglass_empty</span>
+                            <span th:if="${ponto.ajuste.status == true}"
+                                class="material-symbols-outlined">check_circle</span>
+                            <span th:if="${ponto.ajuste.status == false}"
+                                class="material-symbols-outlined">cancel</span>
+                        </span>
+                    </td>
+                    <td class="botao-excluir">
+                        <button type="button"
+                            th:onclick="'confirmDelete(' + ${ponto.id} + ',' + ${usuario.id} + ',' + ${currentPage} + ',' + ${size} + ')'">Excluir</button>
+                    </td>
+                    <td class="botao-editar">
+                        <a th:href="@{'/pedirAjuste/' + ${ponto.id}}">Editar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
 
-<script th:src="@{/scripts/listaPonto.js}"></script>
+    <div class="pagination" th:if="${totalPages > 1}">
+        <ul>
+            <li th:if="${currentPage > 0}">
+                <a
+                    th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${currentPage - 1} + '&size=' + ${size}}">Anterior</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${i} + '&size=' + ${size}}" th:text="${i + 1}"
+                    th:classappend="${i == currentPage} ? 'active' : ''"></a>
+            </li>
+            <li th:if="${currentPage < totalPages - 1}">
+                <a
+                    th:href="@{'/ponto/listaPonto/' + ${id} + '?page=' + ${currentPage + 1} + '&size=' + ${size}}">Próxima</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Confirmar Exclusão</h2>
+            <p>Tem certeza de que deseja excluir este ponto?</p>
+            <button id="confirmBtn" class="confirmBtn">Confirmar</button>
+            <button class="cancelBtn" type="button" onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="successModal" class="modal" th:if="${message}">
+        <div class="modal-content">
+            <span class="close" onclick="closeSuccessModal()">&times;</span>
+            <h2>Sucesso</h2>
+            <p th:text="${message}"></p>
+            <button class="okBtn" type="button" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+
+    <script th:src="@{/scripts/listaPonto.js}"></script>
