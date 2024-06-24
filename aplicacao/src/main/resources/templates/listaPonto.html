@@ -20,12 +20,6 @@
                     alt="Foto_Perfil">
             </header>
             <nav aria-label="menu">
-                <button onclick="window.location.href='/home'" class="botao-home">
-                    <span>
-                        <i class="material-symbols-outlined"> home </i>
-                        <span>Home</span>
-                    </span>
-                </button>
                 <div th:if="${usuario.role != 'USER'}">
                     <a href="/listaDocentes" target="_blank" rel="noopener">
                         <button class="botao-docentes">
@@ -202,6 +196,7 @@
     </div>
 
     <script th:src="@{/scripts/listaPonto.js}"></script>
-    
+
 </body>
+
 </html>

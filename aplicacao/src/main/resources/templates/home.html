@@ -20,13 +20,16 @@
                     src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
                     alt="Foto_Perfil">
             </header>
+
             <nav aria-label="menu">
-                <button onclick="apresentarHome()" class="botao-home">
-                    <span>
-                        <i class="material-symbols-outlined"> home </i>
-                        <span>Home</span>
-                    </span>
-                </button>
+                <div th:if="${usuario.role != 'USER'}">
+                    <button onclick="apresentarHome()" class="botao-home">
+                        <span>
+                            <i class="material-symbols-outlined"> home </i>
+                            <span>Home</span>
+                        </span>
+                    </button>
+                </div>
                 <div th:if="${usuario.role != 'USER'}">
                     <a href="listaDocentes" target="_blank" rel="noopener">
                         <button class="botao-docentes">

@@ -1,21 +1,9 @@
-function toggleMenu() {    
-    const menuMobile = document.getElementById("menu-mobile")
-
-    if(menuMobile.className === "menu-mobile-active") {
-        menuMobile.className = "menu-mobile"
-    } else {
-        menuMobile.className = "menu-mobile-active"
-    }
-}
-
 function apresentarRegistroDePonto(){
     const menuPonto = document.getElementById("container-registro-ponto")
 
     if (menuPonto.className === "container-registro-ponto"){
         menuPonto.className = "container-registro-ponto-ativo"
-    } else {
-        menuPonto.className = "container-registro-ponto"
-    }
+    } 
 }
 
 function preencherDataAtual() {
