@@ -74,10 +74,17 @@ form [type="submit"]:hover {
  
     .login {
         width: 300px;
-        margin: -45px;
+        margin: -35px;
     } 
+
+    .login input {
+        font-size: 15px;
+        height: 30px;
+        padding: 8px;
+    }
+
     .icone-login {
-        height: 200px;
+        height: 150px;
     }
 }
 
