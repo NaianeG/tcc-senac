@@ -232,7 +232,7 @@ body {
 }
 /* Fim da estilização do Modal */
 
-@media(width < 920px) {
+@media(width <= 480px) {
 
     .sidebar {
         width: 72px;
@@ -246,21 +246,22 @@ body {
         opacity: 0;
         visibility: hidden;
     }
-}
-
-@media(width <= 480px) {
 
     .sidebar {
         display: inline-block;
     }
 
     .lista-registro-ponto {
-        width: 80%;
+        width: 70%;
         margin-left: 80px;
+    }
+
+    .lista-registro-ponto .status {
+        font-size: 10px;
     }
     
     .lista-registro-ponto table {
-        width: 100%;
+        width: 80%;
         text-align: center;
         margin-top: 20px;
         align-items: center;
