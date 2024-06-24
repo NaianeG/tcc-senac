@@ -198,9 +198,9 @@ body {
     }
 
     .container-registro-ponto-ativo .meio {
-        margin: 70px 0px 0px 85px;
-        max-width: 280px;
-        height: 500px;
+        margin: 80px 30px 0px 85px;
+        width: 75%;
+        height: 550px;
         padding: 10px;
     }
 

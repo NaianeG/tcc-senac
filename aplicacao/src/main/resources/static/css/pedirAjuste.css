@@ -128,9 +128,6 @@ body {
 
 
 
-
-
-
 /* Estilização do formulário de ajuste */
 .ajuste-form {
     margin-left: 260px;
@@ -193,4 +190,16 @@ body {
 
 .btn:hover {
     background-color: #2980b9;
+}
+
+@media (max-width: 480px) {
+    .ajuste-form {
+        margin-left: 85px;
+        margin-top: 80px;
+        width: 75%;
+    }
+
+    .ajuste-form h1 {
+        font-size: 20px;
+    }
 }
