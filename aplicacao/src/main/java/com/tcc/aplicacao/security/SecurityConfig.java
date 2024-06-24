@@ -26,7 +26,7 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico",
-                            "/img/*")
+                            "/img/*", "/montandoGrafico")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
@@ -41,7 +41,7 @@ public class SecurityConfig {
                 })
                 .formLogin(httpFormLogin -> {
                     httpFormLogin.loginPage("/login").permitAll();
-                    httpFormLogin.successHandler(new AuthentiationSuccess()).permitAll();
+                    httpFormLogin.successHandler(authenticationSuccessHandler()).permitAll();
                 })
                 .logout(logout -> {
                     logout.logoutUrl("/logout");
@@ -56,6 +56,11 @@ public class SecurityConfig {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new AuthenticationSuccessHandler();
     }
 
     @Bean

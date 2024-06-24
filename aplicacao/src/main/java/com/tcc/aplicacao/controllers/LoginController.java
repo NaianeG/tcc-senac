@@ -18,6 +18,11 @@ public class LoginController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @GetMapping("/")
+    public String voltaHome() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public ModelAndView home(@AuthenticationPrincipal User user) {
         ModelAndView mv = new ModelAndView("home");
