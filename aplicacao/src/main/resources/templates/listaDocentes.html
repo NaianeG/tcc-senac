@@ -19,11 +19,11 @@
 
         <div class="pesquisa-docente">
             <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get">
-                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="PDF">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquise por nome - PDF">
                 <button tyoe="submit" class="material-symbols-outlined"> download </button>
             </form>
             <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get">
-                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Excel">
+                <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquise por nome - EXCEL">
                 <button tyoe="submit" class="material-symbols-outlined"> download </button>
             </form>
         </div>
@@ -44,14 +44,16 @@
                 </thead>
                 <tbody>
                     <tr data-th-each="pessoa: ${pessoas}">
-                        <td data-th-text="${pessoa.nomeCompleto}"></td>
-                        <td data-th-text="${pessoa.cpf}"></td>
-                        <td data-th-text="${pessoa.telefone}"></td>
-                        <td data-th-text="${pessoa.email}"></td>
-                        <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
-                        <td data-th-text="${pessoa.horasMensais}"></td>
-                        <td class="botao-excluir"><a th:href="@{'/deletarDocente/'+ ${pessoa.id}}">Excluir</a></td>
-                        <td class="botao-editar"><a th:href="@{'/editarDocente/'+ ${pessoa.id}}">Editar</a></td>
+                        <div th:if="${pessoa.horasMensais != 0}">
+                            <td data-th-text="${pessoa.nomeCompleto}"></td>
+                            <td data-th-text="${pessoa.cpf}"></td>
+                            <td data-th-text="${pessoa.telefone}"></td>
+                            <td data-th-text="${pessoa.email}"></td>
+                            <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
+                            <td data-th-text="${pessoa.horasMensais}"></td>
+                            <td class="botao-excluir"><a th:href="@{'/deletarDocente/'+ ${pessoa.id}}">Excluir</a></td>
+                            <td class="botao-editar"><a th:href="@{'/editarDocente/'+ ${pessoa.id}}">Editar</a></td>
+                        <div>
                     </tr>
                 </tbody>
             </table>

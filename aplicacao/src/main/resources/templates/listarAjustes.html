@@ -1,98 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Ajustes</title>
     <link rel="stylesheet" th:href="@{/css/listarAjustes.css}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
+
 <body>
-<div>
-    <aside class="sidebar">
-        <header class="sidebar-header">
-            <img class="logo-img"
-                 src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
-                 alt="Foto_Perfil">
-        </header>
-        <nav aria-label="menu">
-            <button onclick="window.location.href='/home'" class="botao-home">
-                <span>
-                    <i class="material-symbols-outlined"> home </i>
-                    <span>Home</span>
-                </span>
-            </button>
-            <div th:if="${usuario.role != 'USER'}">
-                <a href="/listaDocentes" target="_blank" rel="noopener">
-                    <button class="botao-docentes">
+    <div>
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <img class="logo-img"
+                    src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
+                    alt="Foto_Perfil">
+            </header>
+            <nav aria-label="menu">
+                <button onclick="window.location.href='/home'" class="botao-home">
+                    <span>
+                        <i class="material-symbols-outlined"> home </i>
+                        <span>Home</span>
+                    </span>
+                </button>
+                <div th:if="${usuario.role != 'USER'}">
+                    <a href="/listaDocentes" target="_blank" rel="noopener">
+                        <button class="botao-docentes">
+                            <span>
+                                <i class="material-symbols-outlined"> person </i>
+                                <span>Gerenciar docentes</span>
+                            </span>
+                        </button>
+                    </a>
+                </div>
+                <button>
+                    <span>
+                        <i class="material-symbols-outlined"> data_check </i>
+                        <span>Ajustes de Ponto</span>
+                    </span>
+                </button>
+                <div th:if="${usuario.role != 'ADMIN'}">
+                    <button onclick="window.location.href='/home'" class="botao-registro-ponto">
                         <span>
-                            <i class="material-symbols-outlined"> person </i>
-                            <span>Gerenciar docentes</span>
+                            <i class="material-symbols-outlined"> alarm_on </i>
+                            <span>Registro de ponto</span>
                         </span>
                     </button>
-                </a>
-            </div>
-            <div th:if="${usuario.role != 'ADMIN'}">
-                <button onclick="window.location.href='/home'" class="botao-registro-ponto">
+
+                    <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
+                    <button onclick="apresentaListaPonto()" class="botao-lista-registros">
+                        <span>
+                            <i class="material-symbols-outlined"> list </i>
+                            <span>Meus registros</span>
+                        </span>
+                    </button>
+                </div>
+                <button onclick="logout()">
                     <span>
-                        <i class="material-symbols-outlined"> alarm_on </i>
-                        <span>Registro de ponto</span>
+                        <i class="material-symbols-outlined"> logout </i>
+                        <span>Sair</span>
                     </span>
                 </button>
+            </nav>
+        </aside>
+    </div>
 
-                <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
-                <button onclick="apresentaListaPonto()" class="botao-lista-registros">
-                    <span>
-                        <i class="material-symbols-outlined"> list </i>
-                        <span>Meus registros</span>
-                    </span>
-                </button>
-            </div>
-            <button onclick="logout()">
-                <span>
-                    <i class="material-symbols-outlined"> logout </i>
-                    <span>Sair</span>
-                </span>
-            </button>
-        </nav>
-    </aside>
-</div>
+    <div class="ajuste-list">
+        <h1>Lista de Ajustes Solicitados</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Hora Entrada</th>
+                    <th>Hora Saída</th>
+                    <th>Justificativa</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ajuste : ${ajustes}">
+                    <td th:text="${ajuste.id}"></td>
+                    <td th:text="${ajuste.data}"></td>
+                    <td th:text="${ajuste.horaEntrada}"></td>
+                    <td th:text="${ajuste.horaSaida}"></td>
+                    <td th:text="${ajuste.justificativa}"></td>
+                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
+                    </td>
+                    <td>
+                        <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
+                            <button type="submit">Aprovar</button>
+                        </form>
+                        <form th:action="@{'/rejeitarAjuste/' + ${ajuste.id}}" method="post">
+                            <button type="submit">Rejeitar</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div class="ajuste-list">
-    <h1>Lista de Ajustes Solicitados</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Data</th>
-            <th>Hora Entrada</th>
-            <th>Hora Saída</th>
-            <th>Justificativa</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ajuste : ${ajustes}">
-            <td th:text="${ajuste.id}"></td>
-            <td th:text="${ajuste.data}"></td>
-            <td th:text="${ajuste.horaEntrada}"></td>
-            <td th:text="${ajuste.horaSaida}"></td>
-            <td th:text="${ajuste.justificativa}"></td>
-            <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}"></td>
-            <td>
-                <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
-                    <button type="submit">Aprovar</button>
-                </form>
-                <form th:action="@{'/rejeitarAjuste/' + ${ajuste.id}}" method="post">
-                    <button type="submit">Rejeitar</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<script th:src="@{/scripts/listarAjustes.js}"></script>
+    <script th:src="@{/scripts/listarAjustes.js}"></script>
 </body>
+
 </html>

@@ -110,6 +110,19 @@ body {
     padding: 10px;
 }
 
+.lista-registro-ponto h4 {
+    text-align: center;
+    background-color: #2F3336;
+    padding: 10px;
+}
+
+.lista-registro-ponto .status {
+    font-size: 15px;
+    padding: 10px;
+    text-align: center;
+    background-color: #2F3336;
+}
+
 .lista-registro-ponto table thead th {
     padding: 10px 15px;
     text-align: center;
@@ -150,7 +163,7 @@ body {
 }
 
 .pagination {
-    display: none;
+    display: flex;
 }
 
 /* Estilização do Modal */

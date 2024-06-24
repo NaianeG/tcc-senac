@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedir Ajuste</title>
+    <title>Ajuste de ponto</title>
     <link rel="stylesheet" th:href="@{/css/pedirAjuste.css}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
@@ -59,7 +59,7 @@
 </div>
 
 <div class="ajuste-form">
-    <h1>Pedir Ajuste</h1>
+    <h1>Solicitar Ajuste</h1>
     <form th:action="@{/salvarAjuste}" th:object="${ajuste}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{marcacaoPonto.id}" />
         <div class="form-group">
