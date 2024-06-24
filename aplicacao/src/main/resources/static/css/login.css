@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5vh;
+    margin-top: 8vh;
 }
 
 .login {
@@ -23,7 +23,6 @@ body {
     width: 400px;
     padding: 25px;
     border-radius: 20px;
-    margin: -60px;
 }
 
 .login form {
@@ -65,8 +64,7 @@ form [type="submit"]:hover {
 }
 
 .icone-login {
-    height: 250px;
-    padding: 15px;
+    height: 200px;
 }
 
 
@@ -74,7 +72,6 @@ form [type="submit"]:hover {
  
     .login {
         width: 300px;
-        margin: -35px;
     } 
 
     .login input {
@@ -84,7 +81,7 @@ form [type="submit"]:hover {
     }
 
     .icone-login {
-        height: 150px;
+        height: 170px;
     }
 }
 
