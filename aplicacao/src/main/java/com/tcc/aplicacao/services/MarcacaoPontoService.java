@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 @Service
@@ -49,5 +50,9 @@ public class MarcacaoPontoService {
 
     public void salvar(MarcacaoPonto marcacaoPonto) {
         marcacaoPontoRepository.save(marcacaoPonto);
+    }
+
+    public List<MarcacaoPonto> getListaPontoDocente() {
+        return marcacaoPontoRepository.findAll();
     }
 }

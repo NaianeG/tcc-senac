@@ -4,34 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Registros de Pontos</title>
-    <link rel="stylesheet" href="../css/montandoGrafico.css">
+    <link rel="stylesheet" href="http://localhost:8080/../css/montandoGrafico.css">
 </head>
 <body>
     <h1>Dashboard de Registros de Pontos</h1>
 
     <div class="dashboard">
         <div class="chart-container">
+            <select id="lineChartSelect" class="docente-select"></select>
             <canvas id="lineChart"></canvas>
         </div>
-
         <div class="chart-container">
-            <canvas id="barChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <canvas id="pieChart"></canvas>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="hoursComparisonChart"></canvas>
-        </div>
-
-        <div class="chart-container">
-            <canvas id="bankHoursChart"></canvas>
+            <select id="adjustmentChartSelect" class="docente-select"></select>
+            <canvas id="adjustmentChart"></canvas>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../scripts/montandoGrafico.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="http://localhost:8080/../scripts/montandoGrafico.js"></script>
 </body>
 </html>
