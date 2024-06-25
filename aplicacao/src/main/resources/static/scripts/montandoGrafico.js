@@ -12,7 +12,7 @@ async function fetchData() {
 
 function populateSelect(selectId, docentes, includeAllOption = false) {
     const select = document.getElementById(selectId);
-    select.innerHTML = '';  // Clear previous options
+    select.innerHTML = '';  // limpando opções previas
     if (includeAllOption) {
         const allOption = document.createElement('option');
         allOption.value = 'all';
@@ -37,9 +37,34 @@ function groupDataByMonth(marcacoes) {
         }
         groupedData[month] += 1;
     });
+
+    const monthsInRange = getMonthsInRange(marcacoes);
+    monthsInRange.forEach(month => {
+        if (!groupedData[month]) {
+            groupedData[month] = 0;
+        }
+    });
+
     return Object.keys(groupedData)
         .sort((a, b) => new Date(a) - new Date(b))
         .map(month => ({ x: new Date(month), y: groupedData[month] }));
+}
+
+function getMonthsInRange(marcacoes) {
+    const dates = marcacoes.map(m => new Date(m.data));
+    const minDate = new Date(Math.min.apply(null, dates));
+    const maxDate = new Date(Math.max.apply(null, dates));
+
+    const months = [];
+    const current = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+
+    while (current <= maxDate) {
+        const month = current.getFullYear() + '-' + (current.getMonth() + 1).toString().padStart(2, '0');
+        months.push(month);
+        current.setMonth(current.getMonth() + 1);
+    }
+
+    return months;
 }
 
 function groupAjustesByStatus(ajustes) {
@@ -68,22 +93,10 @@ function convertMillisecondsToHoursAndMinutes(ms) {
 }
 
 function groupBankHoursData(bancoHoras) {
-    if (bancoHoras.length > 0) {
-        const bh = bancoHoras[0];
-        const saldoTotalHoras = bh.saldoMensal;
-        const saldoAtualHoras = bh.saldoAtual / 3600000; // Convertendo milissegundos para horas
-        const saldoRestanteHoras = saldoTotalHoras - saldoAtualHoras;
-
-        return {
-            labels: ['Saldo Atual', 'Saldo Restante'],
-            data: [saldoAtualHoras, saldoRestanteHoras]
-        };
-    }
-    return {
-        labels: ['Saldo Atual', 'Saldo Restante'],
-        data: [0, 1],
-        message: 'Usuário não possui banco de horas'
-    };
+    return bancoHoras.map(bh => {
+        const saldoRestante = bh.saldoMensal - (bh.saldoAtual / 3600000); // Convertendo milissegundos para horas
+        return [bh.saldoAtual / 3600000, saldoRestante > 0 ? saldoRestante : 0]; // Convertendo milissegundos para horas
+    });
 }
 
 function groupHoursWorkedByWeek(marcacoes) {
@@ -128,23 +141,7 @@ function updateChart(chart, data, xLabelCallback = null) {
 }
 
 function updatePieChart(chart, data) {
-    if (data.message) {
-        // Display message if user has no bank hours
-        chart.data.labels = [];
-        chart.data.datasets[0].data = [];
-        const bankHoursMessage = document.getElementById('bankHoursMessage');
-        if (bankHoursMessage) {
-            bankHoursMessage.innerText = data.message;
-        }
-    } else {
-        // Display pie chart if user has bank hours
-        chart.data.labels = data.labels;
-        chart.data.datasets[0].data = data.data;
-        const bankHoursMessage = document.getElementById('bankHoursMessage');
-        if (bankHoursMessage) {
-            bankHoursMessage.innerText = '';
-        }
-    }
+    chart.data.datasets[0].data = data[0];
     chart.update();
 }
 
@@ -275,18 +272,18 @@ async function initialize() {
                 maintainAspectRatio: false,
                 layout: {
                     padding: {
-                        left: 20,
-                        right: 20,
-                        top: 10,
-                        bottom: 30
+                        left: 1,
+                        right: 1,
+                        top: 1,
+                        bottom: 1
                     }
                 },
                 plugins: {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                const value = tooltipItem.raw;
-                                const { hours, minutes } = convertMillisecondsToHoursAndMinutes(value * 3600000);
+                                const value = tooltipItem.raw * 3600000;
+                                const { hours, minutes } = convertMillisecondsToHoursAndMinutes(value);
                                 return `${hours}h ${minutes}m`;
                             }
                         }
@@ -348,7 +345,14 @@ async function initialize() {
         document.getElementById('bankHoursChartSelect').addEventListener('change', (event) => {
             const selectedDocente = event.target.value;
             const data = getBankHoursDataForDocente(docentes, selectedDocente);
-            updatePieChart(bankHoursChart, data);
+            if (data.length === 0 || data[0][1] <= 0) {
+                document.getElementById('bankHoursChart').style.display = 'none';
+                document.getElementById('noBankHoursMessage').style.display = 'block';
+            } else {
+                document.getElementById('bankHoursChart').style.display = 'block';
+                document.getElementById('noBankHoursMessage').style.display = 'none';
+                updatePieChart(bankHoursChart, data);
+            }
         });
 
         document.getElementById('hoursWorkedChartSelect').addEventListener('change', (event) => {
@@ -364,7 +368,14 @@ async function initialize() {
         // Renderizar gráfico de banco de horas para o primeiro usuário da lista
         const firstDocenteName = docentes[0][0];
         const bankHoursData = getBankHoursDataForDocente(docentes, firstDocenteName);
-        updatePieChart(bankHoursChart, bankHoursData);
+        if (bankHoursData.length === 0 || bankHoursData[0][1] <= 0) {
+            document.getElementById('bankHoursChart').style.display = 'none';
+            document.getElementById('noBankHoursMessage').style.display = 'block';
+        } else {
+            document.getElementById('bankHoursChart').style.display = 'block';
+            document.getElementById('noBankHoursMessage').style.display = 'none';
+            updatePieChart(bankHoursChart, bankHoursData);
+        }
         document.getElementById('bankHoursChartSelect').value = firstDocenteName;
     } else {
         console.error('Dados dos docentes não foram carregados corretamente:', docentes);
