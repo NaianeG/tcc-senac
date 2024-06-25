@@ -13,15 +13,6 @@ async function fetchData() {
 function populateSelects(docentes) {
     const selects = document.querySelectorAll('.docente-select');
     selects.forEach(select => {
-        // Remover opções anteriores para evitar duplicação
-        select.innerHTML = '';
-
-        // Adicionar a opção "Todos os Usuários" uma vez
-        const allOption = document.createElement('option');
-        allOption.value = 'all';
-        allOption.text = 'Todos os Usuários';
-        select.appendChild(allOption);
-
         docentes.forEach(docente => {
             const option = document.createElement('option');
             option.value = docente[0];
@@ -41,75 +32,45 @@ function groupDataByMonth(marcacoes) {
         }
         groupedData[month] += 1;
     });
-
-    // Ordenar os dados por data
-    const sortedData = Object.keys(groupedData)
+    // Ordenar os dados por mês
+    return Object.keys(groupedData)
         .sort((a, b) => new Date(a) - new Date(b))
         .map(month => ({ x: new Date(month), y: groupedData[month] }));
-        
-    return sortedData;
 }
 
-function getDataForDocente(docentes, docenteName) {
-    if (docenteName === 'all') {
-        const allMarcacoes = docentes.flatMap(d => d[1]);
-        return groupDataByMonth(allMarcacoes);
-    } else {
-        const docente = docentes.find(d => d[0] === docenteName);
-        const marcacoes = docente ? docente[1] : [];
-        return groupDataByMonth(marcacoes);
-    }
-}
-
-function groupAdjustmentsByStatus(ajustes) {
-    const statusCounts = { pendentes: 0, aprovados: 0, rejeitados: 0 };
+function groupAjustesByStatus(ajustes) {
+    const statusCounts = {
+        pendentes: 0,
+        aprovados: 0,
+        rejeitados: 0
+    };
     ajustes.forEach(a => {
         if (a.status === null) {
-            statusCounts.pendentes++;
+            statusCounts.pendentes += 1;
         } else if (a.status === true) {
-            statusCounts.aprovados++;
-        } else {
-            statusCounts.rejeitados++;
+            statusCounts.aprovados += 1;
+        } else if (a.status === false) {
+            statusCounts.rejeitados += 1;
         }
     });
     return [statusCounts.pendentes, statusCounts.aprovados, statusCounts.rejeitados];
 }
 
-function getAdjustmentsData(docentes, docenteName) {
-    if (docenteName === 'all') {
-        const allAjustes = docentes.flatMap(d => d[2]);
-        return groupAdjustmentsByStatus(allAjustes);
-    } else {
-        const docente = docentes.find(d => d[0] === docenteName);
-        const ajustes = docente ? docente[2] : [];
-        return groupAdjustmentsByStatus(ajustes);
-    }
+function convertMillisecondsToHours(ms) {
+    const totalHours = ms / 1000 / 60 / 60;
+    const hours = Math.floor(totalHours);
+    const minutes = Math.floor((totalHours % 1) * 60);
+    return `${hours}h ${minutes}m`;
 }
 
 function groupBankHoursData(bancoHoras) {
-    return bancoHoras.map(entry => ({
-        x: new Date(entry.data),
-        y: entry.saldoAtual
+    return bancoHoras.map(bh => ({
+        x: new Date(), // Aqui você pode ajustar para o período correto se necessário
+        y: bh.saldoAtual / 1000 / 60 / 60 // Convertendo milissegundos para horas
     }));
 }
 
-function getBankHoursData(docentes, docenteName) {
-    if (docenteName === 'all') {
-        const allBankHours = docentes.flatMap(d => d[3]);
-        return groupBankHoursData(allBankHours);
-    } else {
-        const docente = docentes.find(d => d[0] === docenteName);
-        const bankHours = docente ? docente[3] : [];
-        return groupBankHoursData(bankHours);
-    }
-}
-
 function updateChart(chart, data) {
-    chart.data.datasets[0].data = data;
-    chart.update();
-}
-
-function updateBarChart(chart, data) {
     chart.data.datasets[0].data = data;
     chart.update();
 }
@@ -154,17 +115,17 @@ async function initialize() {
             data: {
                 labels: ['Pendentes', 'Aprovados', 'Rejeitados'],
                 datasets: [{
-                    label: 'Ajustes',
-                    data: [0, 0, 0],
+                    label: 'Ajustes de Ponto',
+                    data: [],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
+                        'rgba(255, 99, 132, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -174,20 +135,21 @@ async function initialize() {
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        title: { display: true, text: 'Qtd. Ajustes' }
                     }
                 }
             }
         });
 
-        const bankCtx = document.getElementById('bankHoursChart').getContext('2d');
-        const bankHoursChart = new Chart(bankCtx, {
+        const bankHoursCtx = document.getElementById('bankHoursChart').getContext('2d');
+        const bankHoursChart = new Chart(bankHoursCtx, {
             type: 'line',
             data: {
                 datasets: [{
-                    label: 'Saldo Atual de Banco de Horas',
+                    label: 'Saldo de Banco de Horas',
                     data: [],
-                    borderColor: 'rgb(75, 192, 192)',
+                    borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
                 }]
             },
@@ -202,32 +164,52 @@ async function initialize() {
                     },
                     y: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Saldo Atual' }
+                        title: { display: true, text: 'Saldo (Horas)' },
+                        ticks: {
+                            callback: function(value) {
+                                return convertMillisecondsToHours(value * 3600000); // Convertendo horas
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.raw.y;
+                                return convertMillisecondsToHours(value * 3600000); // Ajuste para horas
+                            }
+                        }
                     }
                 }
             }
         });
 
-        // Atualizar gráficos com dados de "Todos os Usuários" por padrão
-        updateChart(lineChart, getDataForDocente(docentes, 'all'));
-        updateBarChart(barChart, getAdjustmentsData(docentes, 'all'));
-        updateChart(bankHoursChart, getBankHoursData(docentes, 'all'));
-
-        document.querySelectorAll('.docente-select').forEach(select => {
-            select.addEventListener('change', (event) => {
-                const selectedDocente = event.target.value;
-                if (select.id === 'lineChartSelect') {
-                    const data = getDataForDocente(docentes, selectedDocente);
-                    updateChart(lineChart, data);
-                } else if (select.id === 'barChartSelect') {
-                    const data = getAdjustmentsData(docentes, selectedDocente);
-                    updateBarChart(barChart, data);
-                } else if (select.id === 'bankHoursChartSelect') {
-                    const data = getBankHoursData(docentes, selectedDocente);
-                    updateChart(bankHoursChart, data);
-                }
-            });
+        document.getElementById('lineChartSelect').addEventListener('change', (event) => {
+            const selectedDocente = event.target.value;
+            const data = selectedDocente === 'all' 
+                ? groupDataByMonth(docentes.flatMap(d => d[1])) 
+                : groupDataByMonth(docentes.find(d => d[0] === selectedDocente)[1]);
+            updateChart(lineChart, data);
         });
+
+        document.getElementById('barChartSelect').addEventListener('change', (event) => {
+            const selectedDocente = event.target.value;
+            const data = selectedDocente === 'all' 
+                ? groupAjustesByStatus(docentes.flatMap(d => d[2])) 
+                : groupAjustesByStatus(docentes.find(d => d[0] === selectedDocente)[2]);
+            updateChart(barChart, data);
+        });
+
+        document.getElementById('bankHoursChartSelect').addEventListener('change', (event) => {
+            const selectedDocente = event.target.value;
+            const data = groupBankHoursData(docentes.find(d => d[0] === selectedDocente)[3]);
+            updateChart(bankHoursChart, data);
+        });
+
+        // Inicializa os gráficos com todos os usuários
+        updateChart(lineChart, groupDataByMonth(docentes.flatMap(d => d[1])));
+        updateChart(barChart, groupAjustesByStatus(docentes.flatMap(d => d[2])));
     } else {
         console.error('Dados dos docentes não foram carregados corretamente:', docentes);
     }

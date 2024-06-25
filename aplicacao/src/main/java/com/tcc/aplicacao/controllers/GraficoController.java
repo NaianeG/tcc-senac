@@ -58,7 +58,7 @@ public class GraficoController {
                     .filter(a -> a.getMarcacaoPonto() != null && a.getMarcacaoPonto().getIdUsuario() == usuario.getId())
                     .collect(Collectors.toList());
             var bancoHorasUsuario = listaBancoHoras.stream()
-                    .filter(b -> b.getUsuario() != null && b.getUsuario().getId() == usuario.getId())
+                    .filter(b -> b.getUsuario().getId() == usuario.getId())
                     .collect(Collectors.toList());
             return new Object[] { usuario.getPessoa().getNomeCompleto(), marcacoesUsuario, ajustesUsuario,
                     bancoHorasUsuario };
@@ -66,5 +66,4 @@ public class GraficoController {
 
         return objectMapper.writeValueAsString(dadosPorUsuario);
     }
-
 }
