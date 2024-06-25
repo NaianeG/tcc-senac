@@ -1,6 +1,4 @@
-// script.js
-
-window.onload = function() {
+window.onload = function () {
     console.log("Window loaded");
 
     var modal = document.getElementById("modal");
@@ -18,15 +16,15 @@ window.onload = function() {
         console.log("Displaying modal");
         modal.style.display = "block";
     } else {
-        console.log("No message to display");
+        modal.style.display = "none";
     }
 
-    span.onclick = function() {
+    span.onclick = function () {
         console.log("Close button clicked");
         modal.style.display = "none";
     }
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             console.log("Clicked outside modal");
             modal.style.display = "none";
