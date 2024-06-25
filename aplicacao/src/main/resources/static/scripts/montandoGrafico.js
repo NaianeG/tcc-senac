@@ -10,15 +10,20 @@ async function fetchData() {
     }
 }
 
-function populateSelects(docentes) {
-    const selects = document.querySelectorAll('.docente-select');
-    selects.forEach(select => {
-        docentes.forEach(docente => {
-            const option = document.createElement('option');
-            option.value = docente[0];
-            option.text = docente[0];
-            select.appendChild(option);
-        });
+function populateSelect(selectId, docentes, includeAllOption = false) {
+    const select = document.getElementById(selectId);
+    select.innerHTML = '';  // Clear previous options
+    if (includeAllOption) {
+        const allOption = document.createElement('option');
+        allOption.value = 'all';
+        allOption.text = 'Todos os Usuários';
+        select.appendChild(allOption);
+    }
+    docentes.forEach(docente => {
+        const option = document.createElement('option');
+        option.value = docente[0];
+        option.text = docente[0];
+        select.appendChild(option);
     });
 }
 
@@ -32,7 +37,6 @@ function groupDataByMonth(marcacoes) {
         }
         groupedData[month] += 1;
     });
-    // Ordenar os dados por mês
     return Object.keys(groupedData)
         .sort((a, b) => new Date(a) - new Date(b))
         .map(month => ({ x: new Date(month), y: groupedData[month] }));
@@ -56,30 +60,136 @@ function groupAjustesByStatus(ajustes) {
     return [statusCounts.pendentes, statusCounts.aprovados, statusCounts.rejeitados];
 }
 
-function convertMillisecondsToHours(ms) {
-    const totalHours = ms / 1000 / 60 / 60;
-    const hours = Math.floor(totalHours);
-    const minutes = Math.floor((totalHours % 1) * 60);
-    return `${hours}h ${minutes}m`;
+function convertMillisecondsToHoursAndMinutes(ms) {
+    const totalMinutes = ms / 1000 / 60;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = Math.floor(totalMinutes % 60);
+    return { hours, minutes, formatted: `${hours}h ${minutes}m` };
 }
 
 function groupBankHoursData(bancoHoras) {
-    return bancoHoras.map(bh => ({
-        x: new Date(), // Aqui você pode ajustar para o período correto se necessário
-        y: bh.saldoAtual / 1000 / 60 / 60 // Convertendo milissegundos para horas
-    }));
+    if (bancoHoras.length > 0) {
+        const bh = bancoHoras[0];
+        const saldoTotalHoras = bh.saldoMensal;
+        const saldoAtualHoras = bh.saldoAtual / 3600000; // Convertendo milissegundos para horas
+        const saldoRestanteHoras = saldoTotalHoras - saldoAtualHoras;
+
+        return {
+            labels: ['Saldo Atual', 'Saldo Restante'],
+            data: [saldoAtualHoras, saldoRestanteHoras]
+        };
+    }
+    return {
+        labels: ['Saldo Atual', 'Saldo Restante'],
+        data: [0, 1],
+        message: 'Usuário não possui banco de horas'
+    };
 }
 
-function updateChart(chart, data) {
+function groupHoursWorkedByWeek(marcacoes) {
+    const groupedData = {};
+    marcacoes.forEach(m => {
+        const date = new Date(m.data);
+        const weekLabel = getWeekLabel(date);
+        if (!groupedData[weekLabel]) {
+            groupedData[weekLabel] = 0;
+        }
+        const entrada = new Date(date.toDateString() + ' ' + m.horaEntrada);
+        const saida = m.horaSaida ? new Date(date.toDateString() + ' ' + m.horaSaida) : new Date();
+
+        if (entrada && saida && saida > entrada) {
+            groupedData[weekLabel] += (saida - entrada) / 1000 / 60 / 60; // Convertendo milissegundos para horas
+        }
+    });
+    return Object.keys(groupedData)
+        .sort((a, b) => new Date(a.split(' ')[1]) - new Date(b.split(' ')[1]))
+        .map(weekLabel => ({ x: weekLabel, y: groupedData[weekLabel] }));
+}
+
+function getWeekNumber(d) {
+    const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+}
+
+function getWeekLabel(date) {
+    const weekNumber = getWeekNumber(date);
+    const month = date.toLocaleString('default', { month: 'long' });
+    return `Semana ${weekNumber} de ${month}`;
+}
+
+function updateChart(chart, data, xLabelCallback = null) {
     chart.data.datasets[0].data = data;
+    if (xLabelCallback) {
+        chart.options.scales.x.ticks.callback = xLabelCallback;
+    }
     chart.update();
+}
+
+function updatePieChart(chart, data) {
+    if (data.message) {
+        // Display message if user has no bank hours
+        chart.data.labels = [];
+        chart.data.datasets[0].data = [];
+        const bankHoursMessage = document.getElementById('bankHoursMessage');
+        if (bankHoursMessage) {
+            bankHoursMessage.innerText = data.message;
+        }
+    } else {
+        // Display pie chart if user has bank hours
+        chart.data.labels = data.labels;
+        chart.data.datasets[0].data = data.data;
+        const bankHoursMessage = document.getElementById('bankHoursMessage');
+        if (bankHoursMessage) {
+            bankHoursMessage.innerText = '';
+        }
+    }
+    chart.update();
+}
+
+function getDataForDocente(docentes, docenteName) {
+    if (docenteName === 'all') {
+        const allMarcacoes = docentes.flatMap(d => d[1]);
+        return groupDataByMonth(allMarcacoes);
+    } else {
+        const docente = docentes.find(d => d[0] === docenteName);
+        const marcacoes = docente ? docente[1] : [];
+        return groupDataByMonth(marcacoes);
+    }
+}
+
+function getAjustesDataForDocente(docentes, docenteName) {
+    if (docenteName === 'all') {
+        const allAjustes = docentes.flatMap(d => d[2]);
+        return groupAjustesByStatus(allAjustes);
+    } else {
+        const docente = docentes.find(d => d[0] === docenteName);
+        const ajustes = docente ? docente[2] : [];
+        return groupAjustesByStatus(ajustes);
+    }
+}
+
+function getBankHoursDataForDocente(docentes, docenteName) {
+    const docente = docentes.find(d => d[0] === docenteName);
+    const bancoHoras = docente ? docente[3] : [];
+    return groupBankHoursData(bancoHoras);
+}
+
+function getHoursWorkedDataForDocente(docentes, docenteName) {
+    const docente = docentes.find(d => d[0] === docenteName);
+    const marcacoes = docente ? docente[1] : [];
+    return groupHoursWorkedByWeek(marcacoes);
 }
 
 async function initialize() {
     const docentes = await fetchData();
 
     if (Array.isArray(docentes) && docentes.length > 0) {
-        populateSelects(docentes);
+        populateSelect('lineChartSelect', docentes, true);
+        populateSelect('barChartSelect', docentes, true);
+        populateSelect('bankHoursChartSelect', docentes, false);
+        populateSelect('hoursWorkedChartSelect', docentes, false);
 
         const lineCtx = document.getElementById('lineChart').getContext('2d');
         const lineChart = new Chart(lineCtx, {
@@ -115,17 +225,17 @@ async function initialize() {
             data: {
                 labels: ['Pendentes', 'Aprovados', 'Rejeitados'],
                 datasets: [{
-                    label: 'Ajustes de Ponto',
+                    label: 'Ajustes',
                     data: [],
                     backgroundColor: [
-                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
+                        'rgba(255, 206, 86, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)',
                         'rgba(75, 192, 192, 1)',
-                        'rgba(255, 99, 132, 1)'
+                        'rgba(255, 206, 86, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -135,8 +245,7 @@ async function initialize() {
                 maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Qtd. Ajustes' }
+                        beginAtZero: true
                     }
                 }
             }
@@ -144,10 +253,54 @@ async function initialize() {
 
         const bankHoursCtx = document.getElementById('bankHoursChart').getContext('2d');
         const bankHoursChart = new Chart(bankHoursCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Saldo Atual', 'Saldo Restante'],
+                datasets: [{
+                    label: 'Saldo Atual do Banco de Horas',
+                    data: [],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 20,
+                        top: 10,
+                        bottom: 30
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                const value = tooltipItem.raw;
+                                const { hours, minutes } = convertMillisecondsToHoursAndMinutes(value * 3600000);
+                                return `${hours}h ${minutes}m`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const hoursWorkedCtx = document.getElementById('hoursWorkedChart').getContext('2d');
+        const hoursWorkedChart = new Chart(hoursWorkedCtx, {
             type: 'line',
             data: {
                 datasets: [{
-                    label: 'Saldo de Banco de Horas',
+                    label: 'Horas Trabalhadas por Semana',
                     data: [],
                     borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
@@ -158,26 +311,21 @@ async function initialize() {
                 maintainAspectRatio: false,
                 scales: {
                     x: {
-                        type: 'time',
-                        time: { unit: 'month' },
-                        title: { display: true, text: 'Mês' }
+                        title: { display: true, text: 'Semana' },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                const label = this.getLabelForValue(value);
+                                return label.length > 10 ? label.slice(0, 10) + '...' : label;
+                            }
+                        }
                     },
                     y: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Saldo (Horas)' },
+                        title: { display: true, text: 'Horas' },
                         ticks: {
                             callback: function(value) {
-                                return convertMillisecondsToHours(value * 3600000); // Convertendo horas
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const value = context.raw.y;
-                                return convertMillisecondsToHours(value * 3600000); // Ajuste para horas
+                                const { hours, minutes } = convertMillisecondsToHoursAndMinutes(value * 3600000);
+                                return `${hours}h ${minutes}m`;
                             }
                         }
                     }
@@ -187,29 +335,37 @@ async function initialize() {
 
         document.getElementById('lineChartSelect').addEventListener('change', (event) => {
             const selectedDocente = event.target.value;
-            const data = selectedDocente === 'all' 
-                ? groupDataByMonth(docentes.flatMap(d => d[1])) 
-                : groupDataByMonth(docentes.find(d => d[0] === selectedDocente)[1]);
+            const data = getDataForDocente(docentes, selectedDocente);
             updateChart(lineChart, data);
         });
 
         document.getElementById('barChartSelect').addEventListener('change', (event) => {
             const selectedDocente = event.target.value;
-            const data = selectedDocente === 'all' 
-                ? groupAjustesByStatus(docentes.flatMap(d => d[2])) 
-                : groupAjustesByStatus(docentes.find(d => d[0] === selectedDocente)[2]);
+            const data = getAjustesDataForDocente(docentes, selectedDocente);
             updateChart(barChart, data);
         });
 
         document.getElementById('bankHoursChartSelect').addEventListener('change', (event) => {
             const selectedDocente = event.target.value;
-            const data = groupBankHoursData(docentes.find(d => d[0] === selectedDocente)[3]);
-            updateChart(bankHoursChart, data);
+            const data = getBankHoursDataForDocente(docentes, selectedDocente);
+            updatePieChart(bankHoursChart, data);
         });
 
-        // Inicializa os gráficos com todos os usuários
-        updateChart(lineChart, groupDataByMonth(docentes.flatMap(d => d[1])));
-        updateChart(barChart, groupAjustesByStatus(docentes.flatMap(d => d[2])));
+        document.getElementById('hoursWorkedChartSelect').addEventListener('change', (event) => {
+            const selectedDocente = event.target.value;
+            const data = getHoursWorkedDataForDocente(docentes, selectedDocente);
+            updateChart(hoursWorkedChart, data, (value) => value);
+        });
+
+        // Renderizar gráficos para "Todos os Usuários" inicialmente, onde aplicável
+        updateChart(lineChart, getDataForDocente(docentes, 'all'));
+        updateChart(barChart, getAjustesDataForDocente(docentes, 'all'));
+
+        // Renderizar gráfico de banco de horas para o primeiro usuário da lista
+        const firstDocenteName = docentes[0][0];
+        const bankHoursData = getBankHoursDataForDocente(docentes, firstDocenteName);
+        updatePieChart(bankHoursChart, bankHoursData);
+        document.getElementById('bankHoursChartSelect').value = firstDocenteName;
     } else {
         console.error('Dados dos docentes não foram carregados corretamente:', docentes);
     }
