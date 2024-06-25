@@ -26,4 +26,6 @@ public interface MarcacaoPontoRepository extends JpaRepository<MarcacaoPonto, In
     @Query("SELECT m FROM MarcacaoPonto m WHERE m.idUsuario = :idUsuario")
     MarcacaoPonto buscaPorIdUsuario(@Param("idUsuario") int idUsuario);
 
+    MarcacaoPonto findByData(Date date);
+
 }

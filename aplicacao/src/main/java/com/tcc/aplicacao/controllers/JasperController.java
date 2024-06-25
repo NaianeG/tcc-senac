@@ -79,7 +79,6 @@ public class JasperController {
     public List<String> getnomeCompleto() {
         List<String> lista = new ArrayList<>();
         lista = pessoaRepository.findNomes();
-        System.out.println("Teste lista relatório = " + lista);
         return lista;
     }
 

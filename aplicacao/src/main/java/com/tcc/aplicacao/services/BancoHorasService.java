@@ -28,6 +28,7 @@ public class BancoHorasService {
         if (usuario == null) {
             throw new IllegalArgumentException("Usuário não encontrado");
         }
+
         BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(idUsuario);
         List<MarcacaoPonto> marcacoes = marcacaoPontoRepository.findByIdUsuario(idUsuario);
         long saldoAtual = bancoHoras.getSaldoAtual();
@@ -37,11 +38,17 @@ public class BancoHorasService {
                 long millisEntrada = marcacao.getHoraEntrada().getTime();
                 long millisSaida = marcacao.getHoraSaida().getTime();
                 long diff = millisSaida - millisEntrada;
+
+                // Depuração: converter milissegundos para horas e minutos
+                long diffHoras = diff / (1000 * 60 * 60);
+                long diffMinutos = (diff / (1000 * 60)) % 60;
+                System.out.println("Horas trabalhadas: " + diffHoras + "h " + diffMinutos + "m");
+
                 saldoAtual += diff;
             }
         }
+
         bancoHoras.setSaldoAtual(saldoAtual);
-        bancoHoras.setSaldoNegativo(saldoAtual < bancoHoras.getSaldoMensal());
         bancoHorasRepository.save(bancoHoras);
     }
 
@@ -50,9 +57,14 @@ public class BancoHorasService {
         if (bancoHoras == null) {
             bancoHoras = new BancoHoras();
             bancoHoras.setUsuario(user);
+            bancoHoras.setSaldoMensal(pessoa.getHorasMensais());
         } else {
             bancoHoras.setSaldoMensal(pessoa.getHorasMensais());
         }
         bancoHorasRepository.save(bancoHoras);
+    }
+
+    public List<BancoHoras> buscaBancosHoras() {
+        return bancoHorasRepository.findAll();
     }
 }

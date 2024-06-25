@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
-
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 @Service
 public class MarcacaoPontoService {
@@ -25,7 +24,6 @@ public class MarcacaoPontoService {
                 marcacaoPonto.getData(), marcacaoPonto.getIdUsuario());
         if (marcacaoPonto2 == null) {
             marcacaoPontoRepository.save(marcacaoPonto);
-            bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario());
             return marcacaoPontoRepository.findAll();
         } else if (marcacaoPonto2.getHoraSaida() == null) {
             marcacaoPonto2.setHoraSaida(marcacaoPonto.getHoraEntrada());
@@ -54,5 +52,15 @@ public class MarcacaoPontoService {
 
     public List<MarcacaoPonto> getListaPontoDocente() {
         return marcacaoPontoRepository.findAll();
+    }
+
+    public MarcacaoPonto buscaMarcacaoPontoDataAtual() {
+        Date date = new Date();
+        System.out.println("+++++++++++++++++++++++++++++++++++" + date.getTime());
+        System.out.println("+++++++++++++++++++++++++++++++++++" + date.getTime());
+        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
+        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
+        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
+        return null;
     }
 }
