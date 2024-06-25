@@ -1,12 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f9;
-}
+
 h1 {
     text-align: center;
 }
 .dashboard {
+    margin-left: 200px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -14,15 +11,21 @@ h1 {
 }
 .chart-container {
     width: 45%;
-    height: 400px; /* Altura fixa para os contêineres dos gráficos */
+    height: 300px; /* Altura fixa para os contêineres dos gráficos */
     background: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .chart-container {
+        width: 90%;
+    }
+    .dashboard {
+        margin-left: 50px;
+        margin-right: 100px;
         width: 100%;
+        padding: 15px;
     }
 }
 canvas {
