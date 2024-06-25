@@ -11,9 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tcc.aplicacao.entities.Ajuste;
+import com.tcc.aplicacao.entities.BancoHoras;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.services.AjusteService;
+import com.tcc.aplicacao.services.BancoHorasService;
 import com.tcc.aplicacao.services.MarcacaoPontoService;
 import com.tcc.aplicacao.services.UsuarioService;
 
@@ -30,6 +32,9 @@ public class GraficoController {
     AjusteService ajusteService;
 
     @Autowired
+    BancoHorasService bancoHorasService;
+
+    @Autowired
     ObjectMapper objectMapper;
 
     @GetMapping("/montandoGrafico")
@@ -43,6 +48,7 @@ public class GraficoController {
         List<MarcacaoPonto> listaMarcacoes = marcacaoPontoService.getListaPontoDocente();
         List<Usuario> listaUsuarios = usuarioService.getListaUsuario();
         List<Ajuste> listaAjustes = ajusteService.buscarTodosAjustes();
+        List<BancoHoras> listaBancoHoras = bancoHorasService.buscaBancosHoras();
 
         var dadosPorUsuario = listaUsuarios.stream().map(usuario -> {
             var marcacoesUsuario = listaMarcacoes.stream()
@@ -51,9 +57,14 @@ public class GraficoController {
             var ajustesUsuario = listaAjustes.stream()
                     .filter(a -> a.getMarcacaoPonto() != null && a.getMarcacaoPonto().getIdUsuario() == usuario.getId())
                     .collect(Collectors.toList());
-            return new Object[] { usuario.getPessoa().getNomeCompleto(), marcacoesUsuario, ajustesUsuario };
+            var bancoHorasUsuario = listaBancoHoras.stream()
+                    .filter(b -> b.getUsuario() != null && b.getUsuario().getId() == usuario.getId())
+                    .collect(Collectors.toList());
+            return new Object[] { usuario.getPessoa().getNomeCompleto(), marcacoesUsuario, ajustesUsuario,
+                    bancoHorasUsuario };
         }).collect(Collectors.toList());
 
         return objectMapper.writeValueAsString(dadosPorUsuario);
     }
+
 }

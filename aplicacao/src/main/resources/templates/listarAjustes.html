@@ -78,6 +78,7 @@
                     <th>Hora Entrada</th>
                     <th>Hora Saída</th>
                     <th>Justificativa</th>
+                    <th>Anexo</th>
                     <th>Status</th>
                     <th>Ações</th>
                 </tr>
@@ -89,8 +90,10 @@
                     <td th:text="${ajuste.horaEntrada}"></td>
                     <td th:text="${ajuste.horaSaida}"></td>
                     <td th:text="${ajuste.justificativa}"></td>
-                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
+                    <td>
+                        <a th:href="@{'/downloadArquivo/' + ${ajuste.id}}" th:if="${ajuste.arquivo != null}">Baixar Arquivo</a>
                     </td>
+                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}"></td>
                     <td>
                         <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
                             <button type="submit">Aprovar</button>

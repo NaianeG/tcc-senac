@@ -1,5 +1,7 @@
 package com.tcc.aplicacao.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class BancoHoras {
     private Boolean saldoNegativo;
 
     @ManyToOne(optional = true)
+    @JsonIgnore
     private Usuario usuario;
 }
 
