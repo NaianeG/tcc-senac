@@ -1,5 +1,6 @@
 package com.tcc.aplicacao.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query(value = "SELECT * FROM usuario WHERE username = ?1", nativeQuery = true)
     Usuario findByUsuarioNativo(String nomeUsuario);
+
+    @Query(value = "SELECT * FROM usuario WHERE role != 'ADMIN'", nativeQuery = true)
+    List<Usuario> buscaTodosDocentes();
 }

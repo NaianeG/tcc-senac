@@ -297,7 +297,7 @@ async function initialize() {
             type: 'line',
             data: {
                 datasets: [{
-                    label: 'Horas Trabalhadas por Semana',
+                    label: 'Horas Trabalhadas por Semana (Mês atual)',
                     data: [],
                     borderColor: 'rgb(54, 162, 235)',
                     tension: 0.1
@@ -329,7 +329,6 @@ async function initialize() {
                 }
             }
         });
-
         document.getElementById('lineChartSelect').addEventListener('change', (event) => {
             const selectedDocente = event.target.value;
             const data = getDataForDocente(docentes, selectedDocente);

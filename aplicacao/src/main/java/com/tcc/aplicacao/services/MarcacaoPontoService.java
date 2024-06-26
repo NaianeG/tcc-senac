@@ -56,11 +56,6 @@ public class MarcacaoPontoService {
 
     public MarcacaoPonto buscaMarcacaoPontoDataAtual() {
         Date date = new Date();
-        System.out.println("+++++++++++++++++++++++++++++++++++" + date.getTime());
-        System.out.println("+++++++++++++++++++++++++++++++++++" + date.getTime());
-        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
-        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
-        System.out.println("+++++++++++++++++++++++++++++++++++" + date);
         return null;
     }
 }
