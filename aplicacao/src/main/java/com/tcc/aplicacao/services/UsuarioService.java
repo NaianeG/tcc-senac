@@ -37,7 +37,7 @@ public class UsuarioService {
     }
 
     public List<Usuario> getListaUsuario() {
-        return repository.findAll();
+        return repository.buscaTodosDocentes();
     }
 
 }

@@ -80,18 +80,18 @@
                 <select id="lineChartSelect" class="docente-select"></select>
                 <canvas id="lineChart"></canvas>
             </div>
-    
+
             <div class="chart-container">
                 <select id="barChartSelect" class="docente-select"></select>
                 <canvas id="barChart"></canvas>
             </div>
-    
+
             <div class="chart-container">
                 <select id="bankHoursChartSelect" class="docente-select"></select>
                 <canvas id="bankHoursChart"></canvas>
-                <p id="noBankHoursMessage" style="color: red; display: none;">Usuário não possui horas no banco.</p>
+                <p id="noBankHoursMessage" style="display:none; color:red;">Este usuário não possui banco de horas.</p>
             </div>
-    
+
             <div class="chart-container">
                 <select id="hoursWorkedChartSelect" class="docente-select"></select>
                 <canvas id="hoursWorkedChart"></canvas>
@@ -101,8 +101,6 @@
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
         <script src="http://localhost:8080/../scripts/montandoGrafico.js"></script>
     </div>
-
-
 
     <div th:if="${usuario.role != 'ADMIN'}">
         <div class="container-registro-ponto-ativo" id="container-registro-ponto">
@@ -126,10 +124,10 @@
                     </label>
                     <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
 
-                    <label for="horaEntrada">
+                    <label for="horaSaida">
                         <span class="material-symbols-outlined">schedule</span><span>Registro hora saída:</span>
                     </label>
-                    <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
+                    <input type="text" id="horaSaida" name="horaSaida" readonly></br>
 
                     <input type="submit" value="Registrar ponto">
                 </form>
