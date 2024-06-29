@@ -163,7 +163,7 @@ body {
 
 /* Ajuste de side-bar apenas com ícones*/
 
-@media(width < 920px) {
+@media (max-width: 920px) {
     .sidebar {
         width: 72px;
     }

@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
+
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 
 @Service
 public class MarcacaoPontoService {
@@ -55,7 +56,8 @@ public class MarcacaoPontoService {
     }
 
     public MarcacaoPonto buscaMarcacaoPontoDataAtual() {
-        Date date = new Date();
+        final Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar.getTime());
         return null;
     }
 }
