@@ -53,6 +53,12 @@ public class MarcacaoPontoController {
         model.addAttribute("totalPages", listaPonto.getTotalPages());
         model.addAttribute("id", id);
         model.addAttribute("size", size);
+
+        // Adicione logs
+        System.out.println("currentPage: " + page);
+        System.out.println("totalPages: " + listaPonto.getTotalPages());
+        System.out.println("size: " + size);
+
         return "listaPonto";
     }
 
