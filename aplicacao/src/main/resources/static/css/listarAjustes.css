@@ -56,6 +56,9 @@ body {
 .sidebar-header {
     width: 100%;
     margin-bottom: 16px;
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
 }
 
 .sidebar button i {
@@ -177,5 +180,10 @@ tbody tr:hover {
 
     table th {
         font-size: 10px;
+    }
+
+    .welcome-message .user-name {
+        font-weight: bold;
+        margin-left: 30px;
     }
 }

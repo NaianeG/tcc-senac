@@ -12,11 +12,12 @@
 <body>
     <div>
         <aside class="sidebar">
-            <header class="sidebar-header">
-                <img class="logo-img"
-                    src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
-                    alt="Foto_Perfil">
-            </header>
+                <header class="sidebar-header">
+                    <img src="/img/foto-perfil.png" alt="Foto_Perfil">
+                    </img>
+                    <div class="welcome-message">
+                        <span class="user-name" th:text="${usuario.username}"></span>
+                </header>
             <nav aria-label="menu">
                 <div th:if="${usuario.role != 'USER'}">
                     <a href="/listaDocentes" target="_blank" rel="noopener">
