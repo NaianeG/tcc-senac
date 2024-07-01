@@ -133,9 +133,9 @@ form [type="submit"]:hover {
     }
 
     .login input {
-        font-size: 15px;
+        font-size: 14px;
         height: 30px;
-        padding: 8px;
+        padding: 5px;
     }
 
     .icone-login {
@@ -144,5 +144,11 @@ form [type="submit"]:hover {
 
     .modal-content {
         width: 65%;
+    }
+
+    form [type="submit"] {
+        font-size: 15px;
+        margin-top: 160px;
+        font-weight: bold;
     }
 }
