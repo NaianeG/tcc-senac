@@ -25,7 +25,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/css/*", "/scripts/**", "cadastro", "/cadastroUsuario", "/testeGrafico",
+                    request.requestMatchers("/css/*", "/scripts/**", "/cadastroUsuario",
                             "/img/*")
                             .permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
@@ -33,7 +33,7 @@ public class SecurityConfig {
                             "/relatorio/excel/relatorio-horas/*")
                             .hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.DELETE, "/deletarDocente/{id}").hasRole("ADMIN");
-                    request.requestMatchers(HttpMethod.GET, "/deletarDocente/{id}", "cadastro",
+                    request.requestMatchers(HttpMethod.GET, "/deletarDocente/{id}",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
                             "/relatorio/excel/relatorio-horas/*")
                             .hasRole("ADMIN");

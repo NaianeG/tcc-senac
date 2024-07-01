@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início</title>
     <link rel="icon" type="imagex/png" href="/img/jornada-de-trabalho.png">
-    <link rel="stylesheet" href="http://localhost:8080/css/home.css" />
+    <link rel="stylesheet" href="../css/home.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="http://localhost:8080/../css/montandoGrafico.css">
+    <link rel="stylesheet" href="../css/montandoGrafico.css">
 </head>
-
 <body>
-    <script src="http://localhost:8080/scripts/home.js"></script>
+    <script src="../scripts/home.js"></script>
     <div>
         <aside class="sidebar">
             <header class="sidebar-header">
@@ -68,13 +66,12 @@
                     <span>
                         <i class="material-symbols-outlined"> logout </i>
                         <span>Sair</span>
-                    </span>
-                </button>
+                    </button>
             </nav>
         </aside>
     </div>
     <div th:if="${usuario.role == 'ADMIN'}">
-        <h1>Dashboard</h1>
+        <h1 id="h1-dashboard">Dashboard</h1>
         <div class="dashboard">
             <div class="chart-container">
                 <select id="lineChartSelect" class="docente-select"></select>
@@ -99,7 +96,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-        <script src="http://localhost:8080/../scripts/montandoGrafico.js"></script>
+        <script src="../scripts/montandoGrafico.js"></script>
     </div>
 
     <div th:if="${usuario.role != 'ADMIN'}">
@@ -112,24 +109,24 @@
                             <input type="number" id="idUsuario" name="idUsuario" th:value="${usuario.id}" hidden />
                         </div>
                     </label>
-
+                    <input type="hidden" id="localizacaoInput" name="localizacao">
                     <label for="data">
-                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro
-                            ponto:</span>
+                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro ponto:</span>
                     </label>
-                    <input type="date" id="data" name="data" readonly></br>
+                    <input type="date" id="data" name="data" readonly><br>
 
                     <label for="horaEntrada">
                         <span class="material-symbols-outlined">schedule</span><span>Registro hora entrada:</span>
                     </label>
-                    <input type="text" id="horaEntrada" name="horaEntrada" readonly></br>
+                    <input type="text" id="horaEntrada" name="horaEntrada" readonly><br>
 
                     <label for="horaSaida">
                         <span class="material-symbols-outlined">schedule</span><span>Registro hora saída:</span>
                     </label>
-                    <input type="text" id="horaSaida" name="horaSaida" readonly></br>
+                    <input type="text" id="horaSaida" name="horaEntrada" readonly><br>
 
                     <input type="submit" value="Registrar ponto">
+                    
                 </form>
             </div>
             <script th:if="${alerta == 'limiteAtingido'}">
@@ -141,5 +138,4 @@
         </div>
     </div>
 </body>
-
 </html>

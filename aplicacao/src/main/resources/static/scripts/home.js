@@ -8,7 +8,9 @@ function getLocation() {
           maximumAge: 0 // Não usar localização armazenada em cache
       });
   } else {
-      console.log("Geolocalização não é suportada por este navegador.");
+      var errorMessage = "Geolocalização não é suportada por este navegador.";
+      console.log(errorMessage);
+      document.getElementById('localizacaoInput').value = errorMessage;
   }
 }
 
@@ -21,6 +23,7 @@ function showPosition(position) {
   console.log("Precisão: " + accuracy + " metros");
 
   var mapsLink = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+  document.getElementById('localizacaoInput').value = mapsLink;
   console.log("Google Maps Link: " + mapsLink);
 
   var linkElement = document.getElementById("mapsLink");
@@ -31,48 +34,33 @@ function showPosition(position) {
 }
 
 function showError(error) {
+  var errorMessage;
   switch (error.code) {
       case error.PERMISSION_DENIED:
-          console.log("Usuário negou a solicitação de Geolocalização.");
+          errorMessage = "Usuário negou a solicitação de Geolocalização.";
           break;
       case error.POSITION_UNAVAILABLE:
-          console.log("As informações de localização não estão disponíveis.");
+          errorMessage = "As informações de localização não estão disponíveis.";
           break;
       case error.TIMEOUT:
-          console.log("A solicitação para obter a localização expirou.");
+          errorMessage = "A solicitação para obter a localização expirou.";
           break;
       case error.UNKNOWN_ERROR:
-          console.log("Um erro desconhecido ocorreu.");
+          errorMessage = "Um erro desconhecido ocorreu.";
           break;
   }
+  console.log(errorMessage);
+  document.getElementById('localizacaoInput').value = errorMessage;
 }
 
 getLocation();
 
-// Função para lidar com erros na obtenção da localização
-function showError(error) {
-  switch (error.code) {
-      case error.PERMISSION_DENIED:
-          console.log("Usuário negou a solicitação de Geolocalização.");
-          break;
-      case error.POSITION_UNAVAILABLE:
-          console.log("As informações de localização não estão disponíveis.");
-          break;
-      case error.TIMEOUT:
-          console.log("A solicitação para obter a localização expirou.");
-          break;
-      case error.UNKNOWN_ERROR:
-          console.log("Um erro desconhecido ocorreu.");
-          break;
+function apresentarRegistroDePonto() {
+  const menuPonto = document.getElementById("container-registro-ponto");
+
+  if (menuPonto.className === "container-registro-ponto") {
+      menuPonto.className = "container-registro-ponto-ativo";
   }
-}
-
-function apresentarRegistroDePonto(){
-  const menuPonto = document.getElementById("container-registro-ponto")
-
-  if (menuPonto.className === "container-registro-ponto"){
-      menuPonto.className = "container-registro-ponto-ativo"
-  } 
 }
 
 function preencherDataAtual() {
@@ -97,15 +85,15 @@ function atualizarHora() {
   document.getElementById('horaEntrada').value = horaAtual;
 }
 
-function logout(){
-  window.location.replace("http://localhost:8080/logout");
+function logout() {
+  window.location.replace("/logout");
 }
 
-function apresentaListaPonto(){
+function apresentaListaPonto() {
   let idUsuario = document.getElementById("idUsuario-data").getAttribute("data-attribute");
-  window.location.replace("/ponto/listaPonto/"+idUsuario)
+  window.location.replace("/ponto/listaPonto/" + idUsuario);
 }
 
-function apresentarAjustesDePonto(){
+function apresentarAjustesDePonto() {
   window.location.href = "/listarAjustes";
 }
