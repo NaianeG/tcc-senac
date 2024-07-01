@@ -31,6 +31,7 @@ public class MarcacaoPonto {
     private Date data;
     private Time horaEntrada;
     private Time horaSaida;
+    private String localizacao;
 
     @OneToOne(mappedBy = "marcacaoPonto", cascade = CascadeType.ALL)
     @JsonIgnore
