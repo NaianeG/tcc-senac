@@ -56,12 +56,12 @@ body {
 }
 
 .sidebar-header {
-        width: 100%;
-        margin-bottom: 16px;
-        display: flex;
-        align-items: center; 
-        gap: 10px; 
-    }
+    width: 100%;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 .sidebar button i {
     position: relative;
@@ -287,6 +287,15 @@ body {
     background-color: #2980b9;
 }
 
+.welcome-message .user-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.welcome-message {
+    margin-left: 10px;
+}
+
 /* Fim da estilização do Modal */
 
 @media (max-width: 480px) {
@@ -327,7 +336,7 @@ body {
 
     .lista-registro-ponto .status-item {
         display: flex;
-    margin-right: 20px;
+        margin-right: 20px;
     }
 
     .lista-registro-ponto .status-item span {
@@ -372,9 +381,8 @@ body {
         display: inline;
     }
 
-    .welcome-message .user-name {
-        font-weight: bold;
-        margin-left: 30px;
+    .welcome-message {
+        display: none;
     }
 
 }

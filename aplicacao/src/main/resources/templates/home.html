@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,16 +11,18 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="../css/montandoGrafico.css">
 </head>
+
 <body>
     <script src="../scripts/home.js"></script>
     <div>
         <aside class="sidebar">
             <header class="sidebar-header">
-                <img src="../img/foto-perfil.png" alt="Foto_Perfil" class="profile-img">
+                <img src="../img/logo-img.png" alt="Foto_Perfil" class="logo-img">
                 </img>
                 <div class="welcome-message">
-                    Seja bem-vindo,
-                    <span class="user-name" th:text="${usuario.username}"></span>
+                    Bem-vindo,
+                    </br><span class="user-name" th:text="${usuario.username}"></span>
+                </div>
             </header>
 
             <nav aria-label="menu">
@@ -68,7 +71,7 @@
                     <span>
                         <i class="material-symbols-outlined"> logout </i>
                         <span>Sair</span>
-                    </button>
+                </button>
             </nav>
         </aside>
     </div>
@@ -113,7 +116,8 @@
                     </label>
                     <input type="hidden" id="localizacaoInput" name="localizacao">
                     <label for="data">
-                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro ponto:</span>
+                        <span class="material-symbols-outlined">calendar_month</span><span>Data de registro
+                            ponto:</span>
                     </label>
                     <input type="date" id="data" name="data" readonly><br>
 
@@ -128,7 +132,7 @@
                     <input type="text" id="horaSaida" name="horaEntrada" readonly><br>
 
                     <input type="submit" value="Registrar ponto">
-                    
+
                 </form>
             </div>
             <script th:if="${alerta == 'limiteAtingido'}">
@@ -140,4 +144,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -30,6 +30,7 @@ public class BancoHorasService {
         }
 
         BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(idUsuario);
+        System.out.println(bancoHoras);
         List<MarcacaoPonto> marcacoes = marcacaoPontoRepository.findByIdUsuario(idUsuario);
         long saldoAtual = bancoHoras.getSaldoAtual();
 

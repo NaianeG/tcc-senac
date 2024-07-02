@@ -56,8 +56,8 @@ body {
     width: 100%;
     margin-bottom: 16px;
     display: flex;
-    align-items: center; 
-    gap: 10px; 
+    align-items: center;
+    gap: 10px;
 }
 
 .sidebar button i {
@@ -83,6 +83,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.4s;
+    margin-left: 10px;
 }
 
 .logo-img:hover {
@@ -163,11 +164,21 @@ body {
     margin: 0px 10px 0px 0px;
 }
 
-/* Ajuste de side-bar apenas com ícones*/
+.welcome-message .user-name {
+    font-size: 15px;
+    font-weight: bold;
+}
 
-@media (max-width: 920px) {
+.welcome-message {
+    margin-left: 10px;
+}
+
+
+@media (max-width: 480px) {
+
     .sidebar {
         width: 72px;
+        display: inline-block;
     }
 
     .sidebar button>span {
@@ -179,16 +190,13 @@ body {
         visibility: hidden;
     }
 
+    .welcome-message {
+        display: none;
+    }
+
     .main {
         transition: margin 0.4s;
         margin-left: 80px;
-    }
-
-}
-
-@media (max-width: 480px) {
-    .sidebar {
-        display: inline-block;
     }
 
     .button-mobile {
@@ -231,9 +239,3 @@ body {
         width: 50%;
     }
 }
-
-.welcome-message .user-name {
-    font-weight: bold;
-    margin-left: 30px;
-}
-
