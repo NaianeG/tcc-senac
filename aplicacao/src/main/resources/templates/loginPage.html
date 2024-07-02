@@ -15,7 +15,7 @@
         <img src="../img/jornada-de-trabalho.png" alt="icone-login" class="icone-login">
         <div class="login">
             <form th:action="@{/login}" method="post">
-                <input type="text" name="username" placeholder="Username" autofocus>
+                <input type="text" name="username" placeholder="Usuario" autofocus>
                 <input type="password" name="password" placeholder="Senha">
                 <input type="submit" value="Entrar">
             </form>
@@ -25,11 +25,11 @@
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">&times;</span>
             <div id="msgErroUsernamePassword" th:if="${param.error}" class="message error">
-                Username ou senha inválida!
+                Usuário ou senha inválida!
             </div>
         </div>
     </div>
-    <script src="../scripts/login.js"></script>    
+    <script src="../scripts/login.js"></script>
 </body>
 
 </html>
