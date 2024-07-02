@@ -9,10 +9,6 @@ body {
     color: #FFF;
 }
 
-.profile-img {
-    height: 50px;
-}
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -168,8 +164,12 @@ body {
 }
 
 .welcome-message .user-name {
-    font-size: 15px ;
+    font-size: 15px;
     font-weight: bold;
+}
+
+.welcome-message {
+    margin-left: 10px;
 }
 
 @media (max-width: 480px) {
@@ -186,10 +186,6 @@ body {
     .sidebar button>span>span {
         opacity: 0;
         visibility: hidden;
-    }
-
-    .profile-img {
-        height: 50px;
     }
 
     .welcome-message {

@@ -15,10 +15,11 @@
     <div>
         <aside class="sidebar">
             <header class="sidebar-header">
-                <img src="../img/foto-perfil.png" alt="Foto_Perfil" class="profile-img">
+                <img src="../img/logo-img.png" alt="Foto_Perfil" class="logo-img">
                 </img>
                 <div class="welcome-message">
                     <span class="user-name" th:text="${usuario.username}"></span>
+                </div>
             </header>
             <nav aria-label="menu">
                 <button onclick="window.location.href='/home'" class="botao-home">
@@ -92,9 +93,11 @@
                     <td th:text="${ajuste.horaSaida}"></td>
                     <td th:text="${ajuste.justificativa}"></td>
                     <td>
-                        <a th:href="@{'/downloadArquivo/' + ${ajuste.id}}" th:if="${ajuste.arquivo != null}">Baixar Arquivo</a>
+                        <a th:href="@{'/downloadArquivo/' + ${ajuste.id}}" th:if="${ajuste.arquivo != null}">Baixar
+                            Arquivo</a>
                     </td>
-                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}"></td>
+                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
+                    </td>
                     <td>
                         <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
                             <button type="submit">Aprovar</button>
