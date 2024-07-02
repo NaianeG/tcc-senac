@@ -23,13 +23,13 @@
     </div>
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" onclick="closeModal()">&times;</span>
             <div id="msgErroUsernamePassword" th:if="${param.error}" class="message error">
                 Username ou senha inválida!
             </div>
         </div>
     </div>
-    <script src="../scripts/login.js"></script>
+    <script src="../scripts/login.js"></script>    
 </body>
 
 </html>

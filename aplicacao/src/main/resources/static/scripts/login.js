@@ -1,33 +1,20 @@
-window.onload = function () {
-    console.log("Window loaded");
+document.addEventListener("DOMContentLoaded", function() {
+    // Verifique se há um parâmetro de erro na URL
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('error')) {
+        document.getElementById('modal').style.display = 'block';
+    }
+});
 
+function closeModal() {
     var modal = document.getElementById("modal");
-    console.log("Modal element:", modal);
+    modal.style.display = "none";
+}
 
-    var span = document.getElementsByClassName("close-button")[0];
-    console.log("Close button:", span);
-
-    var errorMessage = document.getElementById("msgErroUsernamePassword");
-    var logoutMessage = document.getElementById("msgDeslogar");
-    console.log("Error message element:", errorMessage);
-    console.log("Logout message element:", logoutMessage);
-
-    if ((errorMessage && errorMessage.innerHTML.trim() !== "") || (logoutMessage && logoutMessage.innerHTML.trim() !== "")) {
-        console.log("Displaying modal");
-        modal.style.display = "block";
-    } else {
+// Fechar modal quando o usuário clica fora dele
+window.onclick = function(event) {
+    var modal = document.getElementById("modal");
+    if (event.target == modal) {
         modal.style.display = "none";
-    }
-
-    span.onclick = function () {
-        console.log("Close button clicked");
-        modal.style.display = "none";
-    }
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            console.log("Clicked outside modal");
-            modal.style.display = "none";
-        }
     }
 }
