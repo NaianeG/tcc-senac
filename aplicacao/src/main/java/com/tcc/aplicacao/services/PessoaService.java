@@ -82,7 +82,7 @@ public class PessoaService {
     public ModelAndView listaDocentes() {
         ModelAndView mv = new ModelAndView("listaDocentes");
         List<Pessoa> docentes = new ArrayList<>();
-        docentes = pessoaRepository.findAll();
+        docentes = pessoaRepository.findPessoasDiferenteDeADMIN();
         mv.addObject("pessoas", docentes);
         return mv;
     }

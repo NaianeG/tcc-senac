@@ -94,8 +94,10 @@ function converterMilissegundosParaHorasEMinutos(ms) {
 
 function agruparDadosBancoHoras(bancoHoras) {
     return bancoHoras.map(bh => {
-        const saldoRestante = bh.saldoMensal - (bh.saldoAtual / 3600000); // Convertendo milissegundos para horas
-        return [bh.saldoAtual / 3600000, saldoRestante > 0 ? saldoRestante : 0]; // Convertendo milissegundos para horas
+        const saldoAtualHoras = bh.saldoAtual / 3600000; // Convertendo milissegundos para horas
+        const saldoRestante = bh.saldoMensal - saldoAtualHoras;
+        console.log('Saldo Atual:', saldoAtualHoras, 'Saldo Restante:', saldoRestante);
+        return [saldoAtualHoras, saldoRestante > 0 ? saldoRestante : 0];
     });
 }
 
@@ -144,7 +146,12 @@ function atualizarGrafico(grafico, dados, callbackRotuloX = null) {
 }
 
 function atualizarGraficoPizza(grafico, dados) {
-    grafico.data.datasets[0].data = dados[0];
+    if (dados.length > 0) {
+        grafico.data.datasets[0].data = dados[0];
+        console.log('Atualizando gráfico de pizza com dados:', dados[0]);
+    } else {
+        grafico.data.datasets[0].data = [0, 0]; // Garantir que o gráfico seja atualizado com dados vazios
+    }
     grafico.update();
 }
 
@@ -173,6 +180,7 @@ function obterAjustesPorDocente(docentes, nomeDocente) {
 function obterDadosBancoHorasPorDocente(docentes, nomeDocente) {
     const docente = docentes.find(d => d[0] === nomeDocente);
     const bancoHoras = docente ? docente[3] : [];
+    console.log('Dados banco de horas para:', nomeDocente, bancoHoras);
     return agruparDadosBancoHoras(bancoHoras);
 }
 
@@ -365,7 +373,8 @@ async function inicializar() {
         document.getElementById('bankHoursChartSelect').addEventListener('change', (event) => {
             const docenteSelecionado = event.target.value;
             const dados = obterDadosBancoHorasPorDocente(docentes, docenteSelecionado);
-            if (dados.length === 0 || dados[0][1] <= 0) {
+            console.log('Dados para o gráfico de pizza:', dados);
+            if (dados.length === 0 || (dados[0][0] === 0 && dados[0][1] === 0)) {
                 document.getElementById('bankHoursChart').style.display = 'none';
                 document.getElementById('noBankHoursMessage').style.display = 'block';
             } else {
@@ -388,7 +397,8 @@ async function inicializar() {
         // Renderizar gráfico de banco de horas para o primeiro usuário da lista
         const primeiroDocenteNome = docentes[0][0];
         const dadosBancoHoras = obterDadosBancoHorasPorDocente(docentes, primeiroDocenteNome);
-        if (dadosBancoHoras.length === 0 || dadosBancoHoras[0][1] <= 0) {
+        console.log('Dados banco de horas para o primeiro docente:', primeiroDocenteNome, dadosBancoHoras);
+        if (dadosBancoHoras.length === 0 || (dadosBancoHoras[0][0] === 0 && dadosBancoHoras[0][1] === 0)) {
             document.getElementById('bankHoursChart').style.display = 'none';
             document.getElementById('noBankHoursMessage').style.display = 'block';
         } else {
