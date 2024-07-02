@@ -83,6 +83,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.4s;
+    margin-left: 10px;
 }
 
 .logo-img:hover {
@@ -171,6 +172,7 @@ body {
 .welcome-message {
     margin-left: 10px;
 }
+
 
 @media (max-width: 480px) {
 
