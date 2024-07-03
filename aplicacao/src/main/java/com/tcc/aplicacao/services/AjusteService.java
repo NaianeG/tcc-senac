@@ -4,15 +4,19 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tcc.aplicacao.dto.AjusteDTO;
 import com.tcc.aplicacao.entities.Ajuste;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
+import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.repository.AjusteRepository;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
+import com.tcc.aplicacao.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -21,6 +25,9 @@ public class AjusteService {
 
     @Autowired
     AjusteRepository ajusteRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private MarcacaoPontoRepository marcacaoPontoRepository;
@@ -85,6 +92,22 @@ public class AjusteService {
     // Novo método para buscar todos os ajustes
     public List<Ajuste> buscarTodosAjustes() {
         return ajusteRepository.findAll();
+    }
+
+    public List<AjusteDTO> buscarTodosAjustesComDocente() {
+        List<AjusteDTO> ajusteDTOs = ajusteRepository.findAll().stream().map(ajuste -> {
+            MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
+            Usuario usuario = usuarioRepository.findById(marcacaoPonto.getIdUsuario()).orElse(null);
+            String nomeDocente = usuario != null ? usuario.getPessoa().getNomeCompleto() : "Desconhecido";
+            return new AjusteDTO(ajuste, nomeDocente);
+        }).collect(Collectors.toList());
+
+        ajusteDTOs.forEach(dto -> {
+            System.out.println("Ajuste ID: " + dto.getAjuste().getId() + ", Docente: " + dto.getNomeDocente()
+                    + dto.getAjuste().getHoraEntrada());
+        });
+
+        return ajusteDTOs;
     }
 
 }

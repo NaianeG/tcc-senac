@@ -29,16 +29,20 @@ import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.services.AjusteService;
 import com.tcc.aplicacao.services.MarcacaoPontoService;
+import com.tcc.aplicacao.services.UsuarioService;
 
 @Controller
 @SessionAttributes("usuario")
 public class AjusteController {
 
         @Autowired
-        AjusteService ajusteService;
+        private AjusteService ajusteService;
 
         @Autowired
-        MarcacaoPontoService marcacaoPontoService;
+        private UsuarioService usuarioService;
+
+        @Autowired
+        private MarcacaoPontoService marcacaoPontoService;
 
         @GetMapping("pedirAjuste/{id}")
         public String pedirAjuste(@PathVariable(name = "id") int id, Model model) {
@@ -99,8 +103,7 @@ public class AjusteController {
 
         @GetMapping("/listarAjustes")
         public String listarAjustes(Model model) {
-                List<Ajuste> ajustes = ajusteService.buscarTodosAjustes();
-                model.addAttribute("ajustes", ajustes);
+                model.addAttribute("ajustes", ajusteService.buscarTodosAjustesComDocente());
                 return "listarAjustes";
         }
 
