@@ -76,6 +76,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Docente</th>
                     <th>Data</th>
                     <th>Hora Entrada</th>
                     <th>Hora Saída</th>
@@ -86,24 +87,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="ajuste : ${ajustes}">
-                    <td th:text="${ajuste.id}"></td>
-                    <td th:text="${#dates.format(ajuste.data, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${ajuste.horaEntrada}"></td>
-                    <td th:text="${ajuste.horaSaida}"></td>
-                    <td th:text="${ajuste.justificativa}"></td>
+                <tr th:each="ajusteDTO : ${ajustes}">
+                    <td th:text="${ajusteDTO.ajuste.id}"></td>
+                    <td th:text="${ajusteDTO.nomeDocente}"></td>
+                    <td th:text="${#dates.format(ajusteDTO.ajuste.data, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${ajusteDTO.ajuste.horaEntrada}"></td>
+                    <td th:text="${ajusteDTO.ajuste.horaSaida}"></td>
+                    <td th:text="${ajusteDTO.ajuste.justificativa}"></td>
                     <td>
-                        <a th:href="@{'/downloadArquivo/' + ${ajuste.id}}" th:if="${ajuste.arquivo != null}">Baixar
+                        <a th:href="@{'/downloadArquivo/' + ${ajusteDTO.ajuste.id}}" th:if="${ajusteDTO.ajuste.arquivo != null}">Baixar
                             Arquivo</a>
                     </td>
-                    <td th:text="${ajuste.status != null ? (ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
+                    <td th:text="${ajusteDTO.ajuste.status != null ? (ajusteDTO.ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
                     </td>
                     <td>
-                        <form th:action="@{'/aprovarAjuste/' + ${ajuste.id}}" method="post">
+                        <form th:action="@{'/aprovarAjuste/' + ${ajusteDTO.ajuste.id}}" method="post">
                             <button type="submit">Aprovar</button>
                         </form>
                         <br>
-                        <form th:action="@{'/rejeitarAjuste/' + ${ajuste.id}}" method="post">
+                        <form th:action="@{'/rejeitarAjuste/' + ${ajusteDTO.ajuste.id}}" method="post">
                             <button type="submit">Rejeitar</button>
                         </form>
                     </td>
