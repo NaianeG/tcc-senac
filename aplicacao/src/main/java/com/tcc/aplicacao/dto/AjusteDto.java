@@ -6,11 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AjusteDTO {
+public class AjusteDto {
     private Ajuste ajuste;
     private String nomeDocente;
 
-    public AjusteDTO(Ajuste ajuste, String nomeDocente) {
+    public AjusteDto(Ajuste ajuste, String nomeDocente) {
         this.ajuste = ajuste;
         this.nomeDocente = nomeDocente;
     }
