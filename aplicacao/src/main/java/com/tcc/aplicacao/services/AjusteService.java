@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tcc.aplicacao.dto.AjusteDTO;
+import com.tcc.aplicacao.dto.AjusteDto;
 import com.tcc.aplicacao.entities.Ajuste;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
@@ -94,12 +94,12 @@ public class AjusteService {
         return ajusteRepository.findAll();
     }
 
-    public List<AjusteDTO> buscarTodosAjustesComDocente() {
-        List<AjusteDTO> ajusteDTOs = ajusteRepository.findAll().stream().map(ajuste -> {
+    public List<AjusteDto> buscarTodosAjustesComDocente() {
+        List<AjusteDto> ajusteDTOs = ajusteRepository.findAll().stream().map(ajuste -> {
             MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
             Usuario usuario = usuarioRepository.findById(marcacaoPonto.getIdUsuario()).orElse(null);
             String nomeDocente = usuario != null ? usuario.getPessoa().getNomeCompleto() : "Desconhecido";
-            return new AjusteDTO(ajuste, nomeDocente);
+            return new AjusteDto(ajuste, nomeDocente);
         }).collect(Collectors.toList());
 
         ajusteDTOs.forEach(dto -> {
