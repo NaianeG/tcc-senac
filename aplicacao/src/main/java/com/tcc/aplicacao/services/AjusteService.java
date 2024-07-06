@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.tcc.aplicacao.dto.AjusteDto;
 import com.tcc.aplicacao.entities.Ajuste;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
+import com.tcc.aplicacao.exceptions.AjusteExistenteException;
 import com.tcc.aplicacao.repository.AjusteRepository;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
 import com.tcc.aplicacao.repository.UsuarioRepository;
@@ -54,15 +56,16 @@ public class AjusteService {
             }
         }
 
+        Optional<Ajuste> existente = ajusteRepository.findFirstByMarcacaoPontoId(ajuste.getMarcacaoPonto().getId());
+        if (existente.isPresent()) {
+            throw new AjusteExistenteException("Ajuste com este marcacao_ponto_id já existe.");
+        }
+
         ajusteRepository.save(ajuste);
     }
 
     public Ajuste buscarPorId(int id) {
         return ajusteRepository.findById(id).orElse(null);
-    }
-
-    public void salvar(Ajuste ajuste) {
-        ajusteRepository.save(ajuste);
     }
 
     @Transactional
@@ -109,5 +112,4 @@ public class AjusteService {
 
         return ajusteDTOs;
     }
-
 }

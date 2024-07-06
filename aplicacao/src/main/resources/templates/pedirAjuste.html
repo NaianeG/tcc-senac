@@ -8,85 +8,93 @@
     <link rel="icon" type="imagex/png" href="../img/jornada-de-trabalho.png">
     <link rel="stylesheet" th:href="@{/css/pedirAjuste.css}" />
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 
 <body>
-    <div>
-        <aside class="sidebar">
-            <header class="sidebar-header">
-                <img class="logo-img"
-                    src="https://media.licdn.com/dms/image/D4E03AQH5IKxL5JdB0w/profile-displayphoto-shrink_800_800/0/1693953609968?e=1720051200&v=beta&t=HKQChgZlH0TnVFOlJBI47qSCiq2a7gUqW3VgW3xuWOc"
-                    alt="Foto_Perfil">
-            </header>
-            <nav aria-label="menu">
-                <div th:if="${usuario.role != 'USER'}">
-                    <a href="/listaDocentes" target="_blank" rel="noopener">
-                        <button class="botao-docentes">
-                            <span>
-                                <i class="material-symbols-outlined"> person </i>
-                                <span>Gerenciar docentes</span>
-                            </span>
-                        </button>
-                    </a>
-                </div>
-                <div th:if="${usuario.role != 'ADMIN'}">
-                    <button onclick="window.location.href='/home'" class="botao-registro-ponto">
-                        <span>
-                            <i class="material-symbols-outlined"> alarm_on </i>
-                            <span>Registro de ponto</span>
-                        </span>
-                    </button>
+<div>
+    <aside class="sidebar">
+        <header class="sidebar-header">
+            <img src="../img/logo-img.png" alt="Foto_Perfil" class="logo-img">
+            <div class="welcome-message">
+                Bem-vindo,
+                </br><span class="user-name" th:text="${usuario.username}"></span>
+            </div>
+        </header>
 
-                    <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
-                    <button onclick="apresentaListaPonto()" class="botao-lista-registros">
+        <nav aria-label="menu">
+            <div th:if="${usuario.role != 'USER'}">
+                <a href="/listaDocentes" target="_blank" rel="noopener">
+                    <button class="botao-docentes">
                         <span>
-                            <i class="material-symbols-outlined"> list </i>
-                            <span>Meus registros</span>
+                            <i class="material-symbols-outlined"> person </i>
+                            <span>Gerenciar docentes</span>
                         </span>
                     </button>
-                </div>
-                <button onclick="logout()">
+                </a>
+            </div>
+            <div th:if="${usuario.role != 'ADMIN'}">
+                <button onclick="window.location.href='/home'" class="botao-registro-ponto">
                     <span>
-                        <i class="material-symbols-outlined"> logout </i>
-                        <span>Sair</span>
+                        <i class="material-symbols-outlined"> alarm_on </i>
+                        <span>Registro de ponto</span>
                     </span>
                 </button>
-            </nav>
-        </aside>
-    </div>
 
-    <div class="ajuste-form">
-        <h1>Solicitar Ajuste</h1>
-        <form th:action="@{/salvarAjuste}" th:object="${ajuste}" method="post" enctype="multipart/form-data">
-            <input type="hidden" th:field="*{marcacaoPonto.id}" />
-            <div class="form-group">
-                <label for="data">Data</label>
-                <input type="date" id="data" th:field="*{data}" required />
+                <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
+                <button onclick="apresentaListaPonto()" class="botao-lista-registros">
+                    <span>
+                        <i class="material-symbols-outlined"> list </i>
+                        <span>Meus registros</span>
+                    </span>
+                </button>
             </div>
-            <div class="form-group">
-                <label for="horaEntrada">Hora de Entrada</label>
-                <input type="time" id="horaEntrada" name="horaEntradaStr"
-                    th:value="${#dates.format(ajuste.horaEntrada, 'HH:mm')}" required />
-            </div>
-            <div class="form-group">
-                <label for="horaSaida">Hora de Saída</label>
-                <input type="time" id="horaSaida" name="horaSaidaStr"
-                    th:value="${#dates.format(ajuste.horaSaida, 'HH:mm')}" required />
-            </div>
-            <div class="form-group">
-                <label for="justificativa">Justificativa</label>
-                <textarea id="justificativa" th:field="*{justificativa}" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="arquivo">Arquivo</label>
-                <input type="file" id="arquivoNovo" name="arquivoNovo" />
-            </div>
-            <button type="submit" class="btn">Enviar Ajuste</button>
-        </form>
-    </div>
+            <button onclick="logout()">
+                <span>
+                    <i class="material-symbols-outlined"> logout </i>
+                    <span>Sair</span>
+                </span>
+            </button>
+        </nav>
+    </aside>
+</div>
 
-    <script th:src="@{/scripts/pedirAjuste.js}"></script>
+<div class="ajuste-form">
+    <h1>Solicitar Ajuste</h1>
+    <form th:action="@{/salvarAjuste}" th:object="${ajuste}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{marcacaoPonto.id}" />
+        
+        <!-- Exibir mensagem de erro -->
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+        
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" th:field="*{data}" required />
+        </div>
+        <div class="form-group">
+            <label for="horaEntrada">Hora de Entrada</label>
+            <input type="time" id="horaEntrada" name="horaEntradaStr"
+                   th:value="${#dates.format(ajuste.horaEntrada, 'HH:mm')}" required />
+        </div>
+        <div class="form-group">
+            <label for="horaSaida">Hora de Saída</label>
+            <input type="time" id="horaSaida" name="horaSaidaStr"
+                   th:value="${#dates.format(ajuste.horaSaida, 'HH:mm')}" required />
+        </div>
+        <div class="form-group">
+            <label for="justificativa">Justificativa</label>
+            <textarea id="justificativa" th:field="*{justificativa}" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="arquivo">Arquivo</label>
+            <input type="file" id="arquivoNovo" name="arquivoNovo" />
+        </div>
+        <button type="submit" class="btn">Enviar Ajuste</button>
+    </form>
+</div>
+
+<script th:src="@{/scripts/pedirAjuste.js}"></script>
 </body>
-
 </html>

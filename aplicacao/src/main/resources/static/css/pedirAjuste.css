@@ -57,6 +57,9 @@ body {
 .sidebar-header {
     width: 100%;
     margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .sidebar button i {
@@ -202,4 +205,35 @@ body {
     .ajuste-form h1 {
         font-size: 20px;
     }
+}
+
+.welcome-message .user-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.logo-img {
+    width: 38px;
+    min-height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    margin-left: 10px;
+}
+
+.logo-img:hover {
+    transform: scale(1.5);
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }

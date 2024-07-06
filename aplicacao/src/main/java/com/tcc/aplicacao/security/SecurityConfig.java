@@ -25,17 +25,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/css/*", "/scripts/**", "/cadastroUsuario",
-                            "/img/*")
-                            .permitAll();
+                    request.requestMatchers("/css/*", "/scripts/**", "/img/*").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/cadastroUsuario", "/cadastrarDocente",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
-                            "/relatorio/excel/relatorio-horas/*")
+                            "/relatorio/excel/relatorio-horas/*", "/listarAjustes")
                             .hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.DELETE, "/deletarDocente/{id}").hasRole("ADMIN");
                     request.requestMatchers(HttpMethod.GET, "/deletarDocente/{id}",
                             "/relatorio/pdf/relatorio-docente", "/relatorio/pdf/relatorio-horas/*",
-                            "/relatorio/excel/relatorio-horas/*")
+                            "/relatorio/excel/relatorio-horas/*", "/listarAjustes", "/cadastroUsuario")
                             .hasRole("ADMIN");
                     request.anyRequest().authenticated();
                 })
