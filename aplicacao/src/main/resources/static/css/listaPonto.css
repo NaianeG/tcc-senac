@@ -168,6 +168,7 @@ body {
     color: #FFFFFF;
     margin: 10px auto;
     transition: background-color 0.2s;
+    border-radius: 5px;
 }
 
 .lista-registro-ponto .botao-excluir button {
@@ -351,8 +352,9 @@ body {
         margin-top: 15px;
         align-items: center;
         background-color: #2F3336;
-        font-size: 10px;
+        font-size: 12px;
         padding: 5px;
+
     }
 
     .lista-registro-ponto h1 {
@@ -452,3 +454,58 @@ body {
 .cancelBtn:hover {
     background-color: #2980b9;
 }
+
+/* Css do botão de lista ponto */
+.botao-novo .new-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #4CAF50;
+    transition: background-color 0.2s;
+    border-radius: 5px;
+}
+
+.botao-novo .new-button:hover {
+    cursor: pointer;
+    background-color: #45A049; 
+}
+
+@media (max-width: 480px) {
+    .lista-registro-ponto table thead th {
+        padding: 0px 0px;
+        text-align: center;
+    }
+
+    .botao-novo .new-button {
+        display: inline-flex;
+        align-items: center;
+        font-size: 15px;
+        padding: 5px 6px;
+        border: none;
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #4CAF50;
+        transition: background-color 0.2s;
+        border-radius: 5px;
+    }
+    
+    .botao-novo .new-button .text,
+    .botao-excluir .delete-button .text,
+    .botao-editar .edit-button .text {
+        display: none; 
+    }
+
+    .botao-novo .new-button .icon,
+    .botao-excluir .delete-button .icon,
+    .botao-editar .edit-button .icon {
+        display: inline; 
+    }
+    
+    
+}
+

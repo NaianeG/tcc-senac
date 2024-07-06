@@ -53,12 +53,23 @@ public class AjusteController {
                 return "pedirAjuste";
         }
 
+        @GetMapping("/pedirAjuste/")
+        public String novoAjuste(Model model) {
+                Ajuste ajuste = new Ajuste();
+                model.addAttribute("ajuste", ajuste);
+                return "pedirAjuste";
+        }
+
         @PostMapping("/salvarAjuste")
         public String salvarAjuste(@ModelAttribute Usuario usuario, @ModelAttribute Ajuste ajuste,
                         @RequestParam("arquivoNovo") MultipartFile arquivoNovo,
                         @RequestParam("horaEntradaStr") String horaEntradaStr,
                         @RequestParam("horaSaidaStr") String horaSaidaStr,
                         RedirectAttributes redirectAttributes) {
+                if (arquivoNovo.getSize() > 2 * 1024 * 1024) { // 2MB em bytes
+                        redirectAttributes.addFlashAttribute("error", "O arquivo não pode ser maior que 2MB.");
+                        return "redirect:/pedirAjuste/" + ajuste.getMarcacaoPonto().getId();
+                }
                 // Converte as horas de String para Time
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
