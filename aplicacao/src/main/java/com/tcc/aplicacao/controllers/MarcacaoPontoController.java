@@ -36,6 +36,8 @@ public class MarcacaoPontoController {
         List<MarcacaoPonto> marcacaoList = marcacaoPontoService.cadastroPonto(marcacaoPonto);
         if (marcacaoList.isEmpty()) {
             redirectAttributes.addFlashAttribute("alerta", "limiteAtingido");
+        } else {
+            redirectAttributes.addFlashAttribute("pontoConfirm", "pontoRegistrado");
         }
         mv.addObject("listaHoraMarcada", marcacaoList);
         return mv;
