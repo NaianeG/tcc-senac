@@ -83,6 +83,8 @@ function atualizarHora() {
   let segundo = String(dataAtual.getSeconds()).padStart(2, '0');
   let horaAtual = hora + ':' + minuto + ':' + segundo;
   document.getElementById('horaEntrada').value = horaAtual;
+  document.getElementById('horaSaida').value = horaAtual;
+
 }
 
 function logout() {
