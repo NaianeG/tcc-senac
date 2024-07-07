@@ -5,14 +5,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BancoHorasDTO {
+public class BancoHorasDto {
 
     private String nomeUsuario;
     private long saldoMensal;
     private String saldoAtual;
     private Boolean saldoNegativo;
 
-    public BancoHorasDTO(String nomeUsuario, long saldoMensal, String saldoAtual, Boolean saldoNegativo) {
+    public BancoHorasDto(String nomeUsuario, long saldoMensal, String saldoAtual, Boolean saldoNegativo) {
         this.nomeUsuario = nomeUsuario;
         this.saldoMensal = saldoMensal;
         this.saldoAtual = saldoAtual;
