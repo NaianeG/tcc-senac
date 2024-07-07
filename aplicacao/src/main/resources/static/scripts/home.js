@@ -97,3 +97,66 @@ function apresentaListaPonto() {
 function apresentarAjustesDePonto() {
   window.location.href = "/listarAjustes";
 }
+
+// Função para renderizar o gráfico de pizza na home do docente
+async function fetchDadosBancoHoras() {
+  try {
+      const response = await fetch('/dadosGraficoHome');
+      const data = await response.json();
+      return data;
+  } catch (error) {
+      console.error('Erro ao carregar dados do banco de horas:', error);
+      return null;
+  }
+}
+
+function converterHorasParaMilissegundos(horasStr) {
+  const [horas, minutos, segundos] = horasStr.split(':').map(Number);
+  return ((horas * 3600) + (minutos * 60) + segundos) * 1000;
+}
+
+async function inicializarGraficoHome() {
+  const dados = await fetchDadosBancoHoras();
+
+  if (dados) {
+      const saldoAtual = converterHorasParaMilissegundos(dados.saldoAtual);
+      const saldoMensal = dados.saldoMensal * 1000 * 60 * 60; // Convertendo horas de volta para milissegundos
+
+      const ctx = document.getElementById('graficoHome').getContext('2d');
+      const graficoHome = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: ['Saldo Atual', 'Saldo Restante'],
+              datasets: [{
+                  data: [saldoAtual, saldoMensal - saldoAtual],
+                  backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+                  borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: function(tooltipItem) {
+                              const valor = tooltipItem.raw;
+                              const horas = Math.floor(valor / 3600000);
+                              const minutos = Math.floor((valor % 3600000) / 60000);
+                              return `${horas}h ${minutos}m`;
+                          }
+                      }
+                  }
+              }
+          }
+      });
+  } else {
+      console.error('Dados do banco de horas não encontrados.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  inicializarGraficoHome();
+});
+

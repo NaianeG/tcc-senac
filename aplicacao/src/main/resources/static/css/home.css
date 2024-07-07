@@ -110,6 +110,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     color: #FFF;
+    width: 100%;
 }
 
 .container-registro-ponto-ativo h1 {
@@ -173,9 +174,7 @@ body {
     margin-left: 10px;
 }
 
-
 @media (max-width: 480px) {
-
     .sidebar {
         width: 72px;
         display: inline-block;
@@ -208,10 +207,10 @@ body {
     }
 
     .container-registro-ponto-ativo .meio {
-        margin: 80px 30px 0px 85px;
-        width: 75%;
-        height: 550px;
-        padding: 10px;
+        margin: 0px 0px 0 0px;
+        width: 600px;
+        height: 560px;
+        width: 280px;
     }
 
     .container-registro-ponto-ativo input[type="date"],
@@ -237,5 +236,48 @@ body {
         transition: background-color 0.3s;
         margin-top: 30px;
         width: 50%;
+    }
+
+
+    .chart-bancoHorasDocente-ativo{
+        margin: 0 auto;
+    }
+}
+
+/* CSS gráfico da home docente */
+#container-registro-ponto {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 70px 0px 0 76px;
+}
+
+
+#bancoHorasDocente {
+    text-align: center;
+}
+
+.chart-containerDocente {
+    width: 100%;
+    height: 330px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding-bottom: 33px;
+}
+
+@media (max-width: 667px) {
+    .chart-containerDocente {
+        width: 284px;
+        padding: 12px;
+        height: 307px;
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-registro-ponto-ativo {
+        flex-direction: column;
     }
 }

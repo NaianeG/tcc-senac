@@ -14,6 +14,7 @@
 
 <body>
     <script src="../scripts/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <div>
         <aside class="sidebar">
             <header class="sidebar-header">
@@ -140,6 +141,12 @@
             <script th:inline="javascript">
                 preencherDataAtual();
             </script>
+            <div id="bancoHorasDocente" class="chart-bancoHorasDocente-ativo">
+                <h2>Meu banco de horas</h2>
+                <div class="chart-containerDocente" id="chart-containerDocente-ativo">
+                    <canvas id="graficoHome"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +9,6 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
-
 <body>
 <div>
     <aside class="sidebar">
@@ -21,7 +19,6 @@
                 </br><span class="user-name" th:text="${usuario.username}"></span>
             </div>
         </header>
-
         <nav aria-label="menu">
             <div th:if="${usuario.role != 'USER'}">
                 <a href="/listaDocentes" target="_blank" rel="noopener">
@@ -40,7 +37,6 @@
                         <span>Registro de ponto</span>
                     </span>
                 </button>
-
                 <div id="idUsuario-data" th:data-attribute="${usuario.id}"></div>
                 <button onclick="apresentaListaPonto()" class="botao-lista-registros">
                     <span>
@@ -61,7 +57,8 @@
 
 <div class="ajuste-form">
     <h1>Solicitar Ajuste</h1>
-    <form th:action="@{/salvarAjuste}" th:object="${ajuste}" method="post" enctype="multipart/form-data">
+    <form th:action="${currentURI == '/pedirAjusteSemMarcacao' ? '/salvarAjusteSemMarcacao' : '/salvarAjuste'}"
+          th:object="${ajuste}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{marcacaoPonto.id}" />
         
         <!-- Exibir mensagem de erro -->

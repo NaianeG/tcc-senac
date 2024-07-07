@@ -31,6 +31,8 @@ import com.tcc.aplicacao.exceptions.AjusteExistenteException;
 import com.tcc.aplicacao.services.AjusteService;
 import com.tcc.aplicacao.services.MarcacaoPontoService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 @SessionAttributes("usuario")
 public class AjusteController {
@@ -53,23 +55,12 @@ public class AjusteController {
                 return "pedirAjuste";
         }
 
-        @GetMapping("/pedirAjuste/")
-        public String novoAjuste(Model model) {
-                Ajuste ajuste = new Ajuste();
-                model.addAttribute("ajuste", ajuste);
-                return "pedirAjuste";
-        }
-
         @PostMapping("/salvarAjuste")
         public String salvarAjuste(@ModelAttribute Usuario usuario, @ModelAttribute Ajuste ajuste,
                         @RequestParam("arquivoNovo") MultipartFile arquivoNovo,
                         @RequestParam("horaEntradaStr") String horaEntradaStr,
                         @RequestParam("horaSaidaStr") String horaSaidaStr,
                         RedirectAttributes redirectAttributes) {
-                if (arquivoNovo.getSize() > 2 * 1024 * 1024) { // 2MB em bytes
-                        redirectAttributes.addFlashAttribute("error", "O arquivo não pode ser maior que 2MB.");
-                        return "redirect:/pedirAjuste/" + ajuste.getMarcacaoPonto().getId();
-                }
                 // Converte as horas de String para Time
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
@@ -96,6 +87,44 @@ public class AjusteController {
                         redirectAttributes.addFlashAttribute("error",
                                         "Já possui um ajuste solicitado para esse registro de ponto");
                         return "redirect:/ponto/listaPonto/" + usuario.getId();
+                }
+        }
+
+        @GetMapping("/pedirAjusteSemMarcacao")
+        public String pedirAjusteSemMarcacao(Model model, HttpServletRequest request) {
+                Ajuste ajuste = new Ajuste();
+                model.addAttribute("ajuste", ajuste);
+                model.addAttribute("currentURI", request.getRequestURI());
+                return "pedirAjuste";
+        }
+
+        @PostMapping("/salvarAjusteSemMarcacao")
+        public String salvarAjusteSemMarcacao(@ModelAttribute Usuario usuario, @ModelAttribute Ajuste ajuste,
+                        @RequestParam("arquivoNovo") MultipartFile arquivoNovo,
+                        @RequestParam("horaEntradaStr") String horaEntradaStr,
+                        @RequestParam("horaSaidaStr") String horaSaidaStr,
+                        RedirectAttributes redirectAttributes) {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+                try {
+                        if (horaEntradaStr != null && !horaEntradaStr.isEmpty()) {
+                                Time horaEntrada = new Time(sdf.parse(horaEntradaStr).getTime());
+                                ajuste.setHoraEntrada(horaEntrada);
+                        }
+
+                        if (horaSaidaStr != null && !horaSaidaStr.isEmpty()) {
+                                Time horaSaida = new Time(sdf.parse(horaSaidaStr).getTime());
+                                ajuste.setHoraSaida(horaSaida);
+                        }
+
+                        ajusteService.salvarAjusteSemMarcacao(ajuste, arquivoNovo, usuario.getId());
+                        redirectAttributes.addFlashAttribute("message", "Ajuste solicitado com sucesso");
+                        return "redirect:/ponto/listaPonto/" + usuario.getId();
+                } catch (ParseException e) {
+                        e.printStackTrace();
+                        redirectAttributes.addFlashAttribute("error",
+                                        "Erro ao converter as horas. Por favor, tente novamente.");
+                        return "redirect:/pedirAjusteSemMarcacao";
                 }
         }
 

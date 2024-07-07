@@ -68,4 +68,8 @@ public class BancoHorasService {
     public List<BancoHoras> buscaBancosHoras() {
         return bancoHorasRepository.findAll();
     }
+
+    public BancoHoras buscaBancosHorasPorUsuario(Integer idUsuario) {
+        return bancoHorasRepository.findByUsuarioId(idUsuario);
+    }
 }

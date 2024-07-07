@@ -28,4 +28,7 @@ public interface MarcacaoPontoRepository extends JpaRepository<MarcacaoPonto, In
 
     MarcacaoPonto findByData(Date date);
 
+    @Query(value = "SELECT * FROM MarcacaoPonto WHERE hora_saida IS NOT NULL", nativeQuery = true)
+    List<MarcacaoPonto> findAllMarcacaoPonto();
+
 }

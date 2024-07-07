@@ -3,6 +3,8 @@ package com.tcc.aplicacao.services;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -64,6 +66,39 @@ public class AjusteService {
         ajusteRepository.save(ajuste);
     }
 
+    public void salvarAjusteSemMarcacao(Ajuste ajuste, MultipartFile arquivoNovo, int usuarioId) {
+        MarcacaoPonto marcacaoPonto = new MarcacaoPonto();
+        marcacaoPonto.setIdUsuario(usuarioId);
+        marcacaoPonto.setData(new Date(0)); // Data zerada
+        marcacaoPonto.setHoraEntrada(new Time(0)); // Hora zerada
+        marcacaoPonto.setHoraSaida(new Time(0)); // Hora zerada
+        marcacaoPontoRepository.save(marcacaoPonto);
+
+        ajuste.setMarcacaoPonto(marcacaoPonto);
+        if (!arquivoNovo.isEmpty()) {
+            String nomeArquivo = arquivoNovo.getOriginalFilename();
+
+            try {
+                String diretorioImg = "uploads/";
+                File dir = new File(diretorioImg);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + nomeArquivo);
+                ajuste.setArquivo(serverFile.getAbsolutePath());
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+
+                stream.write(arquivoNovo.getBytes());
+                stream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        ajusteRepository.save(ajuste);
+    }
+
     public Ajuste buscarPorId(int id) {
         return ajusteRepository.findById(id).orElse(null);
     }
@@ -73,10 +108,12 @@ public class AjusteService {
         Ajuste ajuste = ajusteRepository.findById(ajusteId)
                 .orElseThrow(() -> new IllegalArgumentException("Ajuste não encontrado"));
         MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
-        marcacaoPonto.setHoraEntrada(ajuste.getHoraEntrada());
-        marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
+        if (marcacaoPonto != null) {
+            marcacaoPonto.setHoraEntrada(ajuste.getHoraEntrada());
+            marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
+            marcacaoPontoRepository.save(marcacaoPonto);
+        }
         ajuste.setStatus(true);
-        marcacaoPontoRepository.save(marcacaoPonto);
         ajusteRepository.save(ajuste);
     }
 
@@ -92,7 +129,6 @@ public class AjusteService {
         return ajusteRepository.findByMarcacaoPontoId(marcacaoPontoId);
     }
 
-    // Novo método para buscar todos os ajustes
     public List<Ajuste> buscarTodosAjustes() {
         return ajusteRepository.findAll();
     }
@@ -100,8 +136,11 @@ public class AjusteService {
     public List<AjusteDto> buscarTodosAjustesComDocente() {
         List<AjusteDto> ajusteDTOs = ajusteRepository.findAll().stream().map(ajuste -> {
             MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
-            Usuario usuario = usuarioRepository.findById(marcacaoPonto.getIdUsuario()).orElse(null);
-            String nomeDocente = usuario != null ? usuario.getPessoa().getNomeCompleto() : "Desconhecido";
+            String nomeDocente = "Desconhecido";
+            if (marcacaoPonto != null) {
+                Usuario usuario = usuarioRepository.findById(marcacaoPonto.getIdUsuario()).orElse(null);
+                nomeDocente = usuario != null ? usuario.getPessoa().getNomeCompleto() : "Desconhecido";
+            }
             return new AjusteDto(ajuste, nomeDocente);
         }).collect(Collectors.toList());
 
