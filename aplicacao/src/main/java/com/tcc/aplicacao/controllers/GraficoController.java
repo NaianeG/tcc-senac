@@ -8,12 +8,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tcc.aplicacao.dto.BancoHorasDTO;
+import com.tcc.aplicacao.dto.BancoHorasDto;
 import com.tcc.aplicacao.entities.Ajuste;
 import com.tcc.aplicacao.entities.BancoHoras;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
@@ -82,7 +81,7 @@ public class GraficoController {
 
         String saldoAtualFormatado = formatarSaldo(bancoHoras.getSaldoAtual());
 
-        BancoHorasDTO bancoHorasDTO = new BancoHorasDTO(
+        BancoHorasDto bancoHorasDTO = new BancoHorasDto(
                 usuario.getUsername(),
                 bancoHoras.getSaldoMensal(),
                 saldoAtualFormatado,
