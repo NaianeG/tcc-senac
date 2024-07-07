@@ -331,7 +331,8 @@ body {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        gap: 10px;
+        gap: 7px;
+        margin-left: 25px;
     }
 
     .lista-registro-ponto .status-item {

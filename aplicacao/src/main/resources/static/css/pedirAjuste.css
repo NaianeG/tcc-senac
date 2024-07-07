@@ -205,6 +205,10 @@ body {
     .ajuste-form h1 {
         font-size: 20px;
     }
+
+    .welcome-message {
+        display: none;
+    } 
 }
 
 .welcome-message .user-name {
