@@ -133,6 +133,9 @@
             <script th:if="${alerta == 'limiteAtingido'}">
                 alert("Você já registrou sua entrada e sua saída!");
             </script>
+            <script th:if="${pontoConfirm == 'pontoRegistrado'}">
+                alert("Registro de ponto efetuado com sucesso!");
+            </script>
             <script th:inline="javascript">
                 preencherDataAtual();
             </script>
