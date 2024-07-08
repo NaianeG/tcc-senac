@@ -31,6 +31,9 @@ public class AjusteService {
     AjusteRepository ajusteRepository;
 
     @Autowired
+    private BancoHorasService bancoHorasService;
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -113,8 +116,12 @@ public class AjusteService {
             marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
             marcacaoPontoRepository.save(marcacaoPonto);
         }
+
         ajuste.setStatus(true);
         ajusteRepository.save(ajuste);
+
+        // Atualiza o banco de horas do usuário associado ao ajuste
+        bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario());
     }
 
     @Transactional
