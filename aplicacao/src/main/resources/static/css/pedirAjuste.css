@@ -120,6 +120,10 @@ body {
         display: inline-block;
     }
 
+    .welcome-message {
+        display: none;
+    }
+
     .button-mobile {
         display: none;
     }

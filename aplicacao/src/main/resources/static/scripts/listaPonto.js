@@ -1,3 +1,5 @@
+// JavaScript para listaPonto.js
+
 document.addEventListener("DOMContentLoaded", function () {
     var modal = document.getElementById("confirmModal");
     var confirmBtn = document.getElementById("confirmBtn");
@@ -59,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 // Remover duplicação de eventos de clique no window
 window.removeEventListener("click", window.clickHandler);
 window.clickHandler = function(event) {
@@ -87,4 +88,9 @@ function logout() {
 function apresentaListaPonto() {
     let idUsuario = document.getElementById("idUsuario-data").getAttribute("data-attribute");
     window.location.replace("/ponto/listaPonto/" + idUsuario);
+}
+
+function toggleMenu() {
+    var sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
 }

@@ -1,3 +1,5 @@
+/* CSS de Estilização para listaPonto.css */
+
 /* Reset de estilos básicos */
 * {
     margin: 0;
@@ -56,11 +58,9 @@ body {
 }
 
 .sidebar-header {
-    width: 100%;
     margin-bottom: 16px;
-    display: flex;
-    align-items: center;
     gap: 10px;
+    display: flex;
 }
 
 .sidebar button i {
@@ -189,6 +189,25 @@ body {
     background-color: #e2b257;
 }
 
+.botao-novo .new-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #4CAF50;
+    transition: background-color 0.2s;
+    border-radius: 5px;
+}
+
+.botao-novo .new-button:hover {
+    cursor: pointer;
+    background-color: #45A049;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -299,19 +318,38 @@ body {
 
 /* Fim da estilização do Modal */
 
+/* Estilização do botão de menu */
+.menu-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+}
+
+/* Estilos específicos para dispositivos móveis */
 @media (max-width: 480px) {
+    .menu-button {
+        display: block;
+    }
+
     .sidebar {
-        width: 70px;
-        display: flexbox;
+        width: 240px;
+        position: fixed;
+        left: -240px;
+        transition: left 0.3s;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .sidebar button>span {
-        width: 50px;
-    }
-
-    .sidebar button>span>span {
-        opacity: 0;
-        visibility: hidden;
+    .sidebar.active {
+        left: 0;
+        background: #101010ed;
     }
 
     .lista-registro-ponto {
@@ -354,7 +392,6 @@ body {
         background-color: #2F3336;
         font-size: 12px;
         padding: 5px;
-
     }
 
     .lista-registro-ponto h1 {
@@ -376,28 +413,30 @@ body {
     }
 
     .lista-registro-ponto .botao-excluir button,
-    .lista-registro-ponto .botao-editar a {
+    .lista-registro-ponto .botao-editar a,
+    .botao-novo .new-button {
         font-size: 10px;
         padding: 5px;
     }
 
-    .lista-registro-ponto .delete-button .text,
-    .lista-registro-ponto .edit-button .text {
+    .botao-novo .new-button .text,
+    .lista-registro-ponto .botao-excluir .delete-button .text,
+    .lista-registro-ponto .botao-editar .edit-button .text {
         display: none;
     }
 
-    .lista-registro-ponto .delete-button .icon,
-    .lista-registro-ponto .edit-button .icon {
+    .botao-novo .new-button .icon,
+    .lista-registro-ponto .botao-excluir .delete-button .icon,
+    .lista-registro-ponto .botao-editar .edit-button .icon {
         display: inline;
     }
 
     .welcome-message {
-        display: none;
+        display: block;
     }
-
 }
 
-/* Estilização do modal */
+
 /* Estilização do Modal */
 .modal {
     display: none; /* Esconder o modal por padrão */
@@ -463,7 +502,54 @@ body {
     background-color: #2980b9;
 }
 
-/* Css do botão de lista ponto */
+/* Adicione estas classes ao seu CSS */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-overlay .sidebar {
+    position: static;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: #121212;
+    border-right: none;
+    z-index: 10000;
+}
+
+.menu-overlay .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.menu-button i {
+    font-size: 36px;
+}
+
+/* Estilização do botão de Novo Ponto */
 .botao-novo .new-button {
     display: inline-flex;
     align-items: center;
@@ -480,15 +566,91 @@ body {
 
 .botao-novo .new-button:hover {
     cursor: pointer;
-    background-color: #45A049; 
+    background-color: #45A049;
 }
 
 @media (max-width: 480px) {
-    .lista-registro-ponto table thead th {
-        padding: 0px 0px;
-        text-align: center;
+    .sidebar {
+        width: 240px;
+        position: fixed;
+        left: -240px;
+        transition: left 0.3s;
+        display: flex;
     }
 
+    .sidebar.active {
+        left: 0;
+    }
+
+    .lista-registro-ponto {
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .lista-registro-ponto .status {
+        border-radius: 20px;
+        font-size: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lista-registro-ponto .status-items {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .lista-registro-ponto .status-item {
+        display: flex;
+        margin-right: 20px;
+    }
+
+    .lista-registro-ponto .status-item span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .lista-registro-ponto table {
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 15px;
+        align-items: center;
+        background-color: #2F3336;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .lista-registro-ponto h1 {
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .lista-registro-ponto span svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .lista-registro-ponto .botao-excluir button,
+    .lista-registro-ponto .botao-editar a {
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    .lista-registro-ponto .delete-button .text,
+    .lista-registro-ponto .edit-button .text {
+        display: none;
+    }
+
+    .lista-registro-ponto .delete-button .icon,
+    .lista-registro-ponto .edit-button .icon {
+        display: inline;
+    }
+
+    /* Estilização do botão de Novo Ponto */
     .botao-novo .new-button {
         display: inline-flex;
         align-items: center;
@@ -501,19 +663,16 @@ body {
         transition: background-color 0.2s;
         border-radius: 5px;
     }
-    
+
     .botao-novo .new-button .text,
     .botao-excluir .delete-button .text,
     .botao-editar .edit-button .text {
-        display: none; 
+        display: none;
     }
 
     .botao-novo .new-button .icon,
     .botao-excluir .delete-button .icon,
     .botao-editar .edit-button .icon {
-        display: inline; 
+        display: inline;
     }
-    
-    
 }
-
