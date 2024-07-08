@@ -95,10 +95,13 @@
                     <td th:text="${ajusteDTO.ajuste.horaSaida}"></td>
                     <td th:text="${ajusteDTO.ajuste.justificativa}"></td>
                     <td>
-                        <a th:href="@{'/downloadArquivo/' + ${ajusteDTO.ajuste.id}}" th:if="${ajusteDTO.ajuste.arquivo != null}">Baixar
-                            Arquivo</a>
+                        <a th:href="@{'/downloadArquivo/' + ${ajusteDTO.ajuste.id}}"
+                            th:if="${ajusteDTO.ajuste.arquivo != null}"><span class="material-symbols-outlined" style="text-decoration: none;">
+                                download
+                            </span></a>
                     </td>
-                    <td th:text="${ajusteDTO.ajuste.status != null ? (ajusteDTO.ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
+                    <td
+                        th:text="${ajusteDTO.ajuste.status != null ? (ajusteDTO.ajuste.status ? 'Aprovado' : 'Rejeitado') : 'Pendente'}">
                     </td>
                     <td>
                         <form th:action="@{'/aprovarAjuste/' + ${ajusteDTO.ajuste.id}}" method="post">
