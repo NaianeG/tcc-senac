@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.tcc.aplicacao.entities.Pessoa;
 import com.tcc.aplicacao.entities.Usuario;
+import com.tcc.aplicacao.services.BancoHorasService;
 import com.tcc.aplicacao.services.PessoaService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;
+
+    @Autowired
+    private BancoHorasService bancoHorasService;
 
     @GetMapping("pesquisaDocente")
     public String pesquisaDocente() {
@@ -63,7 +67,14 @@ public class PessoaController {
     @GetMapping("/deletarDocente/{id}")
     public String deletarDocente(@PathVariable("id") int id) {
         try {
-            pessoaService.deletaDocente(id);
+            System.err.println("Deletando docente " + id);
+            Usuario usuario = pessoaService.buscarUsuarioPorPessoaId(id);
+            if (usuario != null) {
+                bancoHorasService.deletarBancoHorasPorUsuarioId(usuario.getId());
+                pessoaService.deletaDocente(id);
+            } else {
+                System.out.println("Usuário não encontrado para o ID da pessoa: " + id);
+            }
         } catch (Exception e) {
             System.out.println("Exception:" + e.getLocalizedMessage());
         }

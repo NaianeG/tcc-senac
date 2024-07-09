@@ -22,4 +22,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     @Query(value = "SELECT * FROM usuario WHERE role != 'ADMIN' Order By username asc ", nativeQuery = true)
     List<Usuario> buscaTodosDocentes();
+
+    Usuario findByPessoaId(int pessoaId);
+
 }

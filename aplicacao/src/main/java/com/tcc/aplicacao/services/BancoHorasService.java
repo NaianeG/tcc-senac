@@ -87,4 +87,28 @@ public class BancoHorasService {
     public BancoHoras buscaBancosHorasPorUsuario(Integer idUsuario) {
         return bancoHorasRepository.findByUsuarioId(idUsuario);
     }
+
+    public boolean zerarBancoHoras(int usuarioId) {
+        BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(usuarioId);
+        if (bancoHoras != null) {
+            bancoHoras.setSaldoAtual(0);
+            bancoHorasRepository.save(bancoHoras);
+            System.out.println("Banco de horas zerado para o usuário ID: " + usuarioId + ", Saldo Atual: "
+                    + bancoHoras.getSaldoAtual());
+            return true;
+        } else {
+            System.out.println("Banco de horas não encontrado para o usuário ID: " + usuarioId);
+            return false;
+        }
+    }
+
+    public void deletarBancoHorasPorUsuarioId(int usuarioId) {
+        BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(usuarioId);
+        if (bancoHoras != null) {
+            bancoHorasRepository.delete(bancoHoras);
+            System.out.println("Banco de horas deletado para o usuário ID: " + usuarioId);
+        } else {
+            System.out.println("Banco de horas não encontrado para o usuário ID: " + usuarioId);
+        }
+    }
 }

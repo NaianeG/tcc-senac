@@ -80,16 +80,21 @@ public class MarcacaoPontoController {
             @RequestParam(defaultValue = "10") int size,
             RedirectAttributes redirectAttributes) {
         MarcacaoPonto marcacaoPonto = marcacaoPontoService.buscaMarcacaoPontoPorId(id);
-        long millisEntrada = marcacaoPonto.getHoraEntrada().getTime();
-        long millisSaida = marcacaoPonto.getHoraSaida().getTime();
-        long diff = millisSaida - millisEntrada;
 
-        BancoHoras bancoHoras = bancoHorasService.buscaBancosHorasPorUsuario(idUsuario);
-        bancoHoras.setSaldoAtual(bancoHoras.getSaldoAtual() - diff);
-        bancoHorasRepository.save(bancoHoras);
+        // Verifica se a horaSaida é nula
+        if (marcacaoPonto.getHoraSaida() != null) {
+            long millisEntrada = marcacaoPonto.getHoraEntrada().getTime();
+            long millisSaida = marcacaoPonto.getHoraSaida().getTime();
+            long diff = millisSaida - millisEntrada;
+
+            BancoHoras bancoHoras = bancoHorasService.buscaBancosHorasPorUsuario(idUsuario);
+            bancoHoras.setSaldoAtual(bancoHoras.getSaldoAtual() - diff);
+            bancoHorasRepository.save(bancoHoras);
+        }
 
         marcacaoPontoService.deletarPonto(id);
         redirectAttributes.addFlashAttribute("message", "Ponto deletado com sucesso");
         return "redirect:/ponto/listaPonto/" + idUsuario + "?page=" + page + "&size=" + size;
     }
+
 }

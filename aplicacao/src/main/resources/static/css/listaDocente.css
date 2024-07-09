@@ -122,3 +122,92 @@ td a:hover {
     position: relative;
     background-color: #ddd;
 }
+
+/* css para o modal de confirmação de zerar banco de horas */
+.modal {
+    display: none; /* Esconder o modal por padrão */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #2F3336;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    color: #FFF;
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.confirmBtn,
+.cancelBtn {
+    background-color: #e3342b;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 5px 0 0;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirmBtn:hover {
+    background-color: #c92a1b;
+}
+
+.cancelBtn {
+    background-color: #3498db;
+}
+
+.cancelBtn:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo para o ícone de zerar banco de horas */
+.material-symbols-outlined {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+/* estilo do alerta */
+.alerta {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.alerta.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alerta.erro {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
