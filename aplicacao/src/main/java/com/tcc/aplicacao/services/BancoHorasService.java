@@ -10,6 +10,7 @@ import com.tcc.aplicacao.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -30,9 +31,10 @@ public class BancoHorasService {
         }
 
         BancoHoras bancoHoras = bancoHorasRepository.findByUsuarioId(idUsuario);
-        System.out.println(bancoHoras);
         List<MarcacaoPonto> marcacoes = marcacaoPontoRepository.findByIdUsuario(idUsuario);
-        long saldoAtual = bancoHoras.getSaldoAtual();
+
+        // Zera o saldo atual antes de recalcular
+        long saldoAtual = 0;
 
         for (MarcacaoPonto marcacao : marcacoes) {
             if (marcacao.getHoraSaida() != null) {
@@ -46,6 +48,19 @@ public class BancoHorasService {
                 System.out.println("Horas trabalhadas: " + diffHoras + "h " + diffMinutos + "m");
 
                 saldoAtual += diff;
+            }
+        }
+
+        // Verificar se é início de mês
+        Calendar now = Calendar.getInstance();
+        if (now.get(Calendar.DAY_OF_MONTH) == 1) {
+            long saldoRestante = saldoAtual - bancoHoras.getSaldoMensal();
+            saldoAtual = Math.max(0, saldoRestante);
+
+            if (saldoRestante < 0) {
+                bancoHoras.setSaldoNegativo(true);
+            } else {
+                bancoHoras.setSaldoNegativo(false);
             }
         }
 

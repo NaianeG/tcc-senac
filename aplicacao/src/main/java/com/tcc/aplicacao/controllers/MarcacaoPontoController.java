@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tcc.aplicacao.entities.BancoHoras;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
+import com.tcc.aplicacao.repository.BancoHorasRepository;
+import com.tcc.aplicacao.services.BancoHorasService;
 import com.tcc.aplicacao.services.MarcacaoPontoService;
 
 @Controller
@@ -29,11 +32,17 @@ public class MarcacaoPontoController {
     @Autowired
     private MarcacaoPontoService marcacaoPontoService;
 
+    @Autowired
+    private BancoHorasService bancoHorasService;
+
+    @Autowired
+    private BancoHorasRepository bancoHorasRepository;
+
     @PostMapping("cadastroPonto")
     public ModelAndView cadastroPonto(MarcacaoPonto marcacaoPonto, RedirectAttributes redirectAttributes) {
-
         ModelAndView mv = new ModelAndView("redirect:/home");
         List<MarcacaoPonto> marcacaoList = marcacaoPontoService.cadastroPonto(marcacaoPonto);
+        bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario());
         if (marcacaoList.isEmpty()) {
             redirectAttributes.addFlashAttribute("alerta", "limiteAtingido");
         } else {
@@ -70,6 +79,15 @@ public class MarcacaoPontoController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             RedirectAttributes redirectAttributes) {
+        MarcacaoPonto marcacaoPonto = marcacaoPontoService.buscaMarcacaoPontoPorId(id);
+        long millisEntrada = marcacaoPonto.getHoraEntrada().getTime();
+        long millisSaida = marcacaoPonto.getHoraSaida().getTime();
+        long diff = millisSaida - millisEntrada;
+
+        BancoHoras bancoHoras = bancoHorasService.buscaBancosHorasPorUsuario(idUsuario);
+        bancoHoras.setSaldoAtual(bancoHoras.getSaldoAtual() - diff);
+        bancoHorasRepository.save(bancoHoras);
+
         marcacaoPontoService.deletarPonto(id);
         redirectAttributes.addFlashAttribute("message", "Ponto deletado com sucesso");
         return "redirect:/ponto/listaPonto/" + idUsuario + "?page=" + page + "&size=" + size;

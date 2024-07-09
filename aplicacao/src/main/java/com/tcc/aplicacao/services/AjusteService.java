@@ -15,10 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tcc.aplicacao.dto.AjusteDto;
 import com.tcc.aplicacao.entities.Ajuste;
+import com.tcc.aplicacao.entities.BancoHoras;
 import com.tcc.aplicacao.entities.MarcacaoPonto;
 import com.tcc.aplicacao.entities.Usuario;
 import com.tcc.aplicacao.exceptions.AjusteExistenteException;
 import com.tcc.aplicacao.repository.AjusteRepository;
+import com.tcc.aplicacao.repository.BancoHorasRepository;
 import com.tcc.aplicacao.repository.MarcacaoPontoRepository;
 import com.tcc.aplicacao.repository.UsuarioRepository;
 
@@ -29,6 +31,9 @@ public class AjusteService {
 
     @Autowired
     AjusteRepository ajusteRepository;
+
+    @Autowired
+    BancoHorasRepository bancoHorasRepository;
 
     @Autowired
     private BancoHorasService bancoHorasService;
@@ -72,9 +77,9 @@ public class AjusteService {
     public void salvarAjusteSemMarcacao(Ajuste ajuste, MultipartFile arquivoNovo, int usuarioId) {
         MarcacaoPonto marcacaoPonto = new MarcacaoPonto();
         marcacaoPonto.setIdUsuario(usuarioId);
-        marcacaoPonto.setData(new Date(0)); // Data zerada
-        marcacaoPonto.setHoraEntrada(new Time(0)); // Hora zerada
-        marcacaoPonto.setHoraSaida(new Time(0)); // Hora zerada
+        marcacaoPonto.setData(ajuste.getData());
+        marcacaoPonto.setHoraEntrada(ajuste.getHoraEntrada());
+        marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
         marcacaoPontoRepository.save(marcacaoPonto);
 
         ajuste.setMarcacaoPonto(marcacaoPonto);
@@ -112,15 +117,26 @@ public class AjusteService {
                 .orElseThrow(() -> new IllegalArgumentException("Ajuste não encontrado"));
         MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
         if (marcacaoPonto != null) {
+            long millisEntradaAntiga = marcacaoPonto.getHoraEntrada().getTime();
+            long millisSaidaAntiga = marcacaoPonto.getHoraSaida().getTime();
+            long diffAntigo = millisSaidaAntiga - millisEntradaAntiga;
+
             marcacaoPonto.setHoraEntrada(ajuste.getHoraEntrada());
             marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
             marcacaoPontoRepository.save(marcacaoPonto);
+
+            long millisEntradaNovo = ajuste.getHoraEntrada().getTime();
+            long millisSaidaNovo = ajuste.getHoraSaida().getTime();
+            long diffNovo = millisSaidaNovo - millisEntradaNovo;
+
+            BancoHoras bancoHoras = bancoHorasService.buscaBancosHorasPorUsuario(marcacaoPonto.getIdUsuario());
+            bancoHoras.setSaldoAtual(bancoHoras.getSaldoAtual() - diffAntigo + diffNovo);
+            bancoHorasRepository.save(bancoHoras);
         }
 
         ajuste.setStatus(true);
         ajusteRepository.save(ajuste);
 
-        // Atualiza o banco de horas do usuário associado ao ajuste
         bancoHorasService.atualizarBancoHoras(marcacaoPonto.getIdUsuario());
     }
 
