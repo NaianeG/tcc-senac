@@ -117,17 +117,18 @@ public class AjusteService {
                 .orElseThrow(() -> new IllegalArgumentException("Ajuste não encontrado"));
         MarcacaoPonto marcacaoPonto = ajuste.getMarcacaoPonto();
         if (marcacaoPonto != null) {
-            long millisEntradaAntiga = marcacaoPonto.getHoraEntrada().getTime();
-            long millisSaidaAntiga = marcacaoPonto.getHoraSaida().getTime();
-            long diffAntigo = millisSaidaAntiga - millisEntradaAntiga;
+            Long millisEntradaAntiga = marcacaoPonto.getHoraEntrada() != null ? marcacaoPonto.getHoraEntrada().getTime()
+                    : 0;
+            Long millisSaidaAntiga = marcacaoPonto.getHoraSaida() != null ? marcacaoPonto.getHoraSaida().getTime() : 0;
+            Long diffAntigo = millisSaidaAntiga - millisEntradaAntiga;
 
             marcacaoPonto.setHoraEntrada(ajuste.getHoraEntrada());
             marcacaoPonto.setHoraSaida(ajuste.getHoraSaida());
             marcacaoPontoRepository.save(marcacaoPonto);
 
-            long millisEntradaNovo = ajuste.getHoraEntrada().getTime();
-            long millisSaidaNovo = ajuste.getHoraSaida().getTime();
-            long diffNovo = millisSaidaNovo - millisEntradaNovo;
+            Long millisEntradaNovo = ajuste.getHoraEntrada() != null ? ajuste.getHoraEntrada().getTime() : 0;
+            Long millisSaidaNovo = ajuste.getHoraSaida() != null ? ajuste.getHoraSaida().getTime() : 0;
+            Long diffNovo = millisSaidaNovo - millisEntradaNovo;
 
             BancoHoras bancoHoras = bancoHorasService.buscaBancosHorasPorUsuario(marcacaoPonto.getIdUsuario());
             bancoHoras.setSaldoAtual(bancoHoras.getSaldoAtual() - diffAntigo + diffNovo);

@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciar Docentes</title>
     <link rel="icon" type="imagex/png" href="../img/jornada-de-trabalho.png">
     <link rel="stylesheet" href="../css/listaDocente.css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
-
 <body>
     <main>
+        <!-- Alertas de sucesso ou erro -->
+        <div th:if="${mensagem}" th:class="${tipoMensagem == 'sucesso'} ? 'alerta sucesso' : 'alerta erro'">
+            <p th:text="${mensagem}"></p>
+        </div>
+
         <a th:href="@{/cadastroDocente}" target="_blank">Cadastrar novo docente</a>
         <a th:href="@{/relatorio/pdf/relatorio-docente(code='01', acao='v')}" target="_blank">Abrir lista em PDF</a>
-
 
         <div class="pesquisa-docente">
             <form th:action="@{/relatorio/pdf/relatorio-horas/02}" target="_blank" method="get">
                 <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquise por nome - PDF">
-                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+                <button type="submit" class="material-symbols-outlined"> download </button>
             </form>
             <form th:action="@{/relatorio/excel/relatorio-horas/03}" method="get">
                 <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Pesquise por nome - EXCEL">
-                <button tyoe="submit" class="material-symbols-outlined"> download </button>
+                <button type="submit" class="material-symbols-outlined"> download </button>
             </form>
         </div>
 
@@ -38,27 +39,41 @@
                         <th scope="col">Email</th>
                         <th scope="col">Data Nascimento</th>
                         <th scope="col">Horas/Mês</th>
-                        <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
-                        <th scope="col"></th> <!-- Esses vazios são para percorrer o design da tabela -->
+                        <th scope="col">Zerar Banco</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-th-each="pessoa: ${pessoas}">
-                        <div th:if="${pessoa.horasMensais != 0}">
-                            <td data-th-text="${pessoa.nomeCompleto}"></td>
-                            <td data-th-text="${pessoa.cpf}"></td>
-                            <td data-th-text="${pessoa.telefone}"></td>
-                            <td data-th-text="${pessoa.email}"></td>
-                            <td data-th-text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
-                            <td data-th-text="${pessoa.horasMensais}"></td>
-                            <td class="botao-excluir"><a th:href="@{'/deletarDocente/'+ ${pessoa.id}}">Excluir</a></td>
-                            <td class="botao-editar"><a th:href="@{'/editarDocente/'+ ${pessoa.id}}">Editar</a></td>
-                        <div>
+                    <tr th:each="pessoa : ${pessoas}">
+                        <td th:text="${pessoa.nomeCompleto}"></td>
+                        <td th:text="${pessoa.cpf}"></td>
+                        <td th:text="${pessoa.telefone}"></td>
+                        <td th:text="${pessoa.email}"></td>
+                        <td th:text="${#dates.format(pessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${pessoa.horasMensais}"></td>
+                        <td class="botao-zerarBanco">
+                            <button th:onclick="'openZerarBancoModal(' + ${pessoa.id} + ')'" class="material-symbols-outlined">delete_sweep</button>
+                        </td>
+                        <td class="botao-excluir"><a th:href="@{'/deletarDocente/' + ${pessoa.id}}">Excluir</a></td>
+                        <td class="botao-editar"><a th:href="@{'/editarDocente/' + ${pessoa.id}}">Editar</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </main>
-</body>
 
+    <!-- Modal de confirmação para zerar banco de horas -->
+    <div id="zerarBancoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeZerarBancoModal()">&times;</span>
+            <h2>Confirmar Zerar Banco de Horas</h2>
+            <p>Você tem certeza que deseja zerar o banco de horas deste docente?</p>
+            <button id="confirmZerarBancoBtn" class="confirmBtn">Confirmar</button>
+            <button class="cancelBtn" onclick="closeZerarBancoModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script th:src="@{/scripts/listaDocente.js}"></script> <!-- Certifique-se de que o caminho está correto -->
+</body>
 </html>

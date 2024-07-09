@@ -94,4 +94,8 @@ public class PessoaService {
             System.out.println("Exception:" + e.getLocalizedMessage());
         }
     }
+
+    public Usuario buscarUsuarioPorPessoaId(int pessoaId) {
+        return usuarioRepository.findByPessoaId(pessoaId);
+    }
 }
