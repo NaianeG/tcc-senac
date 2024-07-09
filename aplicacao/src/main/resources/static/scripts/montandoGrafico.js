@@ -234,9 +234,7 @@ async function inicializar() {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                const valor = tooltipItem.raw;
-                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(valor); // Corrigido
-                                return `${horas}h ${minutos}m`;
+                                return `Qtd: ${tooltipItem.raw.y}`; // Mostra a quantidade de registros no tooltip
                             }
                         }
                     }
