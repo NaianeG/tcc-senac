@@ -86,9 +86,11 @@ function agruparAjustesPorStatus(ajustes) {
 }
 
 function converterMilissegundosParaHorasEMinutos(ms) {
+    console.log('Converter MS para Horas e Minutos:', ms);
     const totalMinutos = ms / 1000 / 60;
     const horas = Math.floor(totalMinutos / 60);
     const minutos = Math.floor(totalMinutos % 60);
+    console.log(`Resultado: ${horas}h ${minutos}m`);
     return { horas, minutos, formatado: `${horas}h ${minutos}m` };
 }
 
@@ -110,11 +112,11 @@ function agruparHorasTrabalhadasPorSemana(marcacoes) {
         if (!dadosAgrupados[rotuloSemana]) {
             dadosAgrupados[rotuloSemana] = 0;
         }
-        const entrada = new Date(data.toDateString() + ' ' + m.horaEntrada);
-        const saida = m.horaSaida ? new Date(data.toDateString() + ' ' + m.horaSaida) : new Date();
+        const entrada = new Date(`${data.toDateString()} ${m.horaEntrada}`);
+        const saida = m.horaSaida ? new Date(`${data.toDateString()} ${m.horaSaida}`) : new Date();
 
         if (entrada && saida && saida > entrada) {
-            dadosAgrupados[rotuloSemana] += (saida - entrada) / 1000 / 60 / 60; // Convertendo milissegundos para horas
+            dadosAgrupados[rotuloSemana] += (saida - entrada); // Calculando a diferença em milissegundos
         }
     });
 
@@ -146,12 +148,8 @@ function atualizarGrafico(grafico, dados, callbackRotuloX = null) {
 }
 
 function atualizarGraficoPizza(grafico, dados) {
-    if (dados.length > 0) {
-        grafico.data.datasets[0].data = dados[0];
-        console.log('Atualizando gráfico de pizza com dados:', dados[0]);
-    } else {
-        grafico.data.datasets[0].data = [0, 0]; // Garantir que o gráfico seja atualizado com dados vazios
-    }
+    grafico.data.datasets[0].data = dados[0];
+    console.log('Atualizando gráfico de pizza com dados:', dados[0]);
     grafico.update();
 }
 
@@ -231,6 +229,17 @@ async function inicializar() {
                         beginAtZero: true,
                         title: { display: true, text: 'Qtd. Registros de Ponto' }
                     }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                const valor = tooltipItem.raw;
+                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(valor); // Corrigido
+                                return `${horas}h ${minutos}m`;
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -301,8 +310,8 @@ async function inicializar() {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                const valor = tooltipItem.raw * 3600000;
-                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(valor);
+                                const valor = tooltipItem.raw; // Valor original
+                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(valor * 3600000); // Convertendo para milissegundos
                                 return `${horas}h ${minutos}m`;
                             }
                         }
@@ -340,7 +349,7 @@ async function inicializar() {
                         title: { display: true, text: 'Horas' },
                         ticks: {
                             callback: function(value) {
-                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(value * 3600000);
+                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(value); // Certificando-se que o valor esteja correto
                                 return `${horas}h ${minutos}m`;
                             }
                         }
@@ -350,7 +359,11 @@ async function inicializar() {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                return `Semana ${tooltipItem.dataIndex + 1}: ${tooltipItem.formattedValue} horas`;
+                                console.log('Tooltip Item:', tooltipItem);
+                                const valor = tooltipItem.raw.y; // Usar valor correto diretamente
+                                console.log('Valor:', valor);
+                                const { horas, minutos } = converterMilissegundosParaHorasEMinutos(valor);
+                                return `${horas}h ${minutos}m`;
                             }
                         }
                     }
@@ -407,6 +420,12 @@ async function inicializar() {
             atualizarGraficoPizza(graficoBancoHoras, dadosBancoHoras);
         }
         document.getElementById('bankHoursChartSelect').value = primeiroDocenteNome;
+
+        // Renderizar gráfico de horas trabalhadas para o primeiro usuário da lista
+        const dadosHorasTrabalhadas = obterHorasTrabalhadasPorDocente(docentes, primeiroDocenteNome);
+        console.log('Dados horas trabalhadas para o primeiro docente:', primeiroDocenteNome, dadosHorasTrabalhadas);
+        atualizarGrafico(graficoHorasTrabalhadas, dadosHorasTrabalhadas);
+        document.getElementById('hoursWorkedChartSelect').value = primeiroDocenteNome;
     } else {
         console.error('Dados dos docentes não foram carregados corretamente:', docentes);
     }
